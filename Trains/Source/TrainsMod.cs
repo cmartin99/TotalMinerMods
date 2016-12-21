@@ -14,6 +14,8 @@ namespace TrainsMod
 
     class TrainsMod : ITMPlugIn
     {
+        #region Fields
+
         public ITMGame Game;
         public ITMMap Map;
 
@@ -39,6 +41,10 @@ namespace TrainsMod
             "Locomotives_SW Class 159",
         };
 
+        #endregion
+
+        #region Initialize
+
         public void Initialize(ITMPluginManager mgr)
         {
             Items.TrainSpawner = (Item)mgr.Offsets.ItemID;
@@ -52,6 +58,10 @@ namespace TrainsMod
             game.AddEventItemSwing(Items.TrainSpawner, OnTrainSpawnerSwing);
         }
 
+        #endregion
+
+        #region Update
+
         public void Update()
         {
         }
@@ -60,9 +70,17 @@ namespace TrainsMod
         {
         }
 
+        #endregion
+
+        #region Draw
+
         public void Draw(ITMPlayer player, ITMPlayer virtualPlayer)
         {
         }
+
+        #endregion
+
+        #region Event Handlers
 
         void OnTrainSpawnerSwing(Item itemID, ITMHand hand)
         {
@@ -100,5 +118,7 @@ namespace TrainsMod
             
             return Vector3.Right;
         }
+
+        #endregion
     }
 }
