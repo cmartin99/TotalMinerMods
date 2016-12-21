@@ -1,2 +1,2 @@
 # TotalMinerMods
-Mods for Total Miner: Forge
+Mods used for testing the Total Miner: Forge Mod API.
