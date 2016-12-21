@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ArrayOfItemXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ItemXML>
+    <ItemID>Revolver</ItemID>
+  </ItemXML>
+  <ItemXML>
+    <ItemID>Bullet</ItemID>
+  </ItemXML>
+  <ItemXML>
+    <ItemID>ScopedWinchester</ItemID>
+  </ItemXML>
+  <ItemXML>
+    <ItemID>RepeatingRifle</ItemID>
+  </ItemXML>
+  <ItemXML>
+    <ItemID>Macuahuitl</ItemID>
+  </ItemXML>
+  <ItemXML>
+    <ItemID>Tepoztopilli</ItemID>
+  </ItemXML>
+  <ItemXML>
+    <ItemID>Leiomano</ItemID>
+  </ItemXML>
+</ArrayOfItemXML>

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ArrayOfModItemDataXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModItemDataXML>
+    <ItemID>SteelSword</ItemID>
+    <Name>The Vanquisher</Name>
+    <Desc>Vanquish enemies at will.</Desc>
+  </ModItemDataXML>
+  <ModItemDataXML>
+    <ItemID>Macuahuitl</ItemID>
+    <Name>Macuahuitl</Name>
+    <Desc>This beasty club inflicts serious pain.</Desc>
+    <MinCSPrice>480</MinCSPrice>
+    <Durability>500</Durability>
+    <StrikeDamage>50</StrikeDamage>
+    <StrikeReach>4</StrikeReach>
+  </ModItemDataXML>
+  <ModItemDataXML>
+    <ItemID>Tepoztopilli</ItemID>
+    <Name>Tepoztopilli</Name>
+    <Desc>Vanquish enemies at will.</Desc>
+  </ModItemDataXML>
+  <ModItemDataXML>
+    <ItemID>Leiomano</ItemID>
+    <Name>Leiomano</Name>
+    <Desc>Vanquish enemies at will.</Desc>
+  </ModItemDataXML>
+  <ModItemDataXML>
+    <ItemID>ScopedWinchester</ItemID>
+    <Name>Scoped Winchester</Name>
+    <Desc>Scope em.</Desc>
+  </ModItemDataXML>
+  <ModItemDataXML>
+    <ItemID>RepeatingRifle</ItemID>
+    <Name>Repeating Rifle</Name>
+    <Desc>Shoot em.</Desc>
+  </ModItemDataXML>
+</ArrayOfModItemDataXML>

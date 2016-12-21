@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<ArrayOfModActorTypeDataXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModActorTypeDataXML>
+    <ActorType>Spider</ActorType>
+    <ComName>SpiderQueen</ComName>
+  </ModActorTypeDataXML>
+  <ModActorTypeDataXML>
+    <ActorType>SpaceMan</ActorType>
+    <ComName>SpiderYoung</ComName>
+  </ModActorTypeDataXML>
+</ArrayOfModActorTypeDataXML>
