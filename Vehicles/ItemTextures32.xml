@@ -3,4 +3,7 @@
   <ItemXML>
     <ItemID>TrainSpawner</ItemID>
   </ItemXML>
+  <ItemXML>
+    <ItemID>VehicleSpawner</ItemID>
+  </ItemXML>
 </ArrayOfItemXML>

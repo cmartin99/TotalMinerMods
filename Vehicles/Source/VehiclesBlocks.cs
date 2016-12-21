@@ -7,7 +7,7 @@ using Craig.TotalMiner.API;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
 
-namespace TrainsMod
+namespace VehiclesMod
 {
     static class Blocks
     {
@@ -15,7 +15,7 @@ namespace TrainsMod
         public const Block TrainTrackCorner = Craig.TotalMiner.Block.CherryMetal;
     }
 
-    class TrainsBlocks : ITMPlugInBlocks
+    class VehiclesBlocks : ITMPlugInBlocks
     {
         ITMGame game;
 

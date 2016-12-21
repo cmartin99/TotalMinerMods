@@ -26,4 +26,20 @@
     <StrikeReach>0</StrikeReach>
     <Plural>S</Plural>
   </ModItemDataXML>
+  <ModItemDataXML>
+    <ItemID>VehicleSpawner</ItemID>
+    <IDString>VehicleSpawner</IDString>
+    <Name>Vehicle Spawner</Name>
+    <Desc>Spawn Vehicle.</Desc>
+    <IsValid>true</IsValid>
+    <IsEnabled>true</IsEnabled>
+    <LockedDD>true</LockedDD>
+    <LockedCR>false</LockedCR>
+    <LockedSU>false</LockedSU>
+    <MinCSPrice>6</MinCSPrice>
+    <Durability>100</Durability>
+    <StrikeDamage>0</StrikeDamage>
+    <StrikeReach>0</StrikeReach>
+    <Plural>S</Plural>
+  </ModItemDataXML>
 </ArrayOfModItemDataXML>

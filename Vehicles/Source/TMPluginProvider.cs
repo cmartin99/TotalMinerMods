@@ -4,11 +4,11 @@ public class TMPluginProvider : ITMPluginProvider
 {
     public ITMPlugIn GetPlugin()
     {
-        return new TrainsMod.TrainsMod();
+        return new VehiclesMod.VehiclesMod();
     }
 
     public ITMPlugInBlocks GetPluginBlocks()
     {
-        return new TrainsMod.TrainsBlocks();
+        return new VehiclesMod.VehiclesBlocks();
     }
 }
