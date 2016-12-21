@@ -1,0 +1,467 @@
+<?xml version="1.0"?>
+<ArrayOfVehicleDataXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <VehicleDataXML>
+    <Name>Locomotives_Alco C-630M</Name>
+    <Type>TrainEngine</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Locomotives_Alco RS-3</Name>
+    <Type>TrainEngine</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Locomotives_Alco S2 DCC</Name>
+    <Type>TrainEngine</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Locomotives_BLW DT6-6-2000</Name>
+    <Type>TrainEngine</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Locomotives_Class 56</Name>
+    <Type>TrainEngine</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Locomotives_EMC TA</Name>
+    <Type>TrainEngine</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Locomotives_EMD GP40</Name>
+    <Type>TrainEngine</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Locomotives_EMD GP50</Name>
+    <Type>TrainEngine</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Locomotives_EMD SD50F</Name>
+    <Type>TrainEngine</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Locomotives_F7 A DCC</Name>
+    <Type>TrainEngine</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Locomotives_GP 38-2</Name>
+    <Type>TrainEngine</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Locomotives_GTA V Engine</Name>
+    <Type>TrainEngine</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Locomotives_IC C40-8W</Name>
+    <Type>TrainEngine</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Locomotives_Milwaukee Road</Name>
+    <Type>TrainEngine</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Locomotives_RENFE 272</Name>
+    <Type>TrainEngine</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Locomotives_SW Class 159</Name>
+    <Type>TrainEngine</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Cars_3-Dome Tank 1</Name>
+    <Type>TrainCar</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Cars_3-Dome Tank 2</Name>
+    <Type>TrainCar</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Cars_3-Dome Tank 3</Name>
+    <Type>TrainCar</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Cars_Commuter Car</Name>
+    <Type>TrainCar</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Cars_DEV VIC-Y Passenger</Name>
+    <Type>TrainCar</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Cars_Flat Car</Name>
+    <Type>TrainCar</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Cars_Flatcar 2</Name>
+    <Type>TrainCar</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Cars_Flatcar W Containers</Name>
+    <Type>TrainCar</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Cars_Flatcar W Trailer 1</Name>
+    <Type>TrainCar</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Cars_Flatcar W Trailer 2</Name>
+    <Type>TrainCar</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Cars_Gondola 1</Name>
+    <Type>TrainCar</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Cars_Gondola 2</Name>
+    <Type>TrainCar</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Cars_Log Car</Name>
+    <Type>TrainCar</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Cars_Milwaukee Passenger</Name>
+    <Type>TrainCar</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Cars_NSE Class 159</Name>
+    <Type>TrainCar</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Cars_Quad Hopper</Name>
+    <Type>TrainCar</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Cars_Santa Fe Slug</Name>
+    <Type>TrainCar</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Cars_Stock Car 1</Name>
+    <Type>TrainCar</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Cars_Stock Car 2</Name>
+    <Type>TrainCar</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Cars_Stock Car 3</Name>
+    <Type>TrainCar</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Cars_SW Class 159</Name>
+    <Type>TrainCar</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Cars_Tank Car 1</Name>
+    <Type>TrainCar</Type>
+    <Type>TrainCar</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Cars_Tank Car 2</Name>
+    <Type>TrainCar</Type>
+    <Type>TrainCar</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Cars_Tank Car 3</Name>
+    <Type>TrainCar</Type>
+    <Type>TrainCar</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Cars_Tank Car 4</Name>
+    <Type>TrainCar</Type>
+    <Type>TrainCar</Type>
+    <RotY>0</RotY>
+    <Speed>0.05</Speed>
+    <Track>Retro</Track>
+    <GroundOffsetY>-0.4</GroundOffsetY>
+    <SmokeDelay>0.02</SmokeDelay>
+    <SmokeOffsetZ>0</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Vehicles_Car Carrier 1</Name>
+    <Type>Truck</Type>
+    <RotY>180</RotY>
+    <Speed>0.1</Speed>
+    <Track>ColorBlack</Track>
+    <GroundOffsetY>-0.1</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>5</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Vehicles_Delivery Truck 1</Name>
+    <Type>Truck</Type>
+    <RotY>0</RotY>
+    <Speed>0.1</Speed>
+    <Track>ColorBlack</Track>
+    <GroundOffsetY>-0.1</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>3</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Vehicles_Delivery Truck 2</Name>
+    <Type>Truck</Type>
+    <RotY>180</RotY>
+    <Speed>0.1</Speed>
+    <Track>ColorBlack</Track>
+    <GroundOffsetY>-0.1</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>3</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Vehicles_Red Muscle Car</Name>
+    <Type>Car</Type>
+    <RotY>270</RotY>
+    <Speed>0.1</Speed>
+    <Track>ColorBlack</Track>
+    <GroundOffsetY>-0.1</GroundOffsetY>
+    <SmokeDelay>0.05</SmokeDelay>
+    <SmokeOffsetZ>2</SmokeOffsetZ>
+  </VehicleDataXML>
+  <VehicleDataXML>
+    <Name>Vehicles_White Muscle Car</Name>
+    <Type>Car</Type>
+    <RotY>180</RotY>
+    <Speed>0.1</Speed>
+    <Track>ColorBlack</Track>
+    <GroundOffsetY>-0.1</GroundOffsetY>
+    <SmokeDelay>0.1</SmokeDelay>
+    <SmokeOffsetZ>2</SmokeOffsetZ>
+  </VehicleDataXML>
+</ArrayOfVehicleDataXML>

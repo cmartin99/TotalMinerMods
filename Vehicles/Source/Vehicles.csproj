@@ -76,7 +76,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Vehicle.cs" />
-    <Compile Include="Train.cs" />
     <Compile Include="VehiclesBlocks.cs" />
     <Compile Include="TMPluginProvider.cs" />
     <Compile Include="VehiclesMod.cs" />

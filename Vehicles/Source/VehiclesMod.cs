@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Craig.Engine;
 using Craig.BlockWorld;
 using Craig.TotalMiner;
@@ -17,79 +19,42 @@ namespace VehiclesMod
     {
         #region Fields
 
+        public static string Path;
         public ITMGame Game;
         public ITMMap Map;
-        int count;
 
-        static string[] TrainNames = new string[]
-        {
-            "Locomotives_Alco C-630M",
-            "Locomotives_Alco RS-3",
-            "Locomotives_Alco S2 DCC",
-            "Locomotives_BLW DT6-6-2000",
-            //"Locomotives_Class 17",
-            "Locomotives_Class 56",
-            "Locomotives_EMC TA",
-            "Locomotives_EMD GP40",
-            "Locomotives_EMD GP50",
-            "Locomotives_EMD SD50F",
-            "Locomotives_F7 A DCC",
-            "Locomotives_GP 38-2",
-            "Locomotives_GTA V Engine",
-            "Locomotives_IC C40-8W",
-            "Locomotives_Milwaukee Road",
-            //"Locomotives_NSE Class 159",
-            "Locomotives_RENFE 272",
-            "Locomotives_SW Class 159",
-        };
-
-        static string[] TrainCarNames = new string[]
-        {
-            "Cars_3-Dome Tank 1",
-            "Cars_3-Dome Tank 2",
-            "Cars_3-Dome Tank 3",
-            "Cars_Commuter Car",
-            "Cars_DEV VIC-Y Passenger",
-            "Cars_Flat Car",
-            "Cars_Flatcar 2",
-            "Cars_Flatcar W Containers",
-            "Cars_Flatcar W Trailer 1",
-            "Cars_Flatcar W Trailer 2",
-            "Cars_Gondola 1",
-            "Cars_Gondola 2",
-            "Cars_Log Car",
-            "Cars_Milwaukee Passenger",
-            "Cars_NSE Class 159",
-            "Cars_Quad Hopper",
-            "Cars_Santa Fe Slug",
-            "Cars_Stock Car 1",
-            "Cars_Stock Car 2",
-            "Cars_Stock Car 3",
-            "Cars_SW Class 159",
-            "Cars_Tank Car 1",
-            "Cars_Tank Car 2",
-            "Cars_Tank Car 3",
-            "Cars_Tank Car 4",
-        };
-
-        static string[] VehicleNames = new string[]
-        {
-            "Vehicles_Car Carrier 1",
-            "Vehicles_Delivery Truck 1",
-            "Vehicles_Delivery Truck 2",
-            "Vehicles_Red Muscle Car",
-            "Vehicles_White Muscle Car",
-        };
+        public VehicleDataXML[] Cars;
+        public VehicleDataXML[] Trucks;
+        public VehicleDataXML[] TrainEngines;
+        public VehicleDataXML[] TrainCars;
 
         #endregion
 
         #region Initialize
 
-        public void Initialize(ITMPluginManager mgr)
+        public void Initialize(ITMPluginManager mgr, string path)
         {
+            Path = path;
             var itemOffset = (Item)mgr.Offsets.ItemID;
             Items.TrainSpawner = itemOffset++;
             Items.VehicleSpawner = itemOffset++;
+
+            var data = Craig.Engine.Core.Utils.Deserialize1<VehicleDataXML[]>(path + "VehicleData.XML");
+            var cars = new List<VehicleDataXML>();
+            var trucks = new List<VehicleDataXML>();
+            var trains = new List<VehicleDataXML>();
+            var traincars = new List<VehicleDataXML>();
+            foreach (var d in data)
+            {
+                if (d.Type == VehicleType.Car) cars.Add(d);
+                else if (d.Type == VehicleType.Truck) trucks.Add(d);
+                else if (d.Type == VehicleType.TrainEngine) trains.Add(d);
+                else if (d.Type == VehicleType.TrainCar) traincars.Add(d);
+            }
+            Cars = cars.ToArray();
+            Trucks = trucks.ToArray();
+            TrainEngines = trains.ToArray();
+            TrainCars = traincars.ToArray();
         }
 
         public void InitializeGame(ITMGame game)
@@ -99,6 +64,23 @@ namespace VehiclesMod
             game.AddNotification("Trains Mod: Activated", NotifyRecipient.Local);
             game.AddEventItemSwing(Items.TrainSpawner, OnTrainSpawnerSwing);
             game.AddEventItemSwing(Items.VehicleSpawner, OnVehicleSpawnerSwing);
+        }
+
+        VehicleDataXML[] GetVehicleTypeArray(VehicleType type)
+        {
+            switch (type)
+            {
+                case VehicleType.Car:
+                    return Cars;
+                case VehicleType.Truck:
+                    return Trucks;
+                case VehicleType.TrainEngine:
+                    return TrainEngines;
+                case VehicleType.TrainCar:
+                    return TrainCars;
+                default:
+                    return null;
+            }
         }
 
         #endregion
@@ -127,50 +109,50 @@ namespace VehiclesMod
 
         void OnTrainSpawnerSwing(Item itemID, ITMHand hand)
         {
-            var owner = hand.Owner as ITMPlayer;
-            if (owner == null) return;
-            if (owner.SwingFace == BlockFace.ProxyDefault) return;
-
-            var blockID = (Block)Map.GetBlockID(owner.SwingTarget);
-            if (blockID != Blocks.TrainTrackStraight)
-            {
-                Game.AddNotification("Must place Train on straight track", NotifyRecipient.Local);
-                return;
-            }
-
-            var engine = new Train(this);
-            engine.Position = Map.GetBlockCenter(owner.SwingTarget);
-            engine.Position.Y -= Map.TileSize * 0.4f;
-            engine.Scale = 0.3f;
-
-            var comName = TrainNames[Game.Random.Next(TrainNames.Length)];
-            Game.EntityManager.AddEntity("Trub's Trains", comName, engine);
-            Game.AddNotification(comName, NotifyRecipient.Local);
+            SpawnVehicle(VehicleType.TrainEngine, hand);
         }
 
         void OnVehicleSpawnerSwing(Item itemID, ITMHand hand)
+        {
+            SpawnVehicle(Game.Random.Next(2) == 0 ? VehicleType.Car : VehicleType.Truck, hand);
+        }
+
+        void SpawnVehicle(VehicleType type, ITMHand hand)
         {
             var owner = hand.Owner as ITMPlayer;
             if (owner == null) return;
             if (owner.SwingFace == BlockFace.ProxyDefault) return;
 
+            var list = GetVehicleTypeArray(type);
+            var data = list[Game.Random.Next(list.Length)];
+
             var blockID = (Block)Map.GetBlockID(owner.SwingTarget);
-            if (blockID != Block.ColorBlack)
+            if (blockID != data.Track)
             {
-                Game.AddNotification("Must place Vehicle on black road", NotifyRecipient.Local);
+                Game.AddNotification("Must place Vehicle on " + Globals1.ItemData[(int)data.Track].Name, NotifyRecipient.Local);
                 return;
             }
 
-            var engine = new Vehicle(this);
-            engine.Position = Map.GetBlockCenter(owner.SwingTarget);
-            engine.Position.Y += Map.TileSize * 0.51f;
-            engine.Scale = 0.3f;
+            var vehicle = new Vehicle(this, data);
+            vehicle.Position = Map.GetBlockCenter(owner.SwingTarget);
+            vehicle.Position.Y += Map.TileSize * 0.51f;
+            vehicle.ViewDirection = vehicle.Velocity = ClampDirection(new Vector3(owner.ViewDirection.X, 0, owner.ViewDirection.Z)) * data.Speed;
+            vehicle.Scale = 0.5f;
 
-            var comName = VehicleNames[Game.Random.Next(VehicleNames.Length)];
-            Game.EntityManager.AddEntity("Trub's Trains", comName, engine);
+            Game.EntityManager.AddEntity("Trub's Trains", data.Name, vehicle);
+            Game.AddNotification(data.Name, NotifyRecipient.Local);
+        }
 
-            ++count;
-            Game.AddNotification(comName + ": " + count.ToString(), NotifyRecipient.Local);
+        Vector3 ClampDirection(Vector3 dir)
+        {
+            if (Math.Abs(dir.X) > Math.Abs(dir.Z))
+            {
+                if (dir.X < 0) return Vector3.Left; else return Vector3.Right;
+            }
+            else
+            {
+                if (dir.Z < 0) return Vector3.Forward; else return Vector3.Backward;
+            }
         }
 
         #endregion

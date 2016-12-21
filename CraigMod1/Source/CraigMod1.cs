@@ -10,12 +10,14 @@ namespace CraigMod1
 {
     class CraigMod1 : ITMPlugIn
     {
+        public static string Path;
         ITMGame game;
         float notifyElapsed;
         float particleElapsed;
 
-        public void Initialize(ITMPluginManager mgr)
+        public void Initialize(ITMPluginManager mgr, string path)
         {
+            Path = path;
         }
 
         public void InitializeGame(ITMGame game)
