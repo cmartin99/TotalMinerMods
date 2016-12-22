@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Craig.TotalMiner.API</name>
+    </assembly>
+    <members>
+        <member name="M:Craig.TotalMiner.API.ITMGame.GetBlockBox(Craig.BlockWorld.GlobalPoint3D,Craig.TotalMiner.Block)">
+            <summary>
+            Returns a bounding box that correctly surrounds the block at a given position, and is suitable for collision detection.
+            </summary>
+            <param name="p">The position of the block.</param>
+            <param name="blockID">The blockID at position p.</param>
+            <returns>The bounding box.</returns>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMGame.AddEventItemSwing(Craig.TotalMiner.Item,System.Action{Craig.TotalMiner.Item,Craig.TotalMiner.API.ITMHand})">
+            <summary>
+            Adds an Action method that will be executed when the item is swung and the swing has reached it's extended position.
+            </summary>
+            <param name="itemID">The item being swung.</param>
+            <param name="action">The method to execute.</param>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMGame.AddProjectile(Craig.TotalMiner.Item,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,System.Int16,System.Boolean)">
+            <summary>
+            Adds a projectile textured for the itemID.
+            </summary>
+            <param name="itemID">The item of the projectile.</param>
+            <param name="position">The origin position of the projectile.</param>
+            <param name="velocity">The start velocity of the projectile. The projectile is affected by the world gravity.</param>
+            <param name="playerID">The player who created the projectile.</param>
+            <param name="transmit">True if the projectile should be created on remote clients.</param>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMGame.RemoveEventItemSwing(Craig.TotalMiner.Item,System.Action{Craig.TotalMiner.Item,Craig.TotalMiner.API.ITMHand})">
+            <summary>
+            Removes an item swing event that was previously added with AddEventItemSwing(..).
+            </summary>
+            <param name="itemID">The item being swung.</param>
+            <param name="action">The method to execute.</param>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMGame.RayBlockTest(Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,System.Single)">
+            <summary>
+            Casts a ray test for block collision detection.
+            </summary>
+            <param name="position">The origin position of the ray.</param>
+            <param name="dir">The direction of the ray.</param>
+            <param name="range">The range (distance in meters) of the ray. For performance considerations it is best to limit the range to the shortest necessary.</param>
+            <returns>The result of the test.</returns>
+        </member>
+        <member name="P:Craig.TotalMiner.API.ITMGame.Header">
+            <summary>
+            Returns header data about the current world. This property returns a clone so that if you change a field on the object it does not effect the actual world header. For this reason it is best to cache this object and only call this getter again if it is critical to have any changes that might have been made since the last time you called the getter (such as a map rename).
+            </summary>
+        </member>
+    </members>
+</doc>

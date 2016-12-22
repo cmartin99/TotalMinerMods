@@ -17,6 +17,14 @@ namespace VehiclesMod
 
     class VehiclesMod : ITMPlugIn
     {
+        #region ITMPlugIn
+
+        void ITMPlugIn.WorldSaved(int version)
+        {
+        }
+
+        #endregion
+
         #region Fields
 
         public static string Path;
@@ -27,6 +35,12 @@ namespace VehiclesMod
         public VehicleDataXML[] Trucks;
         public VehicleDataXML[] TrainEngines;
         public VehicleDataXML[] TrainCars;
+
+        int spawnCount;
+        float autoSpawnTimer;
+        List<Item> autoSpawnItems = new List<Item>();
+        List<GlobalPoint3D> autoSpawnPoint = new List<GlobalPoint3D>();
+        List<Vector3> autoSpawnDir = new List<Vector3>();
 
         #endregion
 
@@ -89,10 +103,26 @@ namespace VehiclesMod
 
         public void Update()
         {
+            UpdateAutoSpawns();
         }
 
         public void Update(ITMPlayer player)
         {
+        }
+
+        void UpdateAutoSpawns()
+        {
+            autoSpawnTimer += Services.ElapsedTime;
+            if (autoSpawnTimer > 8)
+            {
+                autoSpawnTimer = 0;
+                for (int i = 0; i < autoSpawnPoint.Count; ++i)
+                {
+                    var item = autoSpawnItems[i];
+                    var type = item == Items.TrainSpawner ? VehicleType.TrainEngine : Game.Random.Next(2) == 0 ? VehicleType.Car : VehicleType.Truck;
+                    SpawnVehicle(type, autoSpawnPoint[i], autoSpawnDir[i]);
+                }
+            }
         }
 
         #endregion
@@ -101,6 +131,7 @@ namespace VehiclesMod
 
         public void Draw(ITMPlayer player, ITMPlayer virtualPlayer)
         {
+            //CoreGlobals.SpriteBatch.DrawString(CoreGlobals.GameFont, "Hello", new Vector2(100, 100), Color.White);
         }
 
         #endregion
@@ -133,14 +164,50 @@ namespace VehiclesMod
                 return;
             }
 
+            if (hand.HandType == InventoryHand.Left)
+            {
+                AutoSpawnVehicle(type, hand);
+            }
+            else
+            {
+                SpawnVehicle(type, owner.SwingTarget, owner.ViewDirection);
+            }
+        }
+
+        void SpawnVehicle(VehicleType type, GlobalPoint3D p, Vector3 dir)
+        {
+            var list = GetVehicleTypeArray(type);
+            var data = list[Game.Random.Next(list.Length)];
+
             var vehicle = new Vehicle(this, data);
-            vehicle.Position = Map.GetBlockCenter(owner.SwingTarget);
+            vehicle.Position = Map.GetBlockCenter(p);
             vehicle.Position.Y += Map.TileSize * 0.51f;
-            vehicle.ViewDirection = vehicle.Velocity = ClampDirection(new Vector3(owner.ViewDirection.X, 0, owner.ViewDirection.Z)) * data.Speed;
+            vehicle.ViewDirection = ClampDirection(new Vector3(dir.X, 0, dir.Z));
+            vehicle.Velocity = vehicle.ViewDirection * data.Speed;
             vehicle.Scale = 0.5f;
 
             Game.EntityManager.AddEntity("Trub's Trains", data.Name, vehicle);
-            Game.AddNotification(data.Name, NotifyRecipient.Local);
+            Game.AddNotification(string.Format("{0}: {1}", data.Name, ++spawnCount), NotifyRecipient.Local);
+        }
+
+        void AutoSpawnVehicle(VehicleType type, ITMHand hand)
+        {
+            var owner = hand.Owner as ITMPlayer;
+
+            for (int i = autoSpawnPoint.Count - 1; i >= 0; --i)
+            {
+                if (autoSpawnPoint[i] == owner.SwingTarget)
+                {
+                    autoSpawnPoint.RemoveAt(i);
+                    autoSpawnItems.RemoveAt(i);
+                    autoSpawnDir.RemoveAt(i);
+                    return;
+                }
+            }
+
+            autoSpawnItems.Add(hand.ItemID);
+            autoSpawnPoint.Add(owner.SwingTarget);
+            autoSpawnDir.Add(owner.ViewDirection);
         }
 
         Vector3 ClampDirection(Vector3 dir)

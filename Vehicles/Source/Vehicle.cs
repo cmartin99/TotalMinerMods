@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Craig.Engine;
 using Craig.BlockWorld;
 using Craig.TotalMiner;
@@ -80,7 +81,7 @@ namespace VehiclesMod
                 }
             }
 
-            var p = mod.Game.Map.GetPoint(Position + new Vector3(0, data.GroundOffsetY, 0));
+            var p = map.GetPoint(Position + new Vector3(0, data.GroundOffsetY, 0));
 
             if (Velocity.X == 0 && Velocity.Z == 0)
             {
@@ -108,7 +109,7 @@ namespace VehiclesMod
                     ++p.X;
                 }
 
-                if ((Block)mod.Map.GetBlockID(p) != data.Track)
+                if ((Block)map.GetBlockID(p) != data.Track)
                 {
                     Velocity.X = 0;
                     Velocity.Z = 0;

@@ -10,6 +10,14 @@ namespace CraigMod1
 {
     class CraigMod1 : ITMPlugIn
     {
+        #region ITMPlugIn
+
+        void ITMPlugIn.WorldSaved(int version)
+        {
+        }
+
+        #endregion
+
         public static string Path;
         ITMGame game;
         float notifyElapsed;
