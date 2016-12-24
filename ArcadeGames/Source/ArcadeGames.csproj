@@ -73,8 +73,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArcadeGamesMod.cs" />
-    <Compile Include="ArcadePlugin.cs" />
-    <Compile Include="Pong.cs" />
+    <Compile Include="ArcadePlugIn.cs" />
+    <Compile Include="PongGame.cs" />
     <Compile Include="PongRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TMPluginProvider.cs" />

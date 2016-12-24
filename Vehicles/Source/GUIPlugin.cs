@@ -5,11 +5,11 @@ using VehiclesMod.Screens;
 
 namespace VehiclesMod
 {
-    class GUIPlugin : ITMPlugInGUI
+    class GUIPlugin : ITMPluginGUI
     {
-        #region ITMPlugIn
+        #region ITMPlugin
 
-        NewGuiMenu ITMPlugInGUI.GetItemCustomSetupScreen(ITMGame game, ITMPlayer player, GlobalPoint3D p, Item itemID)
+        NewGuiMenu ITMPluginGUI.GetItemCustomSetupScreen(ITMGame game, ITMPlayer player, GlobalPoint3D p, Item itemID)
         {
             switch (itemID)
             {

@@ -2,22 +2,22 @@ using Craig.TotalMiner.API;
 
 public class TMPluginProvider : ITMPluginProvider
 {
-    public ITMPlugIn GetPlugin()
+    public ITMPlugin GetPlugin()
     {
         return new VehiclesMod.VehiclesMod();
     }
 
-    public ITMPlugInBlocks GetPluginBlocks()
+    public ITMPluginBlocks GetPluginBlocks()
     {
         return new VehiclesMod.VehiclesBlocks();
     }
 
-    public ITMPlugInArcade GetPluginArcade()
+    public ITMPluginArcade GetPluginArcade()
     {
         return null;
     }
 
-    public ITMPlugInGUI GetPluginGUI()
+    public ITMPluginGUI GetPluginGUI()
     {
         return new VehiclesMod.GUIPlugin();
     }

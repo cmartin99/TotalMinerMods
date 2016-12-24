@@ -4,23 +4,23 @@ using Craig.TotalMiner.API;
 
 namespace ArcadeGames
 {
-    class ArcadePlugin : ITMPlugInArcade
+    class ArcadePlugin : ITMPluginArcade
     {
-        #region ITMPlugInArcade
+        #region ITMPluginArcade
 
-        ArcadeMachine ITMPlugInArcade.GetArcadeMachine(int gameID, ITMGame game, ITMMap map, ITMPlayer player, GlobalPoint3D p, BlockFace face)
+        ArcadeMachine ITMPluginArcade.GetArcadeMachine(int gameID, ITMGame game, ITMMap map, ITMPlayer player, GlobalPoint3D p, BlockFace face)
         {
             return new PongGame(game, map, player, p, face);
         }
 
-        IArcadeMachineRenderer ITMPlugInArcade.GetArcadeMachineRenderer(int gameID)
+        IArcadeMachineRenderer ITMPluginArcade.GetArcadeMachineRenderer(int gameID)
         {
             var renderer = new PongRenderer();
             renderer.LoadContent(null);
             return renderer;
         }
 
-        string ITMPlugInArcade.GetArcadeMachineName(int gameID)
+        string ITMPluginArcade.GetArcadeMachineName(int gameID)
         {
             return "Total Pong";
         }

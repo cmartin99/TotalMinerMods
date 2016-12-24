@@ -8,11 +8,11 @@ using Microsoft.Xna.Framework;
 
 namespace CraigMod1
 {
-    class CraigMod1 : ITMPlugIn
+    class CraigMod1 : ITMPlugin
     {
-        #region ITMPlugIn
+        #region ITMPlugin
 
-        void ITMPlugIn.WorldSaved(int version)
+        void ITMPlugin.WorldSaved(int version)
         {
         }
 
