@@ -6,6 +6,7 @@ using Craig.TotalMiner;
 using Craig.TotalMiner.Blocks;
 using Craig.TotalMiner.API;
 using Microsoft.Xna.Framework;
+using VehiclesMod.Screens;
 
 namespace VehiclesMod
 {
@@ -78,6 +79,7 @@ namespace VehiclesMod
             game.AddNotification("Trains Mod: Activated", NotifyRecipient.Local);
             game.AddEventItemSwing(Items.TrainSpawner, OnTrainSpawnerSwing);
             game.AddEventItemSwing(Items.VehicleSpawner, OnVehicleSpawnerSwing);
+            game.AddItemCustomSetup(Item.Rasta, Permissions.Admin);
         }
 
         VehicleDataXML[] GetVehicleTypeArray(VehicleType type)

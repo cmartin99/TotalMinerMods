@@ -4,7 +4,7 @@ public class TMPluginProvider : ITMPluginProvider
 {
     public ITMPlugIn GetPlugin()
     {
-        return new CraigMod1.CraigMod1();
+        return new ArcadeGames.ArcadeGamesMod();
     }
 
     public ITMPlugInBlocks GetPluginBlocks()
@@ -14,7 +14,7 @@ public class TMPluginProvider : ITMPluginProvider
 
     public ITMPlugInArcade GetPluginArcade()
     {
-        return null;
+        return new ArcadeGames.ArcadePlugin();
     }
 
     public ITMPlugInGUI GetPluginGUI()

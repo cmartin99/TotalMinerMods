@@ -45,6 +45,13 @@
             <param name="range">The range (distance in meters) of the ray. For performance considerations it is best to limit the range to the shortest necessary.</param>
             <returns>The result of the test.</returns>
         </member>
+        <member name="M:Craig.TotalMiner.API.ITMGame.OpenPauseMenu(Craig.TotalMiner.API.NewGuiMenu,Craig.TotalMiner.API.ITMPlayer)">
+            <summary>
+            Opens the Pause menu with your custom menu pre-selected
+            </summary>
+            <param name="menu">A custom menu</param>
+            <param name="player">The player who opened the screen</param>
+        </member>
         <member name="P:Craig.TotalMiner.API.ITMGame.Header">
             <summary>
             Returns header data about the current world. This property returns a clone so that if you change a field on the object it does not effect the actual world header. For this reason it is best to cache this object and only call this getter again if it is critical to have any changes that might have been made since the last time you called the getter (such as a map rename).

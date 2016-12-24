@@ -11,4 +11,14 @@ public class TMPluginProvider : ITMPluginProvider
     {
         return new VehiclesMod.VehiclesBlocks();
     }
+
+    public ITMPlugInArcade GetPluginArcade()
+    {
+        return null;
+    }
+
+    public ITMPlugInGUI GetPluginGUI()
+    {
+        return new VehiclesMod.GUIPlugin();
+    }
 }

@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ProjectGuid>{6118D9FF-DA77-4A3A-B5DF-2BC4F59995E0}</ProjectGuid>
+    <ProjectGuid>{8FB6C9F3-37C9-43D4-AEB9-B8D5187B7E58}</ProjectGuid>
     <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VehiclesMod</RootNamespace>
-    <AssemblyName>VehiclesMod</AssemblyName>
+    <RootNamespace>ArcadeGames</RootNamespace>
+    <AssemblyName>ArcadeGames</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
     <XnaProfile>Reach</XnaProfile>
-    <XnaCrossPlatformGroupID>a23a765e-aca8-4a5b-9fdc-ee90bbf55ef7</XnaCrossPlatformGroupID>
+    <XnaCrossPlatformGroupID>8e59e43d-1af0-43c8-bf6a-01e30d251717</XnaCrossPlatformGroupID>
     <XnaOutputType>Library</XnaOutputType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -43,31 +43,28 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Craig.BlockWorld">
+    <Reference Include="Craig.BlockWorld, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Bin\Craig.BlockWorld.dll</HintPath>
     </Reference>
-    <Reference Include="Craig.Engine.Core">
+    <Reference Include="Craig.Engine.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Bin\Craig.Engine.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Craig.Engine.Game">
-      <HintPath>..\..\Bin\Craig.Engine.Game.dll</HintPath>
-    </Reference>
-    <Reference Include="Craig.Engine.GUI">
-      <HintPath>..\..\Bin\Craig.Engine.GUI.dll</HintPath>
-    </Reference>
-    <Reference Include="Craig.Engine.Integration">
+    <Reference Include="Craig.Engine.Integration, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Bin\Craig.Engine.Integration.dll</HintPath>
     </Reference>
-    <Reference Include="Craig.Engine.Services">
+    <Reference Include="Craig.Engine.Services, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Bin\Craig.Engine.Services.dll</HintPath>
     </Reference>
-    <Reference Include="Craig.TotalMiner.API">
+    <Reference Include="Craig.TotalMiner.API, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Bin\Craig.TotalMiner.API.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
-    <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
-    <Reference Include="Microsoft.Xna.Framework.GamerServices, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -75,13 +72,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GUIPlugin.cs" />
-    <Compile Include="VehicleSetupScreen.cs" />
-    <Compile Include="Vehicle.cs" />
-    <Compile Include="VehiclesBlocks.cs" />
-    <Compile Include="TMPluginProvider.cs" />
-    <Compile Include="VehiclesMod.cs" />
+    <Compile Include="ArcadeGamesMod.cs" />
+    <Compile Include="ArcadePlugin.cs" />
+    <Compile Include="Pong.cs" />
+    <Compile Include="PongRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TMPluginProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
