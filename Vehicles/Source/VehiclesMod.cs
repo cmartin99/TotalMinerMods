@@ -133,7 +133,9 @@ namespace VehiclesMod
 
         public void Draw(ITMPlayer player, ITMPlayer virtualPlayer)
         {
+            //CoreGlobals.SpriteBatch.Begin();
             //CoreGlobals.SpriteBatch.DrawString(CoreGlobals.GameFont, "Hello", new Vector2(100, 100), Color.White);
+            //CoreGlobals.SpriteBatch.End();
         }
 
         #endregion
@@ -187,6 +189,7 @@ namespace VehiclesMod
             vehicle.ViewDirection = ClampDirection(new Vector3(dir.X, 0, dir.Z));
             vehicle.Velocity = vehicle.ViewDirection * data.Speed;
             vehicle.Scale = 0.5f;
+            vehicle.DrawOffY = type == VehicleType.TrainCar || type == VehicleType.TrainEngine ? -1.8f : 0;
 
             Game.EntityManager.AddEntity("Trub's Trains", data.Name, vehicle);
             Game.AddNotification(string.Format("{0}: {1}", data.Name, ++spawnCount), NotifyRecipient.Local);
