@@ -30,29 +30,27 @@ namespace ArcadeGames
         public PcgRandom Random;
         public string ScoreText1;
         public string ScoreText2;
+        public int GameScreenY;
 
         float gameOverTransitionTimer;
         int score1, score2;
         float paddlePos1, paddlePos2;
         Vector2 ballPos;
         int ballSize;
+        float ballSize2;
         Point paddleSize;
+        Vector2 paddleSize2;
         Vector2 ballVel;
         float paddleSpeed;
         float pauseTime;
         float pauseTimer;
+        int paddleIndent;
+        float velInc;
+        bool cpu1, cpu2;
 
-        public Rectangle Paddle1Rect { get { return new Rectangle(2, (int)(paddlePos1 - paddleSize.Y / 2f), paddleSize.X, paddleSize.Y); } }
-        public Rectangle Paddle2Rect { get { return new Rectangle(ScreenSize.X - 2 - paddleSize.X, (int)(paddlePos2 - paddleSize.Y / 2f), paddleSize.X, paddleSize.Y); } }
-        
-        public Rectangle BallRect 
-        { 
-            get 
-            { 
-                var s = ballSize / 2f;
-                return new Rectangle((int)(ballPos.X - s), (int)(ballPos.Y - s), ballSize, ballSize); 
-            }
-        }
+        public Rectangle Paddle1Rect { get { return new Rectangle(paddleIndent, (int)(paddlePos1 - paddleSize2.Y), paddleSize.X, paddleSize.Y); } }
+        public Rectangle Paddle2Rect { get { return new Rectangle(ScreenSize.X - paddleIndent - paddleSize.X, (int)(paddlePos2 - paddleSize2.Y), paddleSize.X, paddleSize.Y); } }
+        public Rectangle BallRect { get { return new Rectangle((int)(ballPos.X - ballSize2), (int)(ballPos.Y - ballSize2), ballSize, ballSize);  } }
 
         #endregion
 
@@ -78,8 +76,14 @@ namespace ArcadeGames
             Random = new PcgRandom(new Random().Next());
             ScoreText1 = ScoreText2 = "Score: 0";
             ballSize = 6;
+            ballSize2 = ballSize * 0.5f;
             paddleSize = new Point(8, 25);
-            paddleSpeed = 1;
+            paddleSize2 = new Vector2(paddleSize.X * 0.5f, paddleSize.Y * 0.5f);
+            paddleSpeed = 3;
+            paddleIndent = 4;
+            GameScreenY = 16;
+            velInc = 0.2f;
+            cpu1 = cpu2 = true;
         }
 
         public override void StartGame()
@@ -123,7 +127,33 @@ namespace ArcadeGames
 
         public override bool HandleInput()
         {
-            return false;
+            bool result = false;
+
+            var left = InputManager.GetGamepadLeftStick(tmPlayer.PlayerIndex);
+            if (left.Y != 0)
+            {
+                paddlePos1 += left.Y * paddleSpeed;
+                cpu1 = false;
+                result = true;
+            }
+
+            var right = InputManager.GetGamepadRightStick(tmPlayer.PlayerIndex);
+            if (right.Y != 0)
+            {
+                paddlePos2 += right.Y * paddleSpeed;
+                cpu2 = false;
+                result = true;
+            }
+
+            var mouse = InputManager.GetMousePosDelta(tmPlayer.PlayerIndex);
+            if (mouse.Y != 0)
+            {
+                paddlePos2 += mouse.Y;
+                cpu2 = false;
+                result = true;
+            }
+
+            return result;
         }
 
         #endregion
@@ -158,21 +188,32 @@ namespace ArcadeGames
             if (pauseTime > 0)
             {
                 pauseTimer += Services.ElapsedTime;
-                if (pauseTimer < pauseTime) return;
+                if (pauseTimer < pauseTime)
+                {
+                    ClampPaddles();
+                    return;
+                }
                 pauseTime = pauseTimer = 0;
             }
 
             ballPos += ballVel;
 
-            if ((int)paddlePos1 < (int)ballPos.Y) paddlePos1 += paddleSpeed;
-            else if ((int)paddlePos1 > (int)ballPos.Y) paddlePos1 -= paddleSpeed;
-
-            if ((int)paddlePos2 < (int)ballPos.Y) paddlePos2 += paddleSpeed;
-            else if ((int)paddlePos2 > (int)ballPos.Y) paddlePos2 -= paddleSpeed;
-
-            if (ballPos.X < 0 || ballPos.X > ScreenSize.X)
+            if (cpu1)
             {
-                if (ballPos.X < 0)
+                if ((int)paddlePos1 < (int)ballPos.Y) paddlePos1 += paddleSpeed;
+                else if ((int)paddlePos1 > (int)ballPos.Y) paddlePos1 -= paddleSpeed;
+            }
+            if (cpu2)
+            {
+                if ((int)paddlePos2 < (int)ballPos.Y) paddlePos2 += paddleSpeed;
+                else if ((int)paddlePos2 > (int)ballPos.Y) paddlePos2 -= paddleSpeed;
+            }
+
+            ClampPaddles();
+
+            if (ballPos.X < -ballSize || ballPos.X > ScreenSize.X + ballSize)
+            {
+                if (ballPos.X < ScreenSize.X / 2)
                 {
                     ++score2;
                     ScoreText2 = "Score: " + score2;
@@ -187,19 +228,34 @@ namespace ArcadeGames
             }
             else
             {
-                if (ballPos.X < 4 + paddleSize.X && ballPos.Y > paddlePos1 - paddleSize.Y / 2 && ballPos.Y < paddlePos1 + paddleSize.Y / 2)
+                var f = float.MaxValue;
+
+                if (ballPos.X < paddleIndent + paddleSize.X && ballPos.Y > paddlePos1 - paddleSize2.Y && ballPos.Y < paddlePos1 + paddleSize2.Y)
                 {
-                    ballVel.X = -ballVel.X;
-                    if (ballVel.X < 0) ballVel.X -= 0.1f; else ballVel.X += 0.1f;
+                    f = (ballPos.Y - paddlePos1) * 0.1f;
                 }
-                else if (ballPos.X > ScreenSize.X - 4 - paddleSize.X && ballPos.Y > paddlePos2 - paddleSize.Y / 2 && ballPos.Y < paddlePos2 + paddleSize.Y / 2)
+                else if (ballPos.X > ScreenSize.X - paddleIndent - paddleSize.X && ballPos.Y > paddlePos2 - paddleSize2.Y && ballPos.Y < paddlePos2 + paddleSize2.Y)
                 {
-                    ballVel.X = -ballVel.X;
-                    if (ballVel.X < 0) ballVel.X -= 0.1f; else ballVel.X += 0.1f;
+                    f = (ballPos.Y - paddlePos2) * 0.1f;
                 }
-                else if (ballPos.Y < 10 + ballSize / 2 || ballPos.Y > ScreenSize.Y - ballSize / 2 - 1)
+                else if (ballPos.Y <= GameScreenY + ballSize2 || ballPos.Y >= ScreenSize.Y - ballSize2)
                     ballVel.Y = -ballVel.Y;
+
+                if (f != float.MaxValue)
+                {
+                    ballVel.X = -ballVel.X;
+                    if (ballVel.X < 0) ballVel.X -= velInc; else ballVel.X += velInc;
+                    ballVel.Y += f;
+                }
             }
+        }
+
+        void ClampPaddles()
+        {
+            if (paddlePos1 - paddleSize2.Y <= GameScreenY + 2) paddlePos1 = GameScreenY + paddleSize2.Y + 2;
+            if (paddlePos2 - paddleSize2.Y <= GameScreenY + 2) paddlePos2 = GameScreenY + paddleSize2.Y + 2;
+            if (paddlePos1 + paddleSize2.Y >= ScreenSize.Y - 2) paddlePos1 = ScreenSize.Y - paddleSize2.Y - 2;
+            if (paddlePos2 + paddleSize2.Y >= ScreenSize.Y - 2) paddlePos2 = ScreenSize.Y - paddleSize2.Y - 2;
         }
 
         void UpdateGameOverTransitionState()

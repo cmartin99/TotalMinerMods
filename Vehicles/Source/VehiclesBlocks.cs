@@ -15,7 +15,7 @@ namespace VehiclesMod
         public const Block TrainTrackCorner = Craig.TotalMiner.Block.CherryMetal;
     }
 
-    class VehiclesBlocks : ITMPlugInBlocks
+    class VehiclesBlocks : ITMPluginBlocks
     {
         ITMGame game;
 

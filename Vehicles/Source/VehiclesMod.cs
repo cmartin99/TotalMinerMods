@@ -16,11 +16,11 @@ namespace VehiclesMod
         public static Item VehicleSpawner;
     }
 
-    class VehiclesMod : ITMPlugIn
+    class VehiclesMod : ITMPlugin
     {
-        #region ITMPlugIn
+        #region ITMPlugin
 
-        void ITMPlugIn.WorldSaved(int version)
+        void ITMPlugin.WorldSaved(int version)
         {
         }
 

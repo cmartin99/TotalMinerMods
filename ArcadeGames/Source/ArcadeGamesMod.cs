@@ -4,11 +4,11 @@ using Craig.TotalMiner.API;
 
 namespace ArcadeGames
 {
-    class ArcadeGamesMod : ITMPlugIn
+    class ArcadeGamesMod : ITMPlugin
     {
-        #region ITMPlugIn
+        #region ITMPlugin
 
-        void ITMPlugIn.WorldSaved(int version)
+        void ITMPlugin.WorldSaved(int version)
         {
         }
 
