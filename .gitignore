@@ -43,9 +43,6 @@ Network Trash Folder
 
 Temporary Items
 .apdisk
-*.dll
-*.pdb
-*.xnb
 *.cache
 *.cachefile
 *.trx
