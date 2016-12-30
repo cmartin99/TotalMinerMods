@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{6118D9FF-DA77-4A3A-B5DF-2BC4F59995E0}</ProjectGuid>
+    <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>VehiclesMod</RootNamespace>
+    <AssemblyName>VehiclesMod</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
+    <XnaPlatform>Windows</XnaPlatform>
+    <XnaProfile>Reach</XnaProfile>
+    <XnaCrossPlatformGroupID>a23a765e-aca8-4a5b-9fdc-ee90bbf55ef7</XnaCrossPlatformGroupID>
+    <XnaOutputType>Library</XnaOutputType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Win\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <PlatformTarget>x86</PlatformTarget>
+    <XnaCompressContent>false</XnaCompressContent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Win\Release\</OutputPath>
+    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <PlatformTarget>x86</PlatformTarget>
+    <XnaCompressContent>true</XnaCompressContent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Craig.BlockWorld">
+      <HintPath>..\..\Bin\Craig.BlockWorld.dll</HintPath>
+    </Reference>
+    <Reference Include="Craig.Engine.Core">
+      <HintPath>..\..\Bin\Craig.Engine.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Craig.Engine.Game">
+      <HintPath>..\..\Bin\Craig.Engine.Game.dll</HintPath>
+    </Reference>
+    <Reference Include="Craig.Engine.GUI">
+      <HintPath>..\..\Bin\Craig.Engine.GUI.dll</HintPath>
+    </Reference>
+    <Reference Include="Craig.Engine.Integration">
+      <HintPath>..\..\Bin\Craig.Engine.Integration.dll</HintPath>
+    </Reference>
+    <Reference Include="Craig.Engine.Services">
+      <HintPath>..\..\Bin\Craig.Engine.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="Craig.TotalMiner.API">
+      <HintPath>..\..\Bin\Craig.TotalMiner.API.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.GamerServices, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GUIPlugin.cs" />
+    <Compile Include="VehicleSetupScreen.cs" />
+    <Compile Include="Vehicle.cs" />
+    <Compile Include="VehiclesBlocks.cs" />
+    <Compile Include="TMPluginProvider.cs" />
+    <Compile Include="VehiclesMod.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\BlockData.xml" />
+    <None Include="Content\BlockTextures16.xml" />
+    <None Include="Content\BlockTextures64.xml" />
+    <None Include="Content\BlueprintData.xml" />
+    <None Include="Content\ItemData.xml" />
+    <None Include="Content\ItemTextures16.xml" />
+    <None Include="Content\ItemTextures32.xml" />
+    <None Include="Content\tpi_16.png" />
+    <None Include="Content\tpi_32.png" />
+    <None Include="Content\tp_16.png" />
+    <None Include="Content\tp_64.png" />
+    <None Include="Content\VehicleData.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\Com\Vehicles\Cannons_Schwerer Gustav.com" />
+    <None Include="Content\Com\Vehicles\Cars_3-Dome Tank 1.com" />
+    <None Include="Content\Com\Vehicles\Cars_3-Dome Tank 2.com" />
+    <None Include="Content\Com\Vehicles\Cars_3-Dome Tank 3.com" />
+    <None Include="Content\Com\Vehicles\Cars_Commuter Car.com" />
+    <None Include="Content\Com\Vehicles\Cars_DEV VIC-Y Passenger.com" />
+    <None Include="Content\Com\Vehicles\Cars_Flat Car.com" />
+    <None Include="Content\Com\Vehicles\Cars_Flatcar 2.com" />
+    <None Include="Content\Com\Vehicles\Cars_Flatcar W Containers.com" />
+    <None Include="Content\Com\Vehicles\Cars_Flatcar W Trailer 1.com" />
+    <None Include="Content\Com\Vehicles\Cars_Flatcar W Trailer 2.com" />
+    <None Include="Content\Com\Vehicles\Cars_Gondola 1.com" />
+    <None Include="Content\Com\Vehicles\Cars_Gondola 2.com" />
+    <None Include="Content\Com\Vehicles\Cars_Log Car.com" />
+    <None Include="Content\Com\Vehicles\Cars_Milwaukee Passenger.com" />
+    <None Include="Content\Com\Vehicles\Cars_NSE Class 159.com" />
+    <None Include="Content\Com\Vehicles\Cars_Quad Hopper.com" />
+    <None Include="Content\Com\Vehicles\Cars_Santa Fe Slug.com" />
+    <None Include="Content\Com\Vehicles\Cars_Stock Car 1.com" />
+    <None Include="Content\Com\Vehicles\Cars_Stock Car 2.com" />
+    <None Include="Content\Com\Vehicles\Cars_Stock Car 3.com" />
+    <None Include="Content\Com\Vehicles\Cars_SW Class 159.com" />
+    <None Include="Content\Com\Vehicles\Cars_Tank Car 1.com" />
+    <None Include="Content\Com\Vehicles\Cars_Tank Car 2.com" />
+    <None Include="Content\Com\Vehicles\Cars_Tank Car 3.com" />
+    <None Include="Content\Com\Vehicles\Cars_Tank Car 4.com" />
+    <None Include="Content\Com\Vehicles\header.dat" />
+    <None Include="Content\Com\Vehicles\Locomotives_Alco C-630M.com" />
+    <None Include="Content\Com\Vehicles\Locomotives_Alco RS-3.com" />
+    <None Include="Content\Com\Vehicles\Locomotives_Alco S2 DCC.com" />
+    <None Include="Content\Com\Vehicles\Locomotives_BLW DT6-6-2000.com" />
+    <None Include="Content\Com\Vehicles\Locomotives_Class 17.com" />
+    <None Include="Content\Com\Vehicles\Locomotives_Class 56.com" />
+    <None Include="Content\Com\Vehicles\Locomotives_EMC TA.com" />
+    <None Include="Content\Com\Vehicles\Locomotives_EMD GP40.com" />
+    <None Include="Content\Com\Vehicles\Locomotives_EMD GP50.com" />
+    <None Include="Content\Com\Vehicles\Locomotives_EMD SD50F.com" />
+    <None Include="Content\Com\Vehicles\Locomotives_F7 A DCC.com" />
+    <None Include="Content\Com\Vehicles\Locomotives_GP 38-2.com" />
+    <None Include="Content\Com\Vehicles\Locomotives_GTA V Engine.com" />
+    <None Include="Content\Com\Vehicles\Locomotives_IC C40-8W.com" />
+    <None Include="Content\Com\Vehicles\Locomotives_Milwaukee Road.com" />
+    <None Include="Content\Com\Vehicles\Locomotives_NSE Class 159.com" />
+    <None Include="Content\Com\Vehicles\Locomotives_RENFE 272.com" />
+    <None Include="Content\Com\Vehicles\Locomotives_SW Class 159.com" />
+    <None Include="Content\Com\Vehicles\MOC Cars_Bullet Passenger Car.com" />
+    <None Include="Content\Com\Vehicles\MOC Locomotives_Bullet Engine.com" />
+    <None Include="Content\Com\Vehicles\Please Read.com" />
+    <None Include="Content\Com\Vehicles\Rails_90 Curve Large.com" />
+    <None Include="Content\Com\Vehicles\Rails_90 Curve Left.com" />
+    <None Include="Content\Com\Vehicles\Rails_90 Curve Right.com" />
+    <None Include="Content\Com\Vehicles\Rails_Buffer Stop.com" />
+    <None Include="Content\Com\Vehicles\Rails_Straight 62.com" />
+    <None Include="Content\Com\Vehicles\Rails_Switch Left.com" />
+    <None Include="Content\Com\Vehicles\Rails_Switch Right.com" />
+    <None Include="Content\Com\Vehicles\Rails_Switch Y.com" />
+    <None Include="Content\Com\Vehicles\Steamers_UP Big Boy.com" />
+    <None Include="Content\Com\Vehicles\Vehicles_Car Carrier 1.com" />
+    <None Include="Content\Com\Vehicles\Vehicles_Delivery Truck 1.com" />
+    <None Include="Content\Com\Vehicles\Vehicles_Delivery Truck 2.com" />
+    <None Include="Content\Com\Vehicles\Vehicles_Red Muscle Car.com" />
+    <None Include="Content\Com\Vehicles\Vehicles_White Muscle Car.com" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
+  <!--
+      To modify your build process, add your task inside one of the targets below and uncomment it. 
+      Other similar extension points exist, see Microsoft.Common.targets.
+      <Target Name="BeforeBuild">
+      </Target>
+      <Target Name="AfterBuild">
+      </Target>
+    -->
+</Project>

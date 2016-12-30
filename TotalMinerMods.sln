@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraigMod1", "CraigMod1\Source\CraigMod1.csproj", "{4140A9F6-ED45-4434-8099-23BF34FDAA1B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraigMod1", "CraigMod1\CraigMod1.csproj", "{4140A9F6-ED45-4434-8099-23BF34FDAA1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vehicles", "Vehicles\Source\Vehicles.csproj", "{6118D9FF-DA77-4A3A-B5DF-2BC4F59995E0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vehicles", "Vehicles\Vehicles.csproj", "{6118D9FF-DA77-4A3A-B5DF-2BC4F59995E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcadeGames", "ArcadeGames\Source\ArcadeGames.csproj", "{8FB6C9F3-37C9-43D4-AEB9-B8D5187B7E58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcadeGames", "ArcadeGames\ArcadeGames.csproj", "{8FB6C9F3-37C9-43D4-AEB9-B8D5187B7E58}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

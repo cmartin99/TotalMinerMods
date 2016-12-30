@@ -55,9 +55,9 @@ Temporary Items
 # Application files
 
 git*.zip
-CraigMod1/Source/obj/
-CraigMod1/Source/bin/
-Vehicles/Source/obj/
-Vehicles/Source/bin/
-ArcadeGames/Source/obj/
-ArcadeGames/Source/bin/
+CraigMod1/obj/
+CraigMod1/bin/
+Vehicles/obj/
+Vehicles/bin/
+ArcadeGames/obj/
+ArcadeGames/bin/
