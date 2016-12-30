@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ArrayOfModBlueprintDataXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModBlueprintDataXML>
+    <ItemID>SteelSword</ItemID>
+    <Material11>
+      <ItemID>Post2</ItemID>
+      <Count>1</Count>
+    </Material11>
+  </ModBlueprintDataXML>
+  <ModBlueprintDataXML>
+    <ItemID>VehicleSpawner</ItemID>
+    <CraftType>Crafting</CraftType>
+    <IsDefault>false</IsDefault>
+    <Depth>
+      <X>0.274452627</X>
+      <Y>0.4744526</Y>
+    </Depth>
+    <Result>
+      <ItemID>VehicleSpawner</ItemID>
+      <Count>1</Count>
+    </Result>
+	<Material11>
+      <ItemID>Wand</ItemID>
+      <Count>1</Count>
+    </Material11>
+    <Material12>
+      <ItemID>Stick</ItemID>
+      <Count>1</Count>
+    </Material12>
+  </ModBlueprintDataXML>
+</ArrayOfModBlueprintDataXML>

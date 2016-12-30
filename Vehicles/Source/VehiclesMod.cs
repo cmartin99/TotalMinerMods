@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Craig.Engine;
+using Craig.Engine.Core;
+using Craig.Engine.GUI;
 using Craig.BlockWorld;
 using Craig.TotalMiner;
 using Craig.TotalMiner.Blocks;
@@ -37,6 +39,7 @@ namespace VehiclesMod
         public VehicleDataXML[] TrainEngines;
         public VehicleDataXML[] TrainCars;
 
+        Window consoleWin;
         int spawnCount;
         float autoSpawnTimer;
         List<Item> autoSpawnItems = new List<Item>();
@@ -110,6 +113,12 @@ namespace VehiclesMod
 
         public void Update(ITMPlayer player)
         {
+            if (consoleWin == null && InputManager.IsKeyReleasedNew(player.PlayerIndex, Microsoft.Xna.Framework.Input.Keys.Home))
+            {
+                consoleWin = new DataField("Chat box: ", 10, 10, 400, 300, 0.5f);
+                consoleWin.Colors = Colors.DataFieldColors;
+                Game.AddWindow(consoleWin, player.PlayerIndex);
+            }
         }
 
         void UpdateAutoSpawns()
@@ -190,6 +199,7 @@ namespace VehiclesMod
             vehicle.Velocity = vehicle.ViewDirection * data.Speed;
             vehicle.Scale = 0.5f;
             vehicle.DrawOffY = type == VehicleType.TrainCar || type == VehicleType.TrainEngine ? -1.8f : 0;
+            vehicle.FrustumCull = true;
 
             Game.EntityManager.AddEntity("Trub's Trains", data.Name, vehicle);
             Game.AddNotification(string.Format("{0}: {1}", data.Name, ++spawnCount), NotifyRecipient.Local);

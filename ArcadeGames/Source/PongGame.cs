@@ -74,10 +74,11 @@ namespace ArcadeGames
             ScreenSize = new Point(renderTarget.Width, renderTarget.Height);
             State = GameState.GameOver;
             Random = new PcgRandom(new Random().Next());
+            score1 = score2 = 0;
             ScoreText1 = ScoreText2 = "Score: 0";
             ballSize = 6;
             ballSize2 = ballSize * 0.5f;
-            paddleSize = new Point(8, 25);
+            paddleSize = new Point(8, 32);
             paddleSize2 = new Vector2(paddleSize.X * 0.5f, paddleSize.Y * 0.5f);
             paddleSpeed = 3;
             paddleIndent = 4;
@@ -93,8 +94,6 @@ namespace ArcadeGames
                 if (Credits > 0)
                 {
                     ChangeCredits(-1);
-                    score1 = score2 = 0;
-                    ScoreText1 = ScoreText2 = "Score: 0";
                     paddlePos1 = paddlePos2 = ScreenSize.Y / 2;
                     ballPos = new Vector2(ScreenSize.X / 2, ScreenSize.Y / 2);
                     ballVel = new Vector2(0.3f, 0.3f);
@@ -200,13 +199,15 @@ namespace ArcadeGames
 
             if (cpu1)
             {
-                if ((int)paddlePos1 < (int)ballPos.Y) paddlePos1 += paddleSpeed;
-                else if ((int)paddlePos1 > (int)ballPos.Y) paddlePos1 -= paddleSpeed;
+                var diff = ballPos.Y - paddlePos1;
+                if (diff > 0) paddlePos1 += Math.Min(diff, paddleSpeed);
+                else if (diff < 0) paddlePos1 -= Math.Min(-diff, paddleSpeed);
             }
             if (cpu2)
             {
-                if ((int)paddlePos2 < (int)ballPos.Y) paddlePos2 += paddleSpeed;
-                else if ((int)paddlePos2 > (int)ballPos.Y) paddlePos2 -= paddleSpeed;
+                var diff = ballPos.Y - paddlePos2;
+                if (diff > 0) paddlePos2 += Math.Min(diff, paddleSpeed);
+                else if (diff < 0) paddlePos2 -= Math.Min(-diff, paddleSpeed);
             }
 
             ClampPaddles();

@@ -12,12 +12,64 @@
             <param name="blockID">The blockID at position p.</param>
             <returns>The bounding box.</returns>
         </member>
+        <member name="M:Craig.TotalMiner.API.ITMGame.AddNotification(System.String,Craig.TotalMiner.NotifyRecipient)">
+            <summary>
+            Adds a new 'pink' notification to the top left of the screen.
+            </summary>
+            <param name="message">The notification message text.</param>
+            <param name="recType">Who receives the notification.</param>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMGame.AddParticle(Microsoft.Xna.Framework.Vector3,Craig.TotalMiner.Graphics.ParticleData@)">
+            <summary>
+            Spawn a new particle into the game world.
+            </summary>
+            <param name="pos">World start position of the particle (center).</param>
+            <param name="data">Data describing the particle.</param>
+            <returns>Returns true if the particle was spawned successfully.</returns>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMGame.AddEventBlockMined(Craig.TotalMiner.Block,System.Action{Craig.TotalMiner.Block,System.Byte,Craig.BlockWorld.GlobalPoint3D,Craig.TotalMiner.API.ITMHand})">
+            <summary>
+            Adds an Action method that will be executed when the block is mined.
+            </summary>
+            <param name="blockID">The block that was mined.</param>
+            <param name="action">The method to execute. Block=The block mined. Byte=Aux data of the block before it was mined. GlobalPoint3D=Block position. ITMHand=The hand that mined the block. From the hand you can get the owner/player.</param>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMGame.AddEventBlockPlaced(Craig.TotalMiner.Block,System.Action{Craig.TotalMiner.Block,Craig.BlockWorld.GlobalPoint3D,Craig.TotalMiner.API.ITMHand})">
+            <summary>
+            Adds an Action method that will be executed when the block is placed.
+            </summary>
+            <param name="blockID">The block that was mined.</param>
+            <param name="action">The method to execute. Block=The block placed. GlobalPoint3D=Block position. ITMHand=The hand that placed the block. From the hand you can get the owner/player.</param>
+        </member>
         <member name="M:Craig.TotalMiner.API.ITMGame.AddEventItemSwing(Craig.TotalMiner.Item,System.Action{Craig.TotalMiner.Item,Craig.TotalMiner.API.ITMHand})">
             <summary>
             Adds an Action method that will be executed when the item is swung and the swing has reached it's extended position.
             </summary>
             <param name="itemID">The item being swung.</param>
-            <param name="action">The method to execute.</param>
+            <param name="action">The method to execute. Item=The item swung. ITMHand=The hand that swung the item.</param>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMGame.AddItemCustomSetup(Craig.TotalMiner.Item,Craig.TotalMiner.Permissions)">
+            <summary>
+            Flags an item has having a custom setup screen (from the prospect/interact screen). When a player presses A for Setup on the Interact screen, your ITMPluginGUI object is called for a new instance of the setup screen.
+            </summary>
+            <param name="itemID">The Item that has a custom setup screen. This includes Blocks.</param>
+            <param name="permission">The permissions the player must have to open the screen.</param>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMGame.AddWindow(Craig.Engine.GUI.Window,Microsoft.Xna.Framework.PlayerIndex)">
+            <summary>
+            Add a Window to the main gameplay screen.
+            </summary>
+            <param name="win">The window to add.</param>
+            <param name="playerIndex">The player index of the player who owns the window.</param>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMGame.AddMapMarker(Craig.BlockWorld.GlobalPoint3D,System.String,Craig.TotalMiner.MapMarkerType,System.Boolean)">
+            <summary>
+            Add a Marker to the world overview map.
+            </summary>
+            <param name="p">The map position for the marker. Y is ignored.</param>
+            <param name="text">The marker text or label.</param>
+            <param name="type">The type of marker.</param>
+            <param name="transmit">True if remotes should also add the marker.</param>
         </member>
         <member name="M:Craig.TotalMiner.API.ITMGame.AddProjectile(Craig.TotalMiner.Item,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,System.Int16,System.Boolean)">
             <summary>
@@ -28,6 +80,20 @@
             <param name="velocity">The start velocity of the projectile. The projectile is affected by the world gravity.</param>
             <param name="playerID">The player who created the projectile.</param>
             <param name="transmit">True if the projectile should be created on remote clients.</param>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMGame.RemoveEventBlockMined(Craig.TotalMiner.Block,System.Action{Craig.TotalMiner.Block,System.Byte,Craig.BlockWorld.GlobalPoint3D,Craig.TotalMiner.API.ITMHand})">
+            <summary>
+            Removes an block mined event that was previously added with AddEventBlockMined(..).
+            </summary>
+            <param name="blockID">The block that was mined.</param>
+            <param name="action">The method to execute.</param>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMGame.RemoveEventBlockPlaced(Craig.TotalMiner.Block,System.Action{Craig.TotalMiner.Block,Craig.BlockWorld.GlobalPoint3D,Craig.TotalMiner.API.ITMHand})">
+            <summary>
+            Removes an block placed event that was previously added with AddEventBlockPlaced(..).
+            </summary>
+            <param name="blockID">The block that was placed.</param>
+            <param name="action">The method to execute.</param>
         </member>
         <member name="M:Craig.TotalMiner.API.ITMGame.RemoveEventItemSwing(Craig.TotalMiner.Item,System.Action{Craig.TotalMiner.Item,Craig.TotalMiner.API.ITMHand})">
             <summary>
@@ -52,9 +118,22 @@
             <param name="menu">A custom menu</param>
             <param name="player">The player who opened the screen</param>
         </member>
+        <member name="M:Craig.TotalMiner.API.ITMGame.SetPower(Craig.BlockWorld.GlobalPoint3D,System.Boolean,Craig.TotalMiner.API.ITMPlayer)">
+            <summary>
+            Set power on or off for a block at a position in the map. Any powered mechanism block at that position will react. Setting power on for a block that is already powered has no effect, likewise setting power off for a block that is not powered has no effect.
+            </summary>
+            <param name="p">Map position.</param>
+            <param name="power">True (on) or False (off)</param>
+            <param name="player">The player who powered the block.</param>
+        </member>
         <member name="P:Craig.TotalMiner.API.ITMGame.Header">
             <summary>
             Returns header data about the current world. This property returns a clone so that if you change a field on the object it does not effect the actual world header. For this reason it is best to cache this object and only call this getter again if it is critical to have any changes that might have been made since the last time you called the getter (such as a map rename).
+            </summary>
+        </member>
+        <member name="P:Craig.TotalMiner.API.ITMGame.Random">
+            <summary>
+            A general random number generator that can be used anywhere.
             </summary>
         </member>
     </members>
