@@ -4,6 +4,12 @@
         <name>Craig.TotalMiner.API</name>
     </assembly>
     <members>
+        <member name="M:Craig.TotalMiner.Sounds.Initialize(Craig.TotalMiner.API.ITMGame)">
+            <summary>
+            Implementation detail. Consumers should not call.
+            </summary>
+            <param name="game">Game Instance</param>
+        </member>
         <member name="M:Craig.TotalMiner.API.ITMGame.GetBlockBox(Craig.BlockWorld.GlobalPoint3D,Craig.TotalMiner.Block)">
             <summary>
             Returns a bounding box that correctly surrounds the block at a given position, and is suitable for collision detection.
@@ -54,13 +60,6 @@
             </summary>
             <param name="itemID">The Item that has a custom setup screen. This includes Blocks.</param>
             <param name="permission">The permissions the player must have to open the screen.</param>
-        </member>
-        <member name="M:Craig.TotalMiner.API.ITMGame.AddWindow(Craig.Engine.GUI.Window,Microsoft.Xna.Framework.PlayerIndex)">
-            <summary>
-            Add a Window to the main gameplay screen.
-            </summary>
-            <param name="win">The window to add.</param>
-            <param name="playerIndex">The player index of the player who owns the window.</param>
         </member>
         <member name="M:Craig.TotalMiner.API.ITMGame.AddMapMarker(Craig.BlockWorld.GlobalPoint3D,System.String,Craig.TotalMiner.MapMarkerType,System.Boolean)">
             <summary>
@@ -125,6 +124,20 @@
             <param name="p">Map position.</param>
             <param name="power">True (on) or False (off)</param>
             <param name="player">The player who powered the block.</param>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMGame.GetClosestListener(Microsoft.Xna.Framework.Vector3)">
+            <summary>
+            Returns the AudioListener object of the closest local player to a (sound source) position.
+            </summary>
+            <param name="position">The source position of the sound.</param>
+            <returns>The AudioListener object of the closest local player, or null.</returns>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMGame.BroadcastSound(Craig.TotalMiner.API.ITMActor,Microsoft.Xna.Framework.Vector3)">
+            <summary>
+            Instruct the game to broadcast a sound emission to other actors.
+            </summary>
+            <param name="actor">The actor who emitted the sound.</param>
+            <param name="position">The source position of the sound emission.</param>
         </member>
         <member name="P:Craig.TotalMiner.API.ITMGame.Header">
             <summary>
