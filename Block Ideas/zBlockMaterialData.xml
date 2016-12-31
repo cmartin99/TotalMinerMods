@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ArrayOfModBlockMaterialDataXMLXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModBlockMaterialDataXML>
+    <Material>Earth</Material>
+    <Resistance>1600</Resistance>
+    <BaseEfficiency>100</BaseEfficiency>
+    <PickEfficiency>75</PickEfficiency>
+    <ShovelEfficiency>100</ShovelEfficiency>
+    <HatchetEfficiency>50</HatchetEfficiency>
+    <WeaponEfficiency>30</WeaponEfficiency>
+    <XPAdjust>0</XPAdjust>
+    <Flags />
+  </ModBlockMaterialDataXML>
+</ArrayOfModBlockMaterialDataXML>

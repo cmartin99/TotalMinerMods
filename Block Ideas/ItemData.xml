@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<ArrayOfModItemDataXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModItemDataXML>
+    <ItemID>UserDefined1</ItemID>
+    <Name>Weather Manipulator Side</Name>
+    <Desc>The side of the Weather Manipulator. test</Desc>
+    <IsValid>true</IsValid>
+    <IsEnabled>true</IsEnabled>
+    <LockedDD>true</LockedDD>
+    <LockedCR>false</LockedCR>
+    <LockedSU>false</LockedSU>
+    <MinCSPrice>633</MinCSPrice>
+    <StackSize>100</StackSize>
+    <Durability>0</Durability>
+    <StrikeDamage>0</StrikeDamage>
+    <StrikeReach>0</StrikeReach>
+    <HealPower>0</HealPower>
+    <BurnTime>0</BurnTime>
+    <SmeltTime>0</SmeltTime>
+    <ParticleLight>0</ParticleLight>
+    <CanDropIfLocked>false</CanDropIfLocked>
+    <Plural>S</Plural>
+  </ModItemDataXML>
+  <ModItemDataXML>
+    <ItemID>UserDefined2</ItemID>
+    <Name>Weather Manipulator Top</Name>
+    <Desc>The top and bottom texture of the Weather Manipulator. Looks like a contained tesla coil.</Desc>
+    <IsValid>true</IsValid>
+    <IsEnabled>true</IsEnabled>
+    <LockedDD>true</LockedDD>
+    <LockedCR>false</LockedCR>
+    <LockedSU>false</LockedSU>
+    <MinCSPrice>633</MinCSPrice>
+    <StackSize>100</StackSize>
+    <Durability>0</Durability>
+    <StrikeDamage>0</StrikeDamage>
+    <StrikeReach>0</StrikeReach>
+    <HealPower>0</HealPower>
+    <BurnTime>0</BurnTime>
+    <SmeltTime>0</SmeltTime>
+    <ParticleLight>0</ParticleLight>
+    <CanDropIfLocked>false</CanDropIfLocked>
+    <Plural>S</Plural>
+  </ModItemDataXML>
+  <ModItemDataXML>
+    <ItemID>UserDefined3</ItemID>
+    <Name>Controlled Explosive</Name>
+    <Desc>Explosives that can be managed be insertering specific materials inside before activating.</Desc>
+    <IsValid>true</IsValid>
+    <IsEnabled>true</IsEnabled>
+    <LockedDD>true</LockedDD>
+    <LockedCR>false</LockedCR>
+    <LockedSU>false</LockedSU>
+    <MinCSPrice>633</MinCSPrice>
+    <StackSize>100</StackSize>
+    <Durability>0</Durability>
+    <StrikeDamage>0</StrikeDamage>
+    <StrikeReach>0</StrikeReach>
+    <HealPower>0</HealPower>
+    <BurnTime>0</BurnTime>
+    <SmeltTime>0</SmeltTime>
+    <ParticleLight>0</ParticleLight>
+    <CanDropIfLocked>false</CanDropIfLocked>
+    <Plural>None</Plural>
+  </ModItemDataXML>
+</ArrayOfModItemDataXML>
