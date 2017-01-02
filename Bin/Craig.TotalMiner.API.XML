@@ -117,12 +117,26 @@
             <param name="menu">A custom menu</param>
             <param name="player">The player who opened the screen</param>
         </member>
+        <member name="M:Craig.TotalMiner.API.ITMGame.IsBlockDeliveringPower(Craig.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Returns true if a block position is currently delivering power.
+            </summary>
+            <param name="p">Block position</param>
+            <returns>Returns true if a block position is currently delivering power.</returns>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMGame.IsBlockReceivingPower(Craig.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Returns true if a block position is currently receiving power.
+            </summary>
+            <param name="p">Block position</param>
+            <returns>Returns true if a block position is currently receiving power.</returns>
+        </member>
         <member name="M:Craig.TotalMiner.API.ITMGame.SetPower(Craig.BlockWorld.GlobalPoint3D,System.Boolean,Craig.TotalMiner.API.ITMPlayer)">
             <summary>
             Set power on or off for a block at a position in the map. Any powered mechanism block at that position will react. Setting power on for a block that is already powered has no effect, likewise setting power off for a block that is not powered has no effect.
             </summary>
             <param name="p">Map position.</param>
-            <param name="power">True (on) or False (off)</param>
+            <param name="power">True (on) or False (off).</param>
             <param name="player">The player who powered the block.</param>
         </member>
         <member name="M:Craig.TotalMiner.API.ITMGame.GetClosestListener(Microsoft.Xna.Framework.Vector3)">

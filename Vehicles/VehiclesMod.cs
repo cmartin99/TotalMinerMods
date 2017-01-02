@@ -117,7 +117,7 @@ namespace VehiclesMod
             {
                 consoleWin = new DataField("Chat box: ", 10, 10, 400, 300, 0.5f);
                 consoleWin.Colors = Colors.DataFieldColors;
-                Game.AddWindow(consoleWin, player.PlayerIndex);
+                Game.WindowManager.Root.AddChild(consoleWin);
             }
         }
 
