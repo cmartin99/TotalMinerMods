@@ -59,6 +59,138 @@
             </summary>
             <param name="game">Game Instance</param>
         </member>
+        <member name="M:Craig.TotalMiner.API.ITMWorld.GetBlockBox(Craig.BlockWorld.GlobalPoint3D,Craig.TotalMiner.Block)">
+            <summary>
+            Returns a bounding box that correctly surrounds the block at a given position, and is suitable for collision detection.
+            </summary>
+            <param name="p">The position of the block.</param>
+            <param name="blockID">The blockID at position p.</param>
+            <returns>The bounding box.</returns>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMWorld.AddParticle(Microsoft.Xna.Framework.Vector3,Craig.TotalMiner.Graphics.ParticleData@)">
+            <summary>
+            Spawn a new particle into the game world.
+            </summary>
+            <param name="pos">World start position of the particle (center).</param>
+            <param name="data">Data describing the particle.</param>
+            <returns>Returns true if the particle was spawned successfully.</returns>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMWorld.AddProjectile(Craig.TotalMiner.Item,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Craig.TotalMiner.API.ITMPlayer,System.Boolean)">
+            <summary>
+            Adds a projectile textured for the itemID.
+            </summary>
+            <param name="itemID">The item of the projectile.</param>
+            <param name="position">The origin position of the projectile.</param>
+            <param name="velocity">The start velocity of the projectile. The projectile is affected by the world gravity.</param>
+            <param name="player">The player who created the projectile.</param>
+            <param name="transmit">True if the projectile should be created on remote clients.</param>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMWorld.AddMapMarker(Craig.BlockWorld.GlobalPoint3D,System.String,Craig.TotalMiner.MapMarkerType,System.Boolean)">
+            <summary>
+            Add a Marker to the world overview map.
+            </summary>
+            <param name="p">The map position for the marker. Y is ignored.</param>
+            <param name="text">The marker text or label.</param>
+            <param name="type">The type of marker.</param>
+            <param name="transmit">True if remotes should also add the marker.</param>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMWorld.RayBlockTest(Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,System.Single)">
+            <summary>
+            Casts a ray test for block collision detection.
+            </summary>
+            <param name="position">The origin position of the ray.</param>
+            <param name="dir">The direction of the ray.</param>
+            <param name="range">The range (distance in meters) of the ray. For performance considerations it is best to limit the range to the shortest necessary.</param>
+            <returns>The result of the test.</returns>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMWorld.IsBlockDeliveringPower(Craig.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Returns true if a block position is currently delivering power.
+            </summary>
+            <param name="p">Block position</param>
+            <returns>Returns true if a block position is currently delivering power.</returns>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMWorld.IsBlockReceivingPower(Craig.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Returns true if a block position is currently receiving power.
+            </summary>
+            <param name="p">Block position</param>
+            <returns>Returns true if a block position is currently receiving power.</returns>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMWorld.SetPower(Craig.BlockWorld.GlobalPoint3D,System.Boolean,Craig.TotalMiner.API.ITMPlayer)">
+            <summary>
+            Set power on or off for a block at a position in the map. Any powered mechanism block at that position will react. Setting power on for a block that is already powered has no effect, likewise setting power off for a block that is not powered has no effect.
+            </summary>
+            <param name="p">Map position.</param>
+            <param name="power">True (on) or False (off).</param>
+            <param name="player">The player who powered the block or -1 if no player.</param>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMWorld.GetClosestListener(Microsoft.Xna.Framework.Vector3)">
+            <summary>
+            Returns the AudioListener object of the closest local player to a (sound source) position.
+            </summary>
+            <param name="position">The source position of the sound.</param>
+            <returns>The AudioListener object of the closest local player, or null.</returns>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMWorld.BroadcastSound(Craig.TotalMiner.API.ITMActor,Microsoft.Xna.Framework.Vector3)">
+            <summary>
+            Instruct the game to broadcast a sound emission to other actors.
+            </summary>
+            <param name="actor">The actor who emitted the sound.</param>
+            <param name="position">The source position of the sound emission.</param>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMWorld.IsAnyLocalPlayerInProximity(Microsoft.Xna.Framework.Vector3,System.Single,System.Boolean)">
+            <summary>
+            Returns true if any local player is within a proximity
+            </summary>
+            <param name="pos">World position of proximity center.</param>
+            <param name="range">Proximity radius.</param>
+            <param name="eye">True = Test players Eye position. False = Test players Foot position.</param>
+            <returns>True if at least one local player is within proximity.</returns>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMWorld.CreateBlast(Craig.BlockWorld.GlobalPoint3D,Craig.TotalMiner.Item,System.Single,System.Int32,Craig.TotalMiner.API.ITMPlayer)">
+            <summary>
+            Create a blast explosion
+            </summary>
+            <param name="p">World Tile position at blast center.</param>
+            <param name="itemID">Item that created the blast.</param>
+            <param name="strength">Blast strength.</param>
+            <param name="radius">Blast radius.</param>
+            <param name="player">Player that created the blast or -1 if no player.</param>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMWorld.CreateFallingBlock(Craig.BlockWorld.GlobalPoint3D,Craig.TotalMiner.API.ITMPlayer,Craig.BlockWorld.UpdateBlockMethod,System.Boolean)">
+            <summary>
+            Causes a block to start falling until it hits another block.
+            </summary>
+            <param name="p">World Tile position of source block.</param>
+            <param name="player">Player who caused the block to fall or -1 if no player.</param>
+            <param name="method">Update method.</param>
+            <param name="transmit">True = Transmit over the network to remote players. False = Local operation only.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMWorld.FloodPhysics(Craig.BlockWorld.GlobalPoint3D,Craig.TotalMiner.Block,Craig.TotalMiner.API.ITMPlayer,System.Boolean)">
+            <summary>
+            Creates a flood.
+            </summary>
+            <param name="p">Flood source position.</param>
+            <param name="blockID">Block to flood with.</param>
+            <param name="player">Player who created the flood or -1 if no player.</param>
+            <param name="transmit">True = Transmit flood over network to remote players. False = Local operation only.</param>
+        </member>
+        <member name="M:Craig.TotalMiner.API.ITMWorld.TeleportEntities(Craig.BlockWorld.GlobalPoint3D,Craig.BlockWorld.GlobalPoint3D,Craig.BlockWorld.GlobalPoint3D,System.Boolean)">
+            <summary>
+            Teleport all entities in an area to another position.
+            </summary>
+            <param name="min">The minimum Tile position of the area.</param>
+            <param name="max">The maximum Tile position of the area. Using both min and max, a cubic area is defined.</param>
+            <param name="dest">The destination Tile position to teleport the entities to.</param>
+            <param name="relative">False = all entities are teleported directly to tile position 'dest' regardless of their position in the area. True = all entities are teleported to a tile position relative to 'dest' and their original position relative to 'min'. e.g. final position = dest + (entity position - min)</param>
+        </member>
+        <member name="P:Craig.TotalMiner.API.ITMWorld.Header">
+            <summary>
+            Returns header data about the current world. This property returns a clone so that if you change a field on the object it does not effect the actual world header. For this reason it is best to cache this object and only call this getter again if it is critical to have any changes that might have been made since the last time you called the getter (such as a map rename).
+            </summary>
+        </member>
         <member name="M:Craig.TotalMiner.API.ITMGame.AddNotification(System.String,Craig.TotalMiner.NotifyRecipient)">
             <summary>
             Adds a new 'pink' notification to the top left of the screen.
@@ -68,23 +200,23 @@
         </member>
         <member name="M:Craig.TotalMiner.API.ITMGame.AddEventBlockMined(Craig.TotalMiner.Block,System.Action{Craig.TotalMiner.Block,System.Byte,Craig.BlockWorld.GlobalPoint3D,Craig.TotalMiner.API.ITMHand})">
             <summary>
-            Adds an Action method that will be executed when the block is mined.
+            Adds an Action method that will be executed when a block is mined.
             </summary>
-            <param name="blockID">The block that was mined.</param>
-            <param name="action">The method to execute. Block=The block mined. Byte=Aux data of the block before it was mined. GlobalPoint3D=Block position. ITMHand=The hand that mined the block. From the hand you can get the owner/player.</param>
+            <param name="blockID">The block that was mined or Block.None for all blocks.</param>
+            <param name="action">The method to execute. Block=The block that was mined. Byte=Aux data of the block before it was mined. GlobalPoint3D=Block position. ITMHand=The hand that mined the block. From the hand you can get the owner/player.</param>
         </member>
         <member name="M:Craig.TotalMiner.API.ITMGame.AddEventBlockPlaced(Craig.TotalMiner.Block,System.Action{Craig.TotalMiner.Block,Craig.BlockWorld.GlobalPoint3D,Craig.TotalMiner.API.ITMHand})">
             <summary>
             Adds an Action method that will be executed when the block is placed.
             </summary>
-            <param name="blockID">The block that was mined.</param>
-            <param name="action">The method to execute. Block=The block placed. GlobalPoint3D=Block position. ITMHand=The hand that placed the block. From the hand you can get the owner/player.</param>
+            <param name="blockID">The block that was placed or Block.None for all blocks.</param>
+            <param name="action">The method to execute. Block=The block that was placed. GlobalPoint3D=Block position. ITMHand=The hand that placed the block. From the hand you can get the owner/player.</param>
         </member>
         <member name="M:Craig.TotalMiner.API.ITMGame.AddEventItemSwing(Craig.TotalMiner.Item,System.Action{Craig.TotalMiner.Item,Craig.TotalMiner.API.ITMHand})">
             <summary>
             Adds an Action method that will be executed when the item is swung and the swing has reached it's extended position.
             </summary>
-            <param name="itemID">The item being swung.</param>
+            <param name="itemID">The item being swung or Item.None for all items.</param>
             <param name="action">The method to execute. Item=The item swung. ITMHand=The hand that swung the item.</param>
         </member>
         <member name="M:Craig.TotalMiner.API.ITMGame.AddItemCustomSetup(Craig.TotalMiner.Item,Craig.TotalMiner.Permissions)">
@@ -295,138 +427,6 @@
         <member name="P:Craig.TotalMiner.API.ITMHand.IsSwinging">
             <summary>
             True if the hand is currently swinging.
-            </summary>
-        </member>
-        <member name="M:Craig.TotalMiner.API.ITMWorld.GetBlockBox(Craig.BlockWorld.GlobalPoint3D,Craig.TotalMiner.Block)">
-            <summary>
-            Returns a bounding box that correctly surrounds the block at a given position, and is suitable for collision detection.
-            </summary>
-            <param name="p">The position of the block.</param>
-            <param name="blockID">The blockID at position p.</param>
-            <returns>The bounding box.</returns>
-        </member>
-        <member name="M:Craig.TotalMiner.API.ITMWorld.AddParticle(Microsoft.Xna.Framework.Vector3,Craig.TotalMiner.Graphics.ParticleData@)">
-            <summary>
-            Spawn a new particle into the game world.
-            </summary>
-            <param name="pos">World start position of the particle (center).</param>
-            <param name="data">Data describing the particle.</param>
-            <returns>Returns true if the particle was spawned successfully.</returns>
-        </member>
-        <member name="M:Craig.TotalMiner.API.ITMWorld.AddProjectile(Craig.TotalMiner.Item,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,Craig.TotalMiner.API.ITMPlayer,System.Boolean)">
-            <summary>
-            Adds a projectile textured for the itemID.
-            </summary>
-            <param name="itemID">The item of the projectile.</param>
-            <param name="position">The origin position of the projectile.</param>
-            <param name="velocity">The start velocity of the projectile. The projectile is affected by the world gravity.</param>
-            <param name="player">The player who created the projectile.</param>
-            <param name="transmit">True if the projectile should be created on remote clients.</param>
-        </member>
-        <member name="M:Craig.TotalMiner.API.ITMWorld.AddMapMarker(Craig.BlockWorld.GlobalPoint3D,System.String,Craig.TotalMiner.MapMarkerType,System.Boolean)">
-            <summary>
-            Add a Marker to the world overview map.
-            </summary>
-            <param name="p">The map position for the marker. Y is ignored.</param>
-            <param name="text">The marker text or label.</param>
-            <param name="type">The type of marker.</param>
-            <param name="transmit">True if remotes should also add the marker.</param>
-        </member>
-        <member name="M:Craig.TotalMiner.API.ITMWorld.RayBlockTest(Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,System.Single)">
-            <summary>
-            Casts a ray test for block collision detection.
-            </summary>
-            <param name="position">The origin position of the ray.</param>
-            <param name="dir">The direction of the ray.</param>
-            <param name="range">The range (distance in meters) of the ray. For performance considerations it is best to limit the range to the shortest necessary.</param>
-            <returns>The result of the test.</returns>
-        </member>
-        <member name="M:Craig.TotalMiner.API.ITMWorld.IsBlockDeliveringPower(Craig.BlockWorld.GlobalPoint3D)">
-            <summary>
-            Returns true if a block position is currently delivering power.
-            </summary>
-            <param name="p">Block position</param>
-            <returns>Returns true if a block position is currently delivering power.</returns>
-        </member>
-        <member name="M:Craig.TotalMiner.API.ITMWorld.IsBlockReceivingPower(Craig.BlockWorld.GlobalPoint3D)">
-            <summary>
-            Returns true if a block position is currently receiving power.
-            </summary>
-            <param name="p">Block position</param>
-            <returns>Returns true if a block position is currently receiving power.</returns>
-        </member>
-        <member name="M:Craig.TotalMiner.API.ITMWorld.SetPower(Craig.BlockWorld.GlobalPoint3D,System.Boolean,Craig.TotalMiner.API.ITMPlayer)">
-            <summary>
-            Set power on or off for a block at a position in the map. Any powered mechanism block at that position will react. Setting power on for a block that is already powered has no effect, likewise setting power off for a block that is not powered has no effect.
-            </summary>
-            <param name="p">Map position.</param>
-            <param name="power">True (on) or False (off).</param>
-            <param name="player">The player who powered the block or -1 if no player.</param>
-        </member>
-        <member name="M:Craig.TotalMiner.API.ITMWorld.GetClosestListener(Microsoft.Xna.Framework.Vector3)">
-            <summary>
-            Returns the AudioListener object of the closest local player to a (sound source) position.
-            </summary>
-            <param name="position">The source position of the sound.</param>
-            <returns>The AudioListener object of the closest local player, or null.</returns>
-        </member>
-        <member name="M:Craig.TotalMiner.API.ITMWorld.BroadcastSound(Craig.TotalMiner.API.ITMActor,Microsoft.Xna.Framework.Vector3)">
-            <summary>
-            Instruct the game to broadcast a sound emission to other actors.
-            </summary>
-            <param name="actor">The actor who emitted the sound.</param>
-            <param name="position">The source position of the sound emission.</param>
-        </member>
-        <member name="M:Craig.TotalMiner.API.ITMWorld.IsAnyLocalPlayerInProximity(Microsoft.Xna.Framework.Vector3,System.Single,System.Boolean)">
-            <summary>
-            Returns true if any local player is within a proximity
-            </summary>
-            <param name="pos">World position of proximity center.</param>
-            <param name="range">Proximity radius.</param>
-            <param name="eye">True = Test players Eye position. False = Test players Foot position.</param>
-            <returns>True if at least one local player is within proximity.</returns>
-        </member>
-        <member name="M:Craig.TotalMiner.API.ITMWorld.CreateBlast(Craig.BlockWorld.GlobalPoint3D,Craig.TotalMiner.Item,System.Single,System.Int32,Craig.TotalMiner.API.ITMPlayer)">
-            <summary>
-            Create a blast explosion
-            </summary>
-            <param name="p">World Tile position at blast center.</param>
-            <param name="itemID">Item that created the blast.</param>
-            <param name="strength">Blast strength.</param>
-            <param name="radius">Blast radius.</param>
-            <param name="player">Player that created the blast or -1 if no player.</param>
-        </member>
-        <member name="M:Craig.TotalMiner.API.ITMWorld.CreateFallingBlock(Craig.BlockWorld.GlobalPoint3D,Craig.TotalMiner.API.ITMPlayer,Craig.BlockWorld.UpdateBlockMethod,System.Boolean)">
-            <summary>
-            Causes a block to start falling until it hits another block.
-            </summary>
-            <param name="p">World Tile position of source block.</param>
-            <param name="player">Player who caused the block to fall or -1 if no player.</param>
-            <param name="method">Update method.</param>
-            <param name="transmit">True = Transmit over the network to remote players. False = Local operation only.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Craig.TotalMiner.API.ITMWorld.FloodPhysics(Craig.BlockWorld.GlobalPoint3D,Craig.TotalMiner.Block,Craig.TotalMiner.API.ITMPlayer,System.Boolean)">
-            <summary>
-            Creates a flood.
-            </summary>
-            <param name="p">Flood source position.</param>
-            <param name="blockID">Block to flood with.</param>
-            <param name="player">Player who created the flood or -1 if no player.</param>
-            <param name="transmit">True = Transmit flood over network to remote players. False = Local operation only.</param>
-        </member>
-        <member name="M:Craig.TotalMiner.API.ITMWorld.TeleportEntities(Craig.BlockWorld.GlobalPoint3D,Craig.BlockWorld.GlobalPoint3D,Craig.BlockWorld.GlobalPoint3D,System.Boolean)">
-            <summary>
-            Teleport all entities in an area to another position.
-            </summary>
-            <param name="min">The minimum Tile position of the area.</param>
-            <param name="max">The maximum Tile position of the area. Using both min and max, a cubic area is defined.</param>
-            <param name="dest">The destination Tile position to teleport the entities to.</param>
-            <param name="relative">False = all entities are teleported directly to tile position 'dest' regardless of their position in the area. True = all entities are teleported to a tile position relative to 'dest' and their original position relative to 'min'. e.g. final position = dest + (entity position - min)</param>
-        </member>
-        <member name="P:Craig.TotalMiner.API.ITMWorld.Header">
-            <summary>
-            Returns header data about the current world. This property returns a clone so that if you change a field on the object it does not effect the actual world header. For this reason it is best to cache this object and only call this getter again if it is critical to have any changes that might have been made since the last time you called the getter (such as a map rename).
             </summary>
         </member>
     </members>

@@ -6,6 +6,7 @@ using Craig.Engine;
 using Craig.Engine.Core;
 using Craig.TotalMiner;
 using Craig.TotalMiner.API;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Lockpick
 {
@@ -40,16 +41,18 @@ namespace Lockpick
 
         #endregion
 
+        public static string ModPath;
+
         ITMGame game;
         ITMWorld world;
         ITMMap map;
-        public static string modPath;
+        SoundEffect[] pickSounds;
 
         public void Initialize(ITMPluginManager mgr, string path)
         {
             var itemOffset = (Item)mgr.Offsets.ItemID;
             Items.Lockpick = itemOffset++;
-            modPath = path;
+            ModPath = path;
         }
 
         public void InitializeGame(ITMGame game)
@@ -57,6 +60,13 @@ namespace Lockpick
             this.game = game;
             this.world = game.World;
             this.map = game.World.Map;
+
+            // Preload sound effects so gameplay is not hindered by load.
+            pickSounds = new SoundEffect[3];
+            pickSounds[0] = game.AudioManager.LoadSoundEffectFromStream(ModPath + "357_reload1.wav");
+            pickSounds[1] = game.AudioManager.LoadSoundEffectFromStream(ModPath + "357_reload2.wav");
+            pickSounds[2] = game.AudioManager.LoadSoundEffectFromStream(ModPath + "357_reload3.wav");
+
             game.AddNotification("Lockpick Activated", NotifyRecipient.Local);
             game.AddEventItemSwing(Items.Lockpick, OnLockpickSwing);
         }
@@ -76,7 +86,7 @@ namespace Lockpick
                 {
                     case 1:
                     case 3:
-                        game.AudioManager.PlaySoundFromStream(modPath + "357_reload" + game.Random.Next(1, 4) + ".wav");
+                        pickSounds[game.Random.Next(3)].Play();
                         game.AddNotification("Lockpicking..", NotifyRecipient.Local);
                         playerData.LockPickTimer.Start(1);
                         ++playerData.LockPickState;
@@ -103,26 +113,25 @@ namespace Lockpick
 
         void OnLockpickSwing(Item itemID, ITMHand hand)
         {
-            var player = hand.Owner as ITMPlayer;
+            var player = hand.Player;
             if (player == null) return;
             if (player.SwingFace == BlockFace.ProxyDefault) return;
 
             var playerData = player.Tag as PlayerData;
-            if (playerData.LockPickState > 0) return;
+            if (playerData.LockPickState > 0) return; // Already picking a lock. Cannot pick more than one lock at a time.
 
-            var blockID = (Block)map.GetBlockID(player.SwingTarget);
+            var blockID = map.GetBlockID(player.SwingTarget);
             if (blockID == Block.LockedDoorBottom)
             {
-                var p = player.SwingTarget;
-                if (world.IsBlockReceivingPower(p))
+                if (world.IsBlockReceivingPower(player.SwingTarget))
                 {
-                    world.SetPower(p, false, player);
+                    world.SetPower(player.SwingTarget, false, player);
                     map.Commit();
                 }
                 else
                 {
                     playerData.LockPickState = 1;
-                    playerData.LockPickDoorPos = p;
+                    playerData.LockPickDoorPos = player.SwingTarget;
                 }
             }
         }
