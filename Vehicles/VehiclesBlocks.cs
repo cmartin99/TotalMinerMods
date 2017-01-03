@@ -18,10 +18,14 @@ namespace VehiclesMod
     class VehiclesBlocks : ITMPluginBlocks
     {
         ITMGame game;
+        ITMWorld world;
+        ITMMap map;
 
         public void InitializeGame(ITMGame game)
         {
             this.game = game;
+            this.world = game.World;
+            this.map = game.World.Map;
         }
 
         public DataBlock NewDataBlock(GlobalPoint3D p, Block blockID, short playerID)
@@ -48,12 +52,12 @@ namespace VehiclesMod
             {
                 case Blocks.TrainTrackStraight:
                 case Blocks.TrainTrackCorner:
-                    var box = GetBlockBoxCore(game.Map, p);
+                    var box = GetBlockBoxCore(game.World.Map, p);
                     box.Max.Y = box.Min.Y + 0.2f;
                     return box;
 
                 default:
-                    return game.GetBlockBox(p, blockID);
+                    return world.GetBlockBox(p, blockID);
             }
         }
 

@@ -76,7 +76,7 @@ namespace VehiclesMod
                     var partPos = Position;
                     partPos.Y += 0.5f;
                     partPos += ViewDirection * -data.SmokeOffsetZ;
-                    mod.Game.AddParticle(partPos, ref smokeParticle);
+                    mod.World.AddParticle(partPos, ref smokeParticle);
                     smokeTimer = 0;
                 }
             }

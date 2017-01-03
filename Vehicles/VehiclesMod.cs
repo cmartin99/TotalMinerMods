@@ -26,12 +26,21 @@ namespace VehiclesMod
         {
         }
 
+        void ITMPlugin.PlayerJoined(ITMPlayer player)
+        {
+        }
+
+        void ITMPlugin.PlayerLeft(ITMPlayer player)
+        {
+        }
+
         #endregion
 
         #region Fields
 
         public static string Path;
         public ITMGame Game;
+        public ITMWorld World;
         public ITMMap Map;
 
         public VehicleDataXML[] Cars;
@@ -78,7 +87,8 @@ namespace VehiclesMod
         public void InitializeGame(ITMGame game)
         {
             Game = game;
-            Map = game.Map;
+            World = game.World;
+            Map = game.World.Map;
             game.AddNotification("Trains Mod: Activated", NotifyRecipient.Local);
             game.AddEventItemSwing(Items.TrainSpawner, OnTrainSpawnerSwing);
             game.AddEventItemSwing(Items.VehicleSpawner, OnVehicleSpawnerSwing);
@@ -201,7 +211,7 @@ namespace VehiclesMod
             vehicle.DrawOffY = type == VehicleType.TrainCar || type == VehicleType.TrainEngine ? -1.8f : 0;
             vehicle.FrustumCull = true;
 
-            Game.EntityManager.AddEntity("Trub's Trains", data.Name, vehicle);
+            World.EntityManager.AddEntity("Trub's Trains", data.Name, vehicle);
             Game.AddNotification(string.Format("{0}: {1}", data.Name, ++spawnCount), NotifyRecipient.Local);
         }
 

@@ -16,6 +16,14 @@ namespace CraigMod1
         {
         }
 
+        void ITMPlugin.PlayerJoined(ITMPlayer player)
+        {
+        }
+
+        void ITMPlugin.PlayerLeft(ITMPlayer player)
+        {
+        }
+
         #endregion
 
         public static string Path;
