@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<ArrayOfItemXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ItemXML>
+    <ItemID>WoodSword</ItemID>
+  </ItemXML>
+</ArrayOfItemXML>
+
+<?xml version="1.0"?>
+<ArrayOfItemXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ItemXML>
+    <ItemID>Present</ItemID>
+  </ItemXML>
+</ArrayOfItemXML>
