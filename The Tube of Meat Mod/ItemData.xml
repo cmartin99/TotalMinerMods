@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ArrayOfModItemDataXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModItemDataXML>
+    <ItemID>Present</ItemID>
+    <Name>Present</Name>
+    <Desc>Naughty or Nice?</Desc>
+    <IsValid>true</IsValid>
+    <IsEnabled>true</IsEnabled>
+    <LockedDD>true</LockedDD>
+    <LockedCR>false</LockedCR>
+    <LockedSU>false</LockedSU>
+    <MinCSPrice>1000</MinCSPrice>
+    <StackSize>100</StackSize>
+    <HealPower>100</HealPower>
+    <Plural>S</Plural>
+  </ModItemDataXML>
+</ArrayOfModItemDataXML>
+
+<?xml version="1.0"?>
+<ArrayOfModItemDataXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModItemDataXML>
+    <ItemID>WoodSword</ItemID>
+    <Name>HotDog Sword</Name>
+    <Desc>Don't you ever mess with me or my Bratwurst again</Desc>
+    <MinCSPrice>10000</MinCSPrice>
+    <Durability>1500</Durability>
+    <StrikeDamage>5000</StrikeDamage>
+    <StrikeReach>4</StrikeReach>
+  </ModItemDataXML>
+</ArrayOfModItemDataXML>
