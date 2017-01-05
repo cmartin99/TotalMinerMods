@@ -1,12 +1,8 @@
-///
-/// Lockpick Mod - Created by MrMarooca
-/// 
 using Craig.BlockWorld;
 using Craig.Engine;
 using Craig.Engine.Core;
 using Craig.TotalMiner;
 using Craig.TotalMiner.API;
-using Microsoft.Xna.Framework.Audio;
 
 namespace Lockpick
 {
@@ -15,19 +11,34 @@ namespace Lockpick
         public static Item Lockpick;
     }
 
-    class PlayerData
+    public class PlayerData
     {
-        public int LockPickState;
+        public LockPickStatus LockPickState;
         public Timer LockPickTimer;
         public GlobalPoint3D LockPickDoorPos;
+
+        public enum LockPickStatus
+        {
+            Standby,
+            Begin,
+            Lockpicking,
+            Finish
+        }
     }
 
     class Lockpick : ITMPlugin
     {
-        #region ITMPlugin
+        ITMGame game;
+        ITMMap map;
+        ITMWorld world;
+        public static string modPath;
+        public int pickRuns = 2;
+        public int pickRan = 0;
+
 
         void ITMPlugin.WorldSaved(int version)
         {
+
         }
 
         void ITMPlugin.PlayerJoined(ITMPlayer player)
@@ -37,35 +48,22 @@ namespace Lockpick
 
         void ITMPlugin.PlayerLeft(ITMPlayer player)
         {
+
         }
 
-        #endregion
-
-        public static string ModPath;
-
-        ITMGame game;
-        ITMWorld world;
-        ITMMap map;
-        SoundEffect[] pickSounds;
 
         public void Initialize(ITMPluginManager mgr, string path)
         {
             var itemOffset = (Item)mgr.Offsets.ItemID;
             Items.Lockpick = itemOffset++;
-            ModPath = path;
+            modPath = path;
         }
 
         public void InitializeGame(ITMGame game)
         {
             this.game = game;
             this.world = game.World;
-            this.map = game.World.Map;
-
-            // Preload sound effects so gameplay is not hindered by load.
-            pickSounds = new SoundEffect[3];
-            pickSounds[0] = game.AudioManager.LoadSoundEffectFromStream(ModPath + "357_reload1.wav");
-            pickSounds[1] = game.AudioManager.LoadSoundEffectFromStream(ModPath + "357_reload2.wav");
-            pickSounds[2] = game.AudioManager.LoadSoundEffectFromStream(ModPath + "357_reload3.wav");
+            this.map = world.Map;
 
             game.AddNotification("Lockpick Activated", NotifyRecipient.Local);
             game.AddEventItemSwing(Items.Lockpick, OnLockpickSwing);
@@ -73,65 +71,96 @@ namespace Lockpick
 
         public void Update()
         {
+
         }
 
         public void Update(ITMPlayer player)
         {
             var playerData = player.Tag as PlayerData;
 
-            if (playerData.LockPickState > 0)
+            if (playerData.LockPickState != PlayerData.LockPickStatus.Standby)
             {
-                // Simple FSM to manage the different lock pick states.
                 switch (playerData.LockPickState)
                 {
-                    case 1:
-                    case 3:
-                        pickSounds[game.Random.Next(3)].Play();
-                        game.AddNotification("Lockpicking..", NotifyRecipient.Local);
-                        playerData.LockPickTimer.Start(1);
-                        ++playerData.LockPickState;
-                        break;
+                    case PlayerData.LockPickStatus.Begin:
+                        int breakPick = game.Random.Next(1, 8);
+                        if (breakPick != game.Random.Next(1, 8))
+                        {
+                            game.AudioManager.PlaySoundFromStream(modPath + "357_reload" + game.Random.Next(1, 4) + ".wav");
+                            game.AddNotification("Lockpicking..", NotifyRecipient.Local);
+                            playerData.LockPickTimer.Start(1);
+                            playerData.LockPickState = PlayerData.LockPickStatus.Lockpicking;
+                            break;
+                        }
+                        else
+                        {
+                            foreach (InventoryItem itm in player.Inventory.Items)
+                            {
+                                if (itm.ItemID == Items.Lockpick)
+                                {
+                                    player.Inventory.DecrementItem(Items.Lockpick, 1);
+                                    game.AudioManager.PlaySoundFromStream(modPath + "smg1_reload.wav");
+                                    playerData.LockPickState = PlayerData.LockPickStatus.Standby;
+                                    game.AddNotification("Your lockpick has broken!", NotifyRecipient.Local);
+                                    break;
+                                }
+                            }
+                            break;
+                        }
 
-                    case 2:
-                    case 4:
+                    case PlayerData.LockPickStatus.Lockpicking:
                         playerData.LockPickTimer.Update();
-                        if (playerData.LockPickTimer.IsComplete) ++playerData.LockPickState;
+                        if (playerData.LockPickTimer.IsComplete)
+                        {
+                            if (pickRan == pickRuns - 1)
+                            {
+                                playerData.LockPickState = PlayerData.LockPickStatus.Finish;
+                            }
+                            else
+                            {
+                                ++pickRan;
+                                playerData.LockPickState = PlayerData.LockPickStatus.Begin;
+                            }
+                        }
                         break;
 
-                    case 5:
+                    case PlayerData.LockPickStatus.Finish:
                         world.SetPower(playerData.LockPickDoorPos, true, player);
                         map.Commit();
-                        playerData.LockPickState = 0;
+                        pickRan = 0;
+                        playerData.LockPickState = PlayerData.LockPickStatus.Standby;
                         break;
                 }
             }
         }
 
         public void Draw(ITMPlayer player, ITMPlayer virtualPlayer)
-        {            
+        {
+            
         }
 
         void OnLockpickSwing(Item itemID, ITMHand hand)
         {
-            var player = hand.Player;
+            var player = hand.Owner as ITMPlayer;
             if (player == null) return;
             if (player.SwingFace == BlockFace.ProxyDefault) return;
 
             var playerData = player.Tag as PlayerData;
-            if (playerData.LockPickState > 0) return; // Already picking a lock. Cannot pick more than one lock at a time.
+            if (playerData.LockPickState != PlayerData.LockPickStatus.Standby) return;
 
-            var blockID = map.GetBlockID(player.SwingTarget);
+            var blockID = (Block)map.GetBlockID(player.SwingTarget);
             if (blockID == Block.LockedDoorBottom)
             {
-                if (world.IsBlockReceivingPower(player.SwingTarget))
+                var p = player.SwingTarget;
+                if (world.IsBlockReceivingPower(p))
                 {
-                    world.SetPower(player.SwingTarget, false, player);
+                    world.SetPower(p, false, player);
                     map.Commit();
                 }
                 else
                 {
-                    playerData.LockPickState = 1;
-                    playerData.LockPickDoorPos = player.SwingTarget;
+                    playerData.LockPickState = PlayerData.LockPickStatus.Begin;
+                    playerData.LockPickDoorPos = p;
                 }
             }
         }
