@@ -1,0 +1,19 @@
+﻿<?xml version="1.0"?>
+<ArrayOfModItemDataXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModItemDataXML>
+    <ItemID>Lockpick</ItemID>
+    <IDString>Lockpick</IDString>
+    <Name>Lockpick</Name>
+    <Desc>Crack locked doors!</Desc>
+    <IsValid>true</IsValid>
+    <IsEnabled>true</IsEnabled>
+    <LockedDD>true</LockedDD>
+    <LockedCR>false</LockedCR>
+    <LockedSU>false</LockedSU>
+    <MinCSPrice>250</MinCSPrice>
+    <Durability>100</Durability>
+    <StrikeDamage>0</StrikeDamage>
+    <StrikeReach>0</StrikeReach>
+    <Plural>S</Plural>
+  </ModItemDataXML>
+</ArrayOfModItemDataXML>
