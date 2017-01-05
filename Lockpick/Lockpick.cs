@@ -11,11 +11,12 @@ namespace Lockpick
         public static Item Lockpick;
     }
 
-    public class PlayerData
+    class PlayerData
     {
         public LockPickStatus LockPickState;
         public Timer LockPickTimer;
         public GlobalPoint3D LockPickDoorPos;
+        public int pickRan = 0;
 
         public enum LockPickStatus
         {
@@ -32,8 +33,7 @@ namespace Lockpick
         ITMMap map;
         ITMWorld world;
         public static string modPath;
-        public int pickRuns = 2;
-        public int pickRan = 0;
+        public const int pickRuns = 2;
 
 
         void ITMPlugin.WorldSaved(int version)
@@ -112,13 +112,13 @@ namespace Lockpick
                         playerData.LockPickTimer.Update();
                         if (playerData.LockPickTimer.IsComplete)
                         {
-                            if (pickRan == pickRuns - 1)
+                            if (playerData.pickRan == pickRuns - 1)
                             {
                                 playerData.LockPickState = PlayerData.LockPickStatus.Finish;
                             }
                             else
                             {
-                                ++pickRan;
+                                ++playerData.pickRan;
                                 playerData.LockPickState = PlayerData.LockPickStatus.Begin;
                             }
                         }
@@ -127,7 +127,7 @@ namespace Lockpick
                     case PlayerData.LockPickStatus.Finish:
                         world.SetPower(playerData.LockPickDoorPos, true, player);
                         map.Commit();
-                        pickRan = 0;
+                        playerData.pickRan = 0;
                         playerData.LockPickState = PlayerData.LockPickStatus.Standby;
                         break;
                 }
