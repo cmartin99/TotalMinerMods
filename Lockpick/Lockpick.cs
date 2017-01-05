@@ -18,12 +18,10 @@ namespace Lockpick
     enum LockPickStatus
     {
         None,
+        Picking,
+        Delay,
+        Finish,
         PickBroke,
-        StartPicking,
-        Delay1,
-        KeepPicking,
-        Delay2,
-        Finish
     }
 
     class PlayerData
@@ -31,6 +29,8 @@ namespace Lockpick
         public LockPickStatus LockPickState;
         public Timer LockPickTimer;
         public GlobalPoint3D LockPickDoorPos;
+        public int PickAttemptsRequired;
+        public int PickAttemptsCount;
     }
 
     class Lockpick : ITMPlugin
@@ -105,22 +105,23 @@ namespace Lockpick
             {
                 switch (playerData.LockPickState)
                 {
-                    case LockPickStatus.StartPicking:
-                    case LockPickStatus.KeepPicking:
+                    case LockPickStatus.Picking:
                         game.AddNotification("Lockpicking..", NotifyRecipient.Local);
                         pickSounds[game.Random.Next(3)].Play();
                         playerData.LockPickTimer.Start(1);
                         ++playerData.LockPickState;
                         break;
 
-                    case LockPickStatus.Delay1:
-                    case LockPickStatus.Delay2:
+                    case LockPickStatus.Delay:
                         playerData.LockPickTimer.Update();
                         if (playerData.LockPickTimer.IsComplete)
                         {
-                            playerData.LockPickState = (game.Random.Next(8) == 0)
-                                ? LockPickStatus.PickBroke
-                                : playerData.LockPickState + 1;
+                            if (game.Random.Next(8) == 0)
+                                playerData.LockPickState = LockPickStatus.PickBroke;
+                            else
+                                playerData.LockPickState = 
+                                    (++playerData.PickAttemptsCount >= playerData.PickAttemptsRequired) 
+                                        ? LockPickStatus.Finish : LockPickStatus.Picking;
                         }
                         break;
 
@@ -149,7 +150,7 @@ namespace Lockpick
             var playerData = player.Tag as PlayerData;
             if (playerData.LockPickState > LockPickStatus.None) return;
 
-            var blockID = (Block)map.GetBlockID(player.SwingTarget);
+            var blockID = map.GetBlockID(player.SwingTarget);
             if (blockID == Block.LockedDoorBottom)
             {
                 if (world.IsBlockReceivingPower(player.SwingTarget))
@@ -159,8 +160,11 @@ namespace Lockpick
                 }
                 else
                 {
-                    playerData.LockPickState = LockPickStatus.StartPicking;
+                    playerData.LockPickState = LockPickStatus.Picking;
                     playerData.LockPickDoorPos = player.SwingTarget;
+                    playerData.PickAttemptsCount = 0;
+                    var b = map.GetBlockID(player.SwingTarget + GlobalPoint3D.Down);
+                    playerData.PickAttemptsRequired = b == Block.Granite ? 3 : b == Block.Rhyolite ? 4 : 2;
                 }
             }
         }
