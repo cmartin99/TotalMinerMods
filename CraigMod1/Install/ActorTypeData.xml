@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ArrayOfModActorTypeDataXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModActorTypeDataXML>
+    <ActorType>Spider</ActorType>
+    <ComName>SpiderQueen</ComName>
+    <ModelHeight>3</ModelHeight>
+  </ModActorTypeDataXML>
+  <ModActorTypeDataXML>
+    <ActorType>Smiley</ActorType>
+    <ComName>Boy1</ComName>
+    <ComNameWalk>
+      <string>Boy2</string>
+      <string>Boy3</string>
+    </ComNameWalk>
+    <ModelHeight>1.9</ModelHeight>
+    <ModelYRotation>0</ModelYRotation>
+  </ModActorTypeDataXML>
+</ArrayOfModActorTypeDataXML>

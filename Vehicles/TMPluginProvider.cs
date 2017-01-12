@@ -1,24 +1,27 @@
 using Craig.TotalMiner.API;
 
-public class TMPluginProvider : ITMPluginProvider
+namespace VehiclesMod
 {
-    public ITMPlugin GetPlugin()
+    public class MyPluginProvider : ITMPluginProvider
     {
-        return new VehiclesMod.VehiclesMod();
-    }
+        public ITMPlugin GetPlugin()
+        {
+            return new VehiclesMod();
+        }
 
-    public ITMPluginBlocks GetPluginBlocks()
-    {
-        return new VehiclesMod.VehiclesBlocks();
-    }
+        public ITMPluginBlocks GetPluginBlocks()
+        {
+            return new VehiclesBlocks();
+        }
 
-    public ITMPluginArcade GetPluginArcade()
-    {
-        return null;
-    }
+        public ITMPluginArcade GetPluginArcade()
+        {
+            return null;
+        }
 
-    public ITMPluginGUI GetPluginGUI()
-    {
-        return new VehiclesMod.GUIPlugin();
+        public ITMPluginGUI GetPluginGUI()
+        {
+            return new GUIPlugin();
+        }
     }
 }
