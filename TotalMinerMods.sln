@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcadeGames", "ArcadeGames\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lockpick", "Lockpick\Lockpick.csproj", "{755A1420-C00E-4693-8465-A28633C053A8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tree Feller v1", "Tree Feller v1\Tree Feller v1.csproj", "{BCAA242C-02AB-49FB-AA93-0D8832E39DEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -31,6 +33,10 @@ Global
 		{755A1420-C00E-4693-8465-A28633C053A8}.Debug|x86.Build.0 = Debug|x86
 		{755A1420-C00E-4693-8465-A28633C053A8}.Release|x86.ActiveCfg = Release|x86
 		{755A1420-C00E-4693-8465-A28633C053A8}.Release|x86.Build.0 = Release|x86
+		{BCAA242C-02AB-49FB-AA93-0D8832E39DEC}.Debug|x86.ActiveCfg = Debug|x86
+		{BCAA242C-02AB-49FB-AA93-0D8832E39DEC}.Debug|x86.Build.0 = Debug|x86
+		{BCAA242C-02AB-49FB-AA93-0D8832E39DEC}.Release|x86.ActiveCfg = Release|x86
+		{BCAA242C-02AB-49FB-AA93-0D8832E39DEC}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

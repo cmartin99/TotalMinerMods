@@ -1,35 +1,22 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using StudioForge.BlockWorld;
-using StudioForge.Engine;
-using StudioForge.Engine.Core;
-using StudioForge.Engine.Game;
+///
+/// TreeFeller Mod - Created by TM Charles
+///
 using StudioForge.TotalMiner;
 using StudioForge.TotalMiner.API;
-using StudioForge.TotalMiner.Blocks;
-
-
 
 namespace Tree_Feller_v1
 {
     static class Items
     {
-        public static Item TreeFall;
+        public static Item TreeFeller;
     }
 
-    class Class1 : ITMPlugin
+    class TreeFellerMod : ITMPlugin
     {
-        public ITMHand hand;
-        public ITMGame game;
-        public ITMMap map;
+        public static string ModPath;
+        ITMGame game;
+        ITMWorld world;
+        ITMMap map;
 
         #region ITMPlugin
         public void WorldSaved(int version)
@@ -43,6 +30,21 @@ namespace Tree_Feller_v1
         }        
         #endregion
 
+        #region Initialization
+        public void Initialize(ITMPluginManager manager, string path)
+        {
+            var itemOffset = (Item)manager.Offsets.ItemID;
+            Items.TreeFeller = itemOffset++;
+            ModPath = path;
+        }
+        public void InitializeGame(ITMGame game)
+        {
+            this.game = game;
+            world = game.World;
+            map = world.Map;
+            game.AddEventItemSwing(Items.TreeFeller, onAxeSwing);
+        }
+        #endregion
 
         #region Update
         public void Update(ITMPlayer player)
@@ -53,17 +55,11 @@ namespace Tree_Feller_v1
         }
         #endregion 
 
-
-        #region Initialization
-        public void Initialize(ITMPluginManager manager, string data)
+        #region Draw
+        public void Draw(ITMPlayer player, ITMPlayer virtualPlayer)
         {
-        }
-        public void InitializeGame(ITMGame game)
-        {
-            game.AddEventItemSwing(Items.TreeFall, onAxeSwing);
         }
         #endregion
-
 
         void onAxeSwing(Item item, ITMHand hand)
         {
@@ -71,7 +67,7 @@ namespace Tree_Feller_v1
                                           XWX                      OWO
                                           XXX                      0XO
             */
-            var player = hand.Owner as ITMPlayer;
+            var player = hand.Player;
             var blockID = map.GetBlockID(player.SwingTarget);
 
             if(blockID == Block.Wood || blockID == Block.BirchWood)
@@ -79,10 +75,5 @@ namespace Tree_Feller_v1
                 game.AddNotification("Has Detected Block", NotifyRecipient.Local);
             }
         }
-
-        public void Draw(ITMPlayer player, ITMPlayer virtualPlayer)
-        {
-        }
-
     }
 }
