@@ -1,6 +1,5 @@
-using Craig.BlockWorld;
-using Craig.TotalMiner;
-using Craig.TotalMiner.API;
+using StudioForge.TotalMiner;
+using StudioForge.TotalMiner.API;
 
 namespace ArcadeGames
 {

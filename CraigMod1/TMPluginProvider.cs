@@ -1,24 +1,27 @@
-using Craig.TotalMiner.API;
+using StudioForge.TotalMiner.API;
 
-public class TMPluginProvider : ITMPluginProvider
+namespace CraigMod1
 {
-    public ITMPlugin GetPlugin()
+    public class TMPluginProvider : ITMPluginProvider
     {
-        return new CraigMod1.CraigMod1();
-    }
+        public ITMPlugin GetPlugin()
+        {
+            return new CraigMod1();
+        }
 
-    public ITMPluginBlocks GetPluginBlocks()
-    {
-        return null;
-    }
+        public ITMPluginBlocks GetPluginBlocks()
+        {
+            return null;
+        }
 
-    public ITMPluginArcade GetPluginArcade()
-    {
-        return null;
-    }
+        public ITMPluginArcade GetPluginArcade()
+        {
+            return null;
+        }
 
-    public ITMPluginGUI GetPluginGUI()
-    {
-        return null;
+        public ITMPluginGUI GetPluginGUI()
+        {
+            return null;
+        }
     }
 }

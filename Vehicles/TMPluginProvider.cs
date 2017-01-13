@@ -1,4 +1,4 @@
-using Craig.TotalMiner.API;
+using StudioForge.TotalMiner.API;
 
 namespace VehiclesMod
 {

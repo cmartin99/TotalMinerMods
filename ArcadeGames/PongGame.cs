@@ -1,12 +1,11 @@
 ﻿using System;
-using Craig.BlockWorld;
-using Craig.Engine;
-using Craig.Engine.Core;
-using Craig.Engine.Integration;
-using Craig.TotalMiner;
-using Craig.TotalMiner.API;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+using StudioForge.BlockWorld;
+using StudioForge.Engine;
+using StudioForge.Engine.Core;
+using StudioForge.Engine.Integration;
+using StudioForge.TotalMiner;
+using StudioForge.TotalMiner.API;
 
 namespace ArcadeGames
 {

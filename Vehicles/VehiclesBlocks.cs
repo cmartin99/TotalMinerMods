@@ -1,18 +1,17 @@
 using System;
-using Craig.Engine;
-using Craig.BlockWorld;
-using Craig.TotalMiner;
-using Craig.TotalMiner.Blocks;
-using Craig.TotalMiner.API;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
+using StudioForge.BlockWorld;
+using StudioForge.TotalMiner;
+using StudioForge.TotalMiner.API;
+using StudioForge.TotalMiner.Blocks;
 
 namespace VehiclesMod
 {
     static class Blocks
     {
-        public const Block TrainTrackStraight = Craig.TotalMiner.Block.Retro;
-        public const Block TrainTrackCorner = Craig.TotalMiner.Block.CherryMetal;
+        public const Block TrainTrackStraight = StudioForge.TotalMiner.Block.Retro;
+        public const Block TrainTrackCorner = StudioForge.TotalMiner.Block.CherryMetal;
     }
 
     class VehiclesBlocks : ITMPluginBlocks

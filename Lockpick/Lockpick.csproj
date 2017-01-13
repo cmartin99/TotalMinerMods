@@ -43,34 +43,6 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Craig.BlockWorld">
-      <HintPath>..\Bin\Craig.BlockWorld.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Craig.Engine.Core">
-      <HintPath>..\Bin\Craig.Engine.Core.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Craig.Engine.Game">
-      <HintPath>..\Bin\Craig.Engine.Game.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Craig.Engine.GUI">
-      <HintPath>..\Bin\Craig.Engine.GUI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Craig.Engine.Integration">
-      <HintPath>..\Bin\Craig.Engine.Integration.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Craig.Engine.Services">
-      <HintPath>..\Bin\Craig.Engine.Services.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Craig.TotalMiner.API">
-      <HintPath>..\Bin\Craig.TotalMiner.API.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <Private>False</Private>
     </Reference>
@@ -81,6 +53,34 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="mscorlib">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="StudioForge.BlockWorld">
+      <HintPath>..\Bin\StudioForge.BlockWorld.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="StudioForge.Engine.Core">
+      <HintPath>..\Bin\StudioForge.Engine.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="StudioForge.Engine.Game">
+      <HintPath>..\Bin\StudioForge.Engine.Game.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="StudioForge.Engine.GUI">
+      <HintPath>..\Bin\StudioForge.Engine.GUI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="StudioForge.Engine.Integration">
+      <HintPath>..\Bin\StudioForge.Engine.Integration.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="StudioForge.Engine.Services">
+      <HintPath>..\Bin\StudioForge.Engine.Services.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="StudioForge.TotalMiner.API">
+      <HintPath>..\Bin\StudioForge.TotalMiner.API.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System">

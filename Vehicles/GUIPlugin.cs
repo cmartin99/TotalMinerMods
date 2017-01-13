@@ -1,6 +1,6 @@
-using Craig.BlockWorld;
-using Craig.TotalMiner;
-using Craig.TotalMiner.API;
+using StudioForge.BlockWorld;
+using StudioForge.TotalMiner;
+using StudioForge.TotalMiner.API;
 using VehiclesMod.Screens;
 
 namespace VehiclesMod

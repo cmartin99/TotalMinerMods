@@ -1,11 +1,9 @@
-using System.Collections.Generic;
-using Craig.Engine;
-using Craig.BlockWorld;
-using Craig.TotalMiner;
-using Craig.TotalMiner.Blocks;
-using Craig.TotalMiner.Graphics;
-using Craig.TotalMiner.API;
 using Microsoft.Xna.Framework;
+using StudioForge.BlockWorld;
+using StudioForge.Engine;
+using StudioForge.TotalMiner;
+using StudioForge.TotalMiner.API;
+using StudioForge.TotalMiner.Graphics;
 
 namespace VehiclesMod
 {

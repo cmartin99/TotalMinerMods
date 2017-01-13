@@ -1,24 +1,27 @@
-﻿using Craig.TotalMiner.API;
+﻿using StudioForge.TotalMiner.API;
 
-public class TMPluginProvider : ITMPluginProvider
+namespace Lockpick
 {
-    public ITMPlugin GetPlugin()
+    public class TMPluginProvider : ITMPluginProvider
     {
-        return new Lockpick.Lockpick();
-    }
+        public ITMPlugin GetPlugin()
+        {
+            return new Lockpick();
+        }
 
-    public ITMPluginBlocks GetPluginBlocks()
-    {
-        return null;
-    }
+        public ITMPluginBlocks GetPluginBlocks()
+        {
+            return null;
+        }
 
-    public ITMPluginArcade GetPluginArcade()
-    {
-        return null;
-    }
+        public ITMPluginArcade GetPluginArcade()
+        {
+            return null;
+        }
 
-    public ITMPluginGUI GetPluginGUI()
-    {
-        return null;
+        public ITMPluginGUI GetPluginGUI()
+        {
+            return null;
+        }
     }
 }

@@ -1,12 +1,11 @@
+using Microsoft.Xna.Framework.Audio;
 ///
 /// Lockpick Mod - Created by MrMarooca
 ///
-using Craig.BlockWorld;
-using Craig.Engine;
-using Craig.Engine.Core;
-using Craig.TotalMiner;
-using Craig.TotalMiner.API;
-using Microsoft.Xna.Framework.Audio;
+using StudioForge.BlockWorld;
+using StudioForge.Engine.Core;
+using StudioForge.TotalMiner;
+using StudioForge.TotalMiner.API;
 
 namespace Lockpick
 {

@@ -1,24 +1,27 @@
-using Craig.TotalMiner.API;
+using StudioForge.TotalMiner.API;
 
-public class TMPluginProvider : ITMPluginProvider
+namespace ArcadeGames
 {
-    public ITMPlugin GetPlugin()
+    public class TMPluginProvider : ITMPluginProvider
     {
-        return new ArcadeGames.ArcadeGamesMod();
-    }
+        public ITMPlugin GetPlugin()
+        {
+            return new ArcadeGames.ArcadeGamesMod();
+        }
 
-    public ITMPluginBlocks GetPluginBlocks()
-    {
-        return null;
-    }
+        public ITMPluginBlocks GetPluginBlocks()
+        {
+            return null;
+        }
 
-    public ITMPluginArcade GetPluginArcade()
-    {
-        return new ArcadeGames.ArcadePlugin();
-    }
+        public ITMPluginArcade GetPluginArcade()
+        {
+            return new ArcadeGames.ArcadePlugin();
+        }
 
-    public ITMPluginGUI GetPluginGUI()
-    {
-        return null;
+        public ITMPluginGUI GetPluginGUI()
+        {
+            return null;
+        }
     }
 }
