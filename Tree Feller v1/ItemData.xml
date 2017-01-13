@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ArrayOfModItemDataXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModItemDataXML>
+    <ItemID>TreeFall</ItemID>
+    <Name>Tree Faller</Name>
+    <Desc>Crafted from all used to end all wood.</Desc>
+    <IsValid>true</IsValid>
+    <IsEnabled>true</IsEnabled>
+    <LockedDD>true</LockedDD>
+    <LockedCR>false</LockedCR>
+    <LockedSU>false</LockedSU>
+    <MinCSPrice>440016</MinCSPrice>
+    <StackSize>1</StackSize>
+    <Durability>10000</Durability>
+    <StrikeDamage>3</StrikeDamage>
+    <StrikeReach>5</StrikeReach>
+    <HealPower>0</HealPower>
+    <BurnTime>0</BurnTime>
+    <SmeltTime>0</SmeltTime>
+    <ParticleLight>0</ParticleLight>
+    <CanDropIfLocked>true</CanDropIfLocked>
+    <Plural>S</Plural>
+  </ModItemDataXML>
+</ArrayOfModItemDataXML>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ArrayOfModItemModelDataXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModItemModelDataXML>
+    <ItemModelType>Item</ItemModelType>
+    <Scale>9.2</Scale>
+    <HandOffset>
+      <X>0</X>
+      <Y>0.03331069</Y>
+      <Z>1.04895301</Z>
+    </HandOffset>
+    <HandYPR>
+      <X>0</X>
+      <Y>1.35</Y>
+      <Z>0</Z>
+    </HandYPR>
+    <HUDScale>1</HUDScale>
+    <HUDOffset>
+      <X>0</X>
+      <Y>1.06391386</Y>
+      <Z>-0.0002981975</Z>
+    </HUDOffset>
+  </ModItemModelDataXML>
+</ArrayOfModItemModelDataXML>
