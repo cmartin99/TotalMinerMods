@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<ArrayOfModActorAIDataXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModActorAIDataXML>
+    <ActorAIType>CraigyAI</ActorAIType>
+    <StrikeDelay>2</StrikeDelay>
+    <StrikeRange>5</StrikeRange>
+    <RegardRange>70</RegardRange>
+    <HearingRange>100</HearingRange>
+    <AttackRange>10</AttackRange>
+    <InactiveRange>40</InactiveRange>
+  </ModActorAIDataXML>
+</ArrayOfModActorAIDataXML>

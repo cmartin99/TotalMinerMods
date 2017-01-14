@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<ArrayOfModActorPhysicsDataXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModActorPhysicsDataXML>
+    <ActorPhysicsType>CraigyPhysics</ActorPhysicsType>
+    <Acceleration>0.01</Acceleration>
+    <MoveSpeed>0.02</MoveSpeed>
+    <JumpSpeed>0.2</JumpSpeed>
+    <RotateSpeed>0.2</RotateSpeed>
+  </ModActorPhysicsDataXML>
+</ArrayOfModActorPhysicsDataXML>
