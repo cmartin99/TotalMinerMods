@@ -109,6 +109,11 @@
     <None Include="Content\Smiley5.com" />
     <None Include="Content\SpiderQueen.com" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\ActorAIData.xml" />
+    <None Include="Content\ActorLevelData.xml" />
+    <None Include="Content\ActorPhysicsData.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

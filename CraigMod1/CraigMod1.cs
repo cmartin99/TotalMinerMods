@@ -1,6 +1,9 @@
+using StudioForge.Engine.Core;
 using StudioForge.Engine;
 using StudioForge.TotalMiner;
 using StudioForge.TotalMiner.API;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace CraigMod1
 {
@@ -26,6 +29,7 @@ namespace CraigMod1
         ITMGame game;
         float notifyElapsed;
         float particleElapsed;
+        ITMPlayer cam;
 
         public void Initialize(ITMPluginManager mgr, string path)
         {
@@ -73,6 +77,27 @@ namespace CraigMod1
                 //};
                 //game.AddParticle(player.EyePosition, ref data);
                 particleElapsed = 0;
+            }
+
+            if (InputManager.IsKeyReleasedNew(player.PlayerIndex, Keys.K))
+            {
+                if (cam == null)
+                {
+                    cam = player.CreateCamera(player);
+                }
+                else
+                {
+                    player.RemoveCamera(player, cam);
+                    cam = null;
+                }
+            }
+
+            if (cam != null)
+            {
+                var vd = Vector3.Normalize(new Vector3(player.ViewDirection.X, 0, player.ViewDirection.Z));
+                cam.Position = player.EyePosition - vd * 5 + new Vector3(0, 1, 0);
+                cam.ViewDirection = vd;
+                cam.UpdateMatrices();
             }
         }
 

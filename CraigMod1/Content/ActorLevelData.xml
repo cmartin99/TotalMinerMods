@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<ArrayOfModActorLevelDataXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModActorLevelDataXML>
+    <ActorLevelType>CraigyLevel</ActorLevelType>
+    <HealthLevel>100</HealthLevel>
+    <AttackLevel>90</AttackLevel>
+    <StrengthLevel>80</StrengthLevel>
+    <DefenceLevel>70</DefenceLevel>
+    <RangedLevel>60</RangedLevel>
+    <MagicLevel>50</MagicLevel>
+  </ModActorLevelDataXML>
+</ArrayOfModActorLevelDataXML>

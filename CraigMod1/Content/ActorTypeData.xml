@@ -7,6 +7,9 @@
   </ModActorTypeDataXML>
   <ModActorTypeDataXML>
     <ActorType>Smiley</ActorType>
+    <LevelType>CraigyLevel</LevelType>
+    <PhysicsType>CraigyPhysics</PhysicsType>
+    <AIType>CraigyAI</AIType>
     <ComName>Boy1</ComName>
     <ComNameWalk>
       <string>Boy2</string>
