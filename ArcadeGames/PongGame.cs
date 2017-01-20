@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using StudioForge.BlockWorld;
 using StudioForge.Engine;
 using StudioForge.Engine.Core;
@@ -127,31 +128,43 @@ namespace ArcadeGames
         {
             bool result = false;
 
-            var left = InputManager.GetGamepadLeftStick(tmPlayer.PlayerIndex);
-            if (left.Y != 0)
+            if (State == GameState.Play)
             {
-                paddlePos1 += left.Y * paddleSpeed;
-                cpu1 = false;
-                result = true;
+                var left = InputManager.GetGamepadLeftStick(tmPlayer.PlayerIndex);
+                if (left.Y != 0 || left.X != 0)
+                {
+                    paddlePos1 -= left.Y * paddleSpeed;
+                    cpu1 = false;
+                    result = true;
+                }
+
+                var right = InputManager.GetGamepadRightStick(tmPlayer.PlayerIndex);
+                if (right.Y != 0 || right.X != 0)
+                {
+                    paddlePos2 -= right.Y * paddleSpeed;
+                    cpu2 = false;
+                    result = true;
+                }
+
+                var mouse = InputManager.GetMousePosDelta(tmPlayer.PlayerIndex);
+                if (mouse.Y != 0)
+                {
+                    paddlePos2 += mouse.Y;
+                    cpu2 = false;
+                    result = true;
+                }
+
+                if (InputManager1.IsInputReleasedNew(tmPlayer.PlayerIndex, GuiInput.ExitScreen))
+                {
+                    GameOver(false);
+                    result = true;
+                }
             }
 
-            var right = InputManager.GetGamepadRightStick(tmPlayer.PlayerIndex);
-            if (right.Y != 0)
-            {
-                paddlePos2 += right.Y * paddleSpeed;
-                cpu2 = false;
-                result = true;
-            }
-
-            var mouse = InputManager.GetMousePosDelta(tmPlayer.PlayerIndex);
-            if (mouse.Y != 0)
-            {
-                paddlePos2 += mouse.Y;
-                cpu2 = false;
-                result = true;
-            }
-
-            return result;
+            return result ||
+                InputManager.IsButtonPressed(tmPlayer.PlayerIndex, Buttons.A) ||
+                InputManager.IsButtonPressed(tmPlayer.PlayerIndex, Buttons.X) ||
+                InputManager.IsButtonPressed(tmPlayer.PlayerIndex, Buttons.Y);
         }
 
         #endregion
