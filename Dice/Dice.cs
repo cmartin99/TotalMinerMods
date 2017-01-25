@@ -58,7 +58,7 @@ namespace Dice
             this.helper = new JHelper(game);
             this.random = new Random();
 
-            game.AddEventItemSwing(Items.Dice, onSwingItem);
+            game.AddEventItemSwing(Items.Dice, EventSwingItem);
         }
 
         #endregion
@@ -73,7 +73,7 @@ namespace Dice
         {
         }
 
-        void EventSwingItem(Item item, ITMHand hand)
+        public void EventSwingItem(Item item, ITMHand hand)
         {
             helper.NotifyAll($"{hand.Owner.ToString() /* PLACEHOLDER, REPLACE WITH NAME FIELD LATER */} rolled a [{random.Next(6) + 1}]");
         }
