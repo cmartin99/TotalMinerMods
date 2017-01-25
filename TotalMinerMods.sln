@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraigMod1", "CraigMod1\CraigMod1.csproj", "{4140A9F6-ED45-4434-8099-23BF34FDAA1B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vehicles", "Vehicles\Vehicles.csproj", "{6118D9FF-DA77-4A3A-B5DF-2BC4F59995E0}"
@@ -10,6 +12,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lockpick", "Lockpick\Lockpick.csproj", "{755A1420-C00E-4693-8465-A28633C053A8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tree Feller v1", "Tree Feller v1\Tree Feller v1.csproj", "{BCAA242C-02AB-49FB-AA93-0D8832E39DEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dice", "Dice\Dice.csproj", "{312E5474-148C-4586-B5B1-04F70642B092}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadBlocks", "BadBlocks\BadBlocks.csproj", "{DD71C055-A520-4102-80E2-36CE7CE4E9C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +43,14 @@ Global
 		{BCAA242C-02AB-49FB-AA93-0D8832E39DEC}.Debug|x86.Build.0 = Debug|x86
 		{BCAA242C-02AB-49FB-AA93-0D8832E39DEC}.Release|x86.ActiveCfg = Release|x86
 		{BCAA242C-02AB-49FB-AA93-0D8832E39DEC}.Release|x86.Build.0 = Release|x86
+		{312E5474-148C-4586-B5B1-04F70642B092}.Debug|x86.ActiveCfg = Debug|x86
+		{312E5474-148C-4586-B5B1-04F70642B092}.Debug|x86.Build.0 = Debug|x86
+		{312E5474-148C-4586-B5B1-04F70642B092}.Release|x86.ActiveCfg = Release|x86
+		{312E5474-148C-4586-B5B1-04F70642B092}.Release|x86.Build.0 = Release|x86
+		{DD71C055-A520-4102-80E2-36CE7CE4E9C1}.Debug|x86.ActiveCfg = Debug|x86
+		{DD71C055-A520-4102-80E2-36CE7CE4E9C1}.Debug|x86.Build.0 = Debug|x86
+		{DD71C055-A520-4102-80E2-36CE7CE4E9C1}.Release|x86.ActiveCfg = Release|x86
+		{DD71C055-A520-4102-80E2-36CE7CE4E9C1}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
