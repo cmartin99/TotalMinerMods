@@ -2,7 +2,7 @@ using StudioForge.TotalMiner.API;
 
 namespace CraigMod1
 {
-    public class TMPluginProvider : ITMPluginProvider
+    class TMPluginProvider : ITMPluginProvider
     {
         public ITMPlugin GetPlugin()
         {

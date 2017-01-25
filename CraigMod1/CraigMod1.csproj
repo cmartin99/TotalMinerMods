@@ -81,6 +81,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MineBlockNode.cs" />
     <Compile Include="TMPluginProvider.cs" />
     <Compile Include="CraigMod1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

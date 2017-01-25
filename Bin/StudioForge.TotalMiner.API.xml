@@ -132,12 +132,13 @@
             <param name="position">The source position of the sound.</param>
             <returns>The AudioListener object of the closest local player, or null.</returns>
         </member>
-        <member name="M:StudioForge.TotalMiner.API.ITMWorld.BroadcastSound(StudioForge.TotalMiner.API.ITMActor,Microsoft.Xna.Framework.Vector3)">
+        <member name="M:StudioForge.TotalMiner.API.ITMWorld.BroadcastSound(Microsoft.Xna.Framework.Vector3,StudioForge.TotalMiner.API.ITMActor,StudioForge.TotalMiner.SoundType)">
             <summary>
             Instruct the game to broadcast a sound emission to other actors.
             </summary>
+            <param name="origin">The origin position of the sound emission.</param>
             <param name="actor">The actor who emitted the sound.</param>
-            <param name="position">The source position of the sound emission.</param>
+            <param name="soundType">The type of sound emitted.</param>
         </member>
         <member name="M:StudioForge.TotalMiner.API.ITMWorld.IsAnyLocalPlayerInProximity(Microsoft.Xna.Framework.Vector3,System.Single,System.Boolean)">
             <summary>
@@ -190,6 +191,12 @@
             <summary>
             Returns header data about the current world. This property returns a clone so that if you change a field on the object it does not effect the actual world header. For this reason it is best to cache this object and only call this getter again if it is critical to have any changes that might have been made since the last time you called the getter (such as a map rename).
             </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMGame.AddNotification(System.String)">
+            <summary>
+            Adds a new 'pink' notification to the top left of the screen.
+            </summary>
+            <param name="message">The local notification message text.</param>
         </member>
         <member name="M:StudioForge.TotalMiner.API.ITMGame.AddNotification(System.String,StudioForge.TotalMiner.NotifyRecipient)">
             <summary>
