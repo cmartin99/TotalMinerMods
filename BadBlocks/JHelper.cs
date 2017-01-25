@@ -36,9 +36,9 @@ namespace BadBlocks
             game.AddNotification(text, NotifyRecipient.Remote);
         }
 
-        /*public Item GetItem(string name)
+        public Item GetItem(string name)
         {
-            return null;// Array.Find(Globals1.ItemData, i => i.IDString == name).ItemID;
-        }*/
+            return Array.Find(Globals1.ItemData, i => i.IDString == name).ItemID;
+        }
     }
 }

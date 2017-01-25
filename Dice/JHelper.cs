@@ -35,5 +35,10 @@ namespace Dice
         {
             game.AddNotification(text, NotifyRecipient.Remote);
         }
+
+        public Item GetItem(string name)
+        {
+            return Array.Find(Globals1.ItemData, i => i.IDString == name).ItemID;
+        }
     }
 }
