@@ -13,20 +13,38 @@ using StudioForge.TotalMiner;
 
 namespace Dice
 {
+    static class Items
+    {
+        public static Item Dice;
+    }
+
     public class Dice : ITMPlugin
     {
-        static class Items
-        {
-            public static Item Dice;
-        }
+        #region Fields
 
         private ITMGame game;
         private JHelper helper;
         private Random random;
 
-        public void Draw(ITMPlayer player, ITMPlayer virtualPlayer)
+        #endregion
+
+        #region ITMPlugin
+
+        public void PlayerJoined(ITMPlayer player)
         {
         }
+
+        public void PlayerLeft(ITMPlayer player)
+        {
+        }
+
+        public void WorldSaved(int version)
+        {
+        }
+
+        #endregion
+
+        #region Initialization
 
         public void Initialize(ITMPluginManager mgr, string path)
         {
@@ -43,13 +61,9 @@ namespace Dice
             game.AddEventItemSwing(Items.Dice, onSwingItem);
         }
 
-        public void PlayerJoined(ITMPlayer player)
-        {
-        }
+        #endregion
 
-        public void PlayerLeft(ITMPlayer player)
-        {
-        }
+        #region Update
 
         public void Update()
         {
@@ -59,13 +73,19 @@ namespace Dice
         {
         }
 
-        public void WorldSaved(int version)
-        {
-        }
-
-        public void onSwingItem(Item item, ITMHand hand)
+        void EventSwingItem(Item item, ITMHand hand)
         {
             helper.NotifyAll($"{hand.Owner.ToString() /* PLACEHOLDER, REPLACE WITH NAME FIELD LATER */} rolled a [{random.Next(6) + 1}]");
         }
+
+        #endregion
+
+        #region Draw
+
+        public void Draw(ITMPlayer player, ITMPlayer virtualPlayer)
+        {
+        }
+
+        #endregion
     }
 }
