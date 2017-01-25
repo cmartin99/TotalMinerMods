@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ArrayOfModItemTypeDataXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModItemTypeDataXML>
+    <ItemID>Dice</ItemID>
+    <Use>Item</Use>
+    <Type>Item</Type>
+    <SubType>None</SubType>
+    <Class>Hand</Class>
+    <Inv>Other</Inv>
+    <Combat>None</Combat>
+    <Model>Item</Model>
+    <Swing>Key</Swing>
+    <Equip>RightHand</Equip>
+  </ModItemTypeDataXML>
+</ArrayOfModItemTypeDataXML>

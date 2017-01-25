@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lockpick", "Lockpick\Lockpi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tree Feller v1", "Tree Feller v1\Tree Feller v1.csproj", "{BCAA242C-02AB-49FB-AA93-0D8832E39DEC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dice", "Dice\Dice.csproj", "{312E5474-148C-4586-B5B1-04F70642B092}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadBlocks", "BadBlocks\BadBlocks.csproj", "{DD71C055-A520-4102-80E2-36CE7CE4E9C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -37,6 +41,14 @@ Global
 		{BCAA242C-02AB-49FB-AA93-0D8832E39DEC}.Debug|x86.Build.0 = Debug|x86
 		{BCAA242C-02AB-49FB-AA93-0D8832E39DEC}.Release|x86.ActiveCfg = Release|x86
 		{BCAA242C-02AB-49FB-AA93-0D8832E39DEC}.Release|x86.Build.0 = Release|x86
+		{312E5474-148C-4586-B5B1-04F70642B092}.Debug|x86.ActiveCfg = Debug|x86
+		{312E5474-148C-4586-B5B1-04F70642B092}.Debug|x86.Build.0 = Debug|x86
+		{312E5474-148C-4586-B5B1-04F70642B092}.Release|x86.ActiveCfg = Release|x86
+		{312E5474-148C-4586-B5B1-04F70642B092}.Release|x86.Build.0 = Release|x86
+		{DD71C055-A520-4102-80E2-36CE7CE4E9C1}.Debug|x86.ActiveCfg = Debug|x86
+		{DD71C055-A520-4102-80E2-36CE7CE4E9C1}.Debug|x86.Build.0 = Debug|x86
+		{DD71C055-A520-4102-80E2-36CE7CE4E9C1}.Release|x86.ActiveCfg = Release|x86
+		{DD71C055-A520-4102-80E2-36CE7CE4E9C1}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
