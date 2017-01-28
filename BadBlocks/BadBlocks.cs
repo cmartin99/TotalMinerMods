@@ -27,7 +27,7 @@ namespace BadBlocks
         public static string Path;
 
         private ITMGame game;
-        private JHelper helper;
+        private TMHelper helper;
 
         #endregion
 
@@ -64,7 +64,7 @@ namespace BadBlocks
         public void InitializeGame(ITMGame game)
         {
             this.game = game;
-            this.helper = new JHelper(game);
+            this.helper = new TMHelper(game);
 
             foreach (Block b in badBlocks)
             {

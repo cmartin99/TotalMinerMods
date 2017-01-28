@@ -55,17 +55,5 @@ Temporary Items
 # Application files
 
 git*.zip
-CraigMod1/obj/
-CraigMod1/bin/
-Vehicles/obj/
-Vehicles/bin/
-ArcadeGames/obj/
-ArcadeGames/bin/
-Lockpick/obj/
-Lockpick/bin/
-Tree Feller v1/obj/
-Tree Feller v1/bin/
-BadBlocks/obj/
-BadBlocks/bin/
-Dice/obj/
-Dice/bin/
+obj/
+bin/

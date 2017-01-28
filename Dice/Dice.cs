@@ -23,7 +23,7 @@ namespace Dice
         #region Fields
 
         private ITMGame game;
-        private JHelper helper;
+        private TMHelper helper;
         private Random random;
 
         #endregion
@@ -55,7 +55,7 @@ namespace Dice
         public void InitializeGame(ITMGame game)
         {
             this.game = game;
-            this.helper = new JHelper(game);
+            this.helper = new TMHelper(game);
             this.random = new Random();
 
             game.AddEventItemSwing(Items.Dice, EventSwingItem);
