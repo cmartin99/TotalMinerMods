@@ -67,8 +67,21 @@
     <Compile Include="TMHelper.cs" />
     <Compile Include="TMPluginProvider.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\ItemData.xml" />
+    <Content Include="Content\ItemTextures16.xml" />
+    <Content Include="Content\ItemTextures32.xml" />
+    <Content Include="Content\ItemTypeData.xml" />
+    <Content Include="Content\TPI_16.png" />
+    <Content Include="Content\TPI_32.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /Y /E /I "$(TargetPath)" "$(ProjectDir)\Install\"
+xcopy /Y /E /I "$(ProjectDir)\Content" "$(ProjectDir)\Install"
+xcopy /Y /E /I "$(ProjectDir)\Install" "$(HOMEPATH)\Documents\SavedGames\StudioForge.TotalMiner\Total Miner Forge Data\AllPlayers\Mods\$(ProjectName)"</PostBuildEvent>
+  </PropertyGroup>
   <!--
       To modify your build process, add your task inside one of the targets below and uncomment it. 
       Other similar extension points exist, see Microsoft.Common.targets.

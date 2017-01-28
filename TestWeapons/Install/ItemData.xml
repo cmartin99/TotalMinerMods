@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ArrayOfModItemDataXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModItemDataXML>
+    <ItemID>JSword</ItemID>
+    <IDString>JSword</IDString>
+    <Name>J Sword</Name>
+    <Desc>Epic?</Desc>
+    <MinCSPrice>100</MinCSPrice>
+    <Durability>100</Durability>
+    <StrikeDamage>20</StrikeDamage>
+    <StrikeReach>15</StrikeReach>
+    <IsValid>true</IsValid>
+    <IsEnabled>true</IsEnabled>
+  </ModItemDataXML>
+</ArrayOfModItemDataXML>
