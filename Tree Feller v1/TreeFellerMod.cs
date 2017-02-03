@@ -1,6 +1,7 @@
 ///
 /// TreeFeller Mod - Created by TM Charles
 ///
+using StudioForge.Engine.Integration;
 using StudioForge.TotalMiner;
 using StudioForge.TotalMiner.API;
 
@@ -27,7 +28,7 @@ namespace Tree_Feller_v1
         }
         public void PlayerLeft(ITMPlayer player)
         {
-        }        
+        }
         #endregion
 
         #region Initialization
@@ -43,6 +44,13 @@ namespace Tree_Feller_v1
             world = game.World;
             map = world.Map;
             game.AddEventItemSwing(Items.TreeFeller, onAxeSwing);
+        }
+        #endregion
+
+        #region Input
+        public bool HandleInput(ITMPlayer player)
+        {
+            return false;
         }
         #endregion
 

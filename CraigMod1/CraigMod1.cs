@@ -1,5 +1,6 @@
 using StudioForge.Engine.Core;
 using StudioForge.Engine;
+using StudioForge.Engine.Integration;
 using StudioForge.TotalMiner;
 using StudioForge.TotalMiner.API;
 using Microsoft.Xna.Framework;
@@ -50,6 +51,24 @@ namespace CraigMod1
             game.AddNotification("Craig Mod 1: Activated", NotifyRecipient.Local);
         }
 
+        public bool HandleInput(ITMPlayer player)
+        {
+            if (InputManager.IsKeyReleasedNew(player.PlayerIndex, Keys.K))
+            {
+                if (cam == null)
+                {
+                    cam = player.CreateCamera(player);
+                }
+                else
+                {
+                    player.RemoveCamera(player, cam);
+                    cam = null;
+                }
+                return true;
+            }
+            return false;
+        }
+
         public void Update()
         {
             notifyElapsed += Services.ElapsedTime;
@@ -77,19 +96,6 @@ namespace CraigMod1
                 //};
                 //game.AddParticle(player.EyePosition, ref data);
                 particleElapsed = 0;
-            }
-
-            if (InputManager.IsKeyReleasedNew(player.PlayerIndex, Keys.K))
-            {
-                if (cam == null)
-                {
-                    cam = player.CreateCamera(player);
-                }
-                else
-                {
-                    player.RemoveCamera(player, cam);
-                    cam = null;
-                }
             }
 
             if (cam != null)

@@ -11,7 +11,7 @@ namespace CraigMod1
     public class MineBlockNode : BehaviourTreeNode
     {
         [PropertyEditorField(PropertyEditorFieldAttribute.FlagTypes.IsCSV)]
-        public List<Block> BlockIDs;
+        public List<Block> BlockIDs = new List<Block>();
 
         public MineBlockNode()
         {

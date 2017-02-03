@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using StudioForge.BlockWorld;
 using StudioForge.Engine;
+using StudioForge.Engine.Integration;
 using StudioForge.Engine.Core;
 using StudioForge.Engine.GUI;
 using StudioForge.TotalMiner;
@@ -112,6 +113,22 @@ namespace VehiclesMod
 
         #endregion
 
+        #region Input
+
+        public bool HandleInput(ITMPlayer player)
+        {
+            if (consoleWin == null && InputManager.IsKeyReleasedNew(player.PlayerIndex, Microsoft.Xna.Framework.Input.Keys.Home))
+            {
+                consoleWin = new DataField("Chat box: ", 10, 10, 400, 300, 0.5f);
+                consoleWin.Colors = Colors.DataFieldColors;
+                Game.WindowManager.Root.AddChild(consoleWin);
+                return true;
+            }
+            return false;
+        }
+
+        #endregion
+
         #region Update
 
         public void Update()
@@ -121,12 +138,6 @@ namespace VehiclesMod
 
         public void Update(ITMPlayer player)
         {
-            if (consoleWin == null && InputManager.IsKeyReleasedNew(player.PlayerIndex, Microsoft.Xna.Framework.Input.Keys.Home))
-            {
-                consoleWin = new DataField("Chat box: ", 10, 10, 400, 300, 0.5f);
-                consoleWin.Colors = Colors.DataFieldColors;
-                Game.WindowManager.Root.AddChild(consoleWin);
-            }
         }
 
         void UpdateAutoSpawns()

@@ -4,6 +4,7 @@
 using Microsoft.Xna.Framework.Audio;
 using StudioForge.BlockWorld;
 using StudioForge.Engine.Core;
+using StudioForge.Engine.Integration;
 using StudioForge.TotalMiner;
 using StudioForge.TotalMiner.API;
 
@@ -86,6 +87,21 @@ namespace Lockpick
 
             game.AddNotification("Lockpick Activated", NotifyRecipient.Local);
             game.AddEventItemSwing(Items.Lockpick, OnLockpickSwing);
+            game.AddConsoleCommand(CmdUnlock, "unlock", " - unlock door", "");
+        }
+
+        void CmdUnlock(string command, ITMGame game, ITMPlayer caller, ITMPlayer player, IOutputLog log)
+        {
+            OnLockpickSwing(Items.Lockpick, player.RightHand);
+        }
+
+        #endregion
+
+        #region Input
+
+        public bool HandleInput(ITMPlayer player)
+        {
+            return false;
         }
 
         #endregion

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ArrayOfModItemTypeDataXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModItemTypeDataXML>
+    <ItemID>TreeFeller</ItemID>
+    <Use>Item</Use>
+    <Type>Tool</Type>
+    <SubType>RapidSwing</SubType>
+    <Class>None</Class>
+    <Inv>Tool</Inv>
+    <Combat>None</Combat>
+    <Model>Hatchet</Model>
+    <Swing>Item</Swing>
+    <Equip>RightHand</Equip>
+  </ModItemTypeDataXML>
+</ArrayOfModItemTypeDataXML>
