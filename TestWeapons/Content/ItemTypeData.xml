@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ArrayOfModItemTypeDataXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModItemTypeDataXML>
+    <ItemID>JSword</ItemID>
+    <Use>Item</Use>
+    <Type>Weapon</Type>
+    <SubType>RapidSwing</SubType>
+    <Class>CantMine</Class>
+    <Inv>Weapon</Inv>
+    <Combat>None</Combat>
+    <Model>Weapon</Model>
+    <Swing>Weapon</Swing>
+    <Equip>RightHand</Equip>
+  </ModItemTypeDataXML>
+</ArrayOfModItemTypeDataXML>
