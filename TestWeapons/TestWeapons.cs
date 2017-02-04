@@ -34,6 +34,11 @@ namespace TestWeapons
         {
         }
 
+        public bool HandleInput(ITMPlayer player)
+        {
+            return false;
+        }
+
         public void Update()
         {
         }

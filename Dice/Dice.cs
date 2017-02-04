@@ -42,6 +42,11 @@ namespace Dice
         {
         }
 
+        public bool HandleInput(ITMPlayer player)
+        {
+            return false;
+        }
+
         #endregion
 
         #region Initialization
@@ -75,7 +80,7 @@ namespace Dice
 
         public void EventSwingItem(Item item, ITMHand hand)
         {
-            helper.NotifyAll($"{hand.Owner.ToString() /* PLACEHOLDER, REPLACE WITH NAME FIELD LATER */} rolled a [{random.Next(6) + 1}]");
+            //helper.NotifyAll($"{hand.Owner.ToString() /* PLACEHOLDER, REPLACE WITH NAME FIELD LATER */} rolled a [{random.Next(6) + 1}]");
         }
 
         #endregion
