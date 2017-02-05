@@ -92,12 +92,12 @@ namespace BadBlocks
 
         public void EventBlockPlaced(Block block, GlobalPoint3D point, ITMHand hand)
         {
-            //helper.NotifyAdmins($"[{point.X}, {point.Y}, {point.Z}] {hand.Player.ToString() /* PLACEHOLDER, REPLACE WITH NAME FIELD LATER */} placed a {block.ToString()}! Watch out!");
+            helper.NotifyAdmins("[" + point.X + ", " + point.Y + ", " + point.Z + "] " + hand.Player.Name + " placed a " + block.ToString() + "! Watch out!");
         }
 
         public void EventBlockMined(Block block, byte b, GlobalPoint3D point, ITMHand hand)
         {
-            //helper.NotifyAdmins($"[{point.X}, {point.Y}, {point.Z}] {hand.Player.ToString() /* PLACEHOLDER, REPLACE WITH NAME FIELD LATER */} mined a {block.ToString()}! Watch out!");
+            helper.NotifyAdmins("[" + point.X + ", " + point.Y + ", " + point.Z + "] " + hand.Player.Name + " mined a " + block.ToString() + "! Watch out!");
         }
 
         #endregion
