@@ -80,7 +80,7 @@ namespace Dice
 
         public void EventSwingItem(Item item, ITMHand hand)
         {
-            //helper.NotifyAll($"{hand.Owner.ToString() /* PLACEHOLDER, REPLACE WITH NAME FIELD LATER */} rolled a [{random.Next(6) + 1}]");
+            helper.NotifyAll(hand.Owner.Name + " rolled a [" + game.Random.Next(1,6) + "]");
         }
 
         #endregion
