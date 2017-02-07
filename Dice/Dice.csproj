@@ -50,7 +50,7 @@
     <Reference Include="mscorlib" />
     <Reference Include="StudioForge.Engine.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Total Miner\StudioForge.Engine.Core.dll</HintPath>
+      <HintPath>..\Bin\StudioForge.Engine.Core.dll</HintPath>
     </Reference>
     <Reference Include="StudioForge.TotalMiner.API">
       <HintPath>..\Bin\StudioForge.TotalMiner.API.dll</HintPath>
