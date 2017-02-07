@@ -7,14 +7,28 @@ using StudioForge.TotalMiner.Graphics;
 
 namespace VehiclesMod
 {
+    public enum VehicleType
+    {
+        Car,
+        Truck,
+        TrainEngine,
+        TrainCar,
+    }
+
     class Vehicle : Entity
     {
+        #region Fields
+
         public Vector3 Velocity;
         protected VehiclesMod mod;
         protected ITMMap map;
         protected VehicleDataXML data;
         float smokeTimer;
         ParticleData smokeParticle;
+
+        #endregion
+
+        #region Initialization
 
         public Vehicle(VehiclesMod mod, VehicleDataXML data)
         {
@@ -63,6 +77,10 @@ namespace VehiclesMod
                     return new ParticleData();
             }
         }
+
+        #endregion
+
+        #region Update
 
         public override void Update()
         {
@@ -143,14 +161,8 @@ namespace VehiclesMod
                 return Vector3.Backward;
             }
         }
-    }
 
-    public enum VehicleType
-    {
-        Car,
-        Truck,
-        TrainEngine,
-        TrainCar,
+        #endregion
     }
 
     public struct VehicleDataXML
