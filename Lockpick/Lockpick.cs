@@ -87,7 +87,7 @@ namespace Lockpick
 
             game.AddNotification("Lockpick Activated", NotifyRecipient.Local);
             game.AddEventItemSwing(Items.Lockpick, OnLockpickSwing);
-            game.AddConsoleCommand(CmdUnlock, "unlock", " - unlock door", "");
+            game.AddConsoleCommand(CmdUnlock, "unlock", "Use lockpick on a Locked Door", "Use lockpick on a Locked Door\n\nunlock\n\nExamples:\nunlock  -- unlock the door.");
         }
 
         void CmdUnlock(string command, ITMGame game, ITMPlayer caller, ITMPlayer player, IOutputLog log)
