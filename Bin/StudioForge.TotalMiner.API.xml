@@ -9,13 +9,20 @@
             Initialize the Mod. This method is called by the game when the mod is first activated/loaded.
             </summary>
             <param name="mgr">ITMPluginManager object.</param>
-            <param name="path">The absolute path of your Mods folder on disk. Store and use this path if you require to read/write files from your Mods folder.</param>
+            <param name="path">The path of your Mods folder on disk relative to FileSystem.RootPath. Store and use this path if you require to read/write files from your Mods folder.</param>
         </member>
         <member name="M:StudioForge.TotalMiner.API.ITMPlugin.InitializeGame(StudioForge.TotalMiner.API.ITMGame)">
             <summary>
             This method is called by the game when the player has loaded a world.
             </summary>
             <param name="game">ITMGame object.</param>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMPlugin.HandleInput(StudioForge.TotalMiner.API.ITMPlayer)">
+            <summary>
+            This method is called by the game once every frame for every local player. Use this method to process user input.
+            </summary>
+            <param name="player"></param>
+            <returns>True if an input was processed.</returns>
         </member>
         <member name="M:StudioForge.TotalMiner.API.ITMPlugin.Update">
             <summary>
@@ -132,12 +139,13 @@
             <param name="position">The source position of the sound.</param>
             <returns>The AudioListener object of the closest local player, or null.</returns>
         </member>
-        <member name="M:StudioForge.TotalMiner.API.ITMWorld.BroadcastSound(StudioForge.TotalMiner.API.ITMActor,Microsoft.Xna.Framework.Vector3)">
+        <member name="M:StudioForge.TotalMiner.API.ITMWorld.BroadcastSound(Microsoft.Xna.Framework.Vector3,StudioForge.TotalMiner.API.ITMActor,StudioForge.TotalMiner.SoundType)">
             <summary>
             Instruct the game to broadcast a sound emission to other actors.
             </summary>
+            <param name="origin">The origin position of the sound emission.</param>
             <param name="actor">The actor who emitted the sound.</param>
-            <param name="position">The source position of the sound emission.</param>
+            <param name="soundType">The type of sound emitted.</param>
         </member>
         <member name="M:StudioForge.TotalMiner.API.ITMWorld.IsAnyLocalPlayerInProximity(Microsoft.Xna.Framework.Vector3,System.Single,System.Boolean)">
             <summary>
@@ -191,6 +199,28 @@
             Returns header data about the current world. This property returns a clone so that if you change a field on the object it does not effect the actual world header. For this reason it is best to cache this object and only call this getter again if it is critical to have any changes that might have been made since the last time you called the getter (such as a map rename).
             </summary>
         </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMNpcManager.GetNpcs(Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,StudioForge.TotalMiner.ActorType,System.Collections.Generic.List{StudioForge.TotalMiner.API.ITMActor})">
+            <summary>
+            Fills a provided list with all NPCs inside a specified region.
+            If you are calling this method often, then cache the list to avoid garbage issues.
+            </summary>
+            <param name="min">The min bound of the region</param>
+            <param name="max">The max bound of the region</param>
+            <param name="actorType">The type of NPC. Pass ActorType.None to test all NPCs.</param>
+            <param name="result">A valid list you must provide to the method. This list will be filled with NPCs that match the type and are found inside the region.</param>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMNpcManager.NpcList">
+            <summary>
+            A readonly list of all NPCs. Do not alter the contents of the list. This list is not thread safe.
+            Test npc.IsDeadOrInactiveOrDisabled before use if you are only interested in active/alive NPCs.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMGame.AddNotification(System.String)">
+            <summary>
+            Adds a new 'pink' notification to the top left of the screen.
+            </summary>
+            <param name="message">The local notification message text.</param>
+        </member>
         <member name="M:StudioForge.TotalMiner.API.ITMGame.AddNotification(System.String,StudioForge.TotalMiner.NotifyRecipient)">
             <summary>
             Adds a new 'pink' notification to the top left of the screen.
@@ -225,6 +255,50 @@
             </summary>
             <param name="itemID">The Item that has a custom setup screen. This includes Blocks.</param>
             <param name="permission">The permissions the player must have to open the screen.</param>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMGame.AddConsoleCommand(System.Action{System.String,StudioForge.TotalMiner.API.ITMGame,StudioForge.TotalMiner.API.ITMPlayer,StudioForge.TotalMiner.API.ITMPlayer,StudioForge.Engine.Integration.IOutputLog},System.String,System.String,System.String)">
+            <summary>
+            Add a command to the game console window.
+            </summary>
+            <param name="action">The method to execute the command.</param>
+            <param name="cmd">The command (text).</param>
+            <param name="briefHelp">Brief help message, usually one line long, listing any parameters. Displayed by the 'help' command.</param>
+            <param name="fullHelp">A full help message, describing the command and each parameter on a separate line. Displayed by the 'help [command]' command.</param>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMGame.RunConsoleCommand(System.String,StudioForge.TotalMiner.API.ITMPlayer,StudioForge.TotalMiner.API.ITMPlayer,StudioForge.Engine.Integration.IOutputLog)">
+            <summary>
+            Run a raw unparsed console command.
+            </summary>
+            <param name="command">Raw unparsed command text.</param>
+            <param name="caller">The player who executed the command.</param>
+            <param name="player">Target player.</param>
+            <param name="log">Output log.</param>
+            <returns>True if the command was executed.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMGame.RunScript(System.String,StudioForge.TotalMiner.API.ITMActor)">
+            <summary>
+            Run an existing script.
+            </summary>
+            <param name="script">Name of script, including full path.</param>
+            <param name="actor">Actor the script is executed for.</param>
+            <returns>True if the script was found.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMGame.RunSingleScriptCommand(System.String,StudioForge.TotalMiner.API.ITMActor)">
+            <summary>
+            Run a single script command.
+            </summary>
+            <param name="command">Full script command text, unparsed.</param>
+            <param name="actor">Actor the script command is executed for.</param>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMGame.SendTextMessage(System.String,StudioForge.TotalMiner.API.ITMPlayer,StudioForge.TotalMiner.API.ITMPlayer,System.Boolean,System.Boolean)">
+            <summary>
+            Send a text message.
+            </summary>
+            <param name="message">The message text.</param>
+            <param name="sender">The player who sent the message.</param>
+            <param name="recipient">The recipient. Pass null to send to all players.</param>
+            <param name="clan">True if the message is to be sent to all members of recipients clan.</param>
+            <param name="admins">True if the message is to be sent to all admins (recipient and clan are ignored).</param>
         </member>
         <member name="M:StudioForge.TotalMiner.API.ITMGame.RemoveEventBlockMined(StudioForge.TotalMiner.Block,System.Action{StudioForge.TotalMiner.Block,System.Byte,StudioForge.BlockWorld.GlobalPoint3D,StudioForge.TotalMiner.API.ITMHand})">
             <summary>
@@ -266,12 +340,18 @@
             <param name="itemID">The item to count</param>
             <returns></returns>
         </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMInventory.Clear">
+            <summary>
+            Clear all items from inventory.
+            </summary>
+        </member>
         <member name="M:StudioForge.TotalMiner.API.ITMInventory.DecrementItem(StudioForge.TotalMiner.Item,System.Int32)">
             <summary>
             Decrement an items count. If the item count reaches zero, it is also correctly removed from the players hand, hotbar etc.
             </summary>
             <param name="itemID">The item to decrement.</param>
             <param name="qty">The quantity to decrement.</param>
+            <returns>The quantity remaining, i.e. qty - actual.</returns>
         </member>
         <member name="M:StudioForge.TotalMiner.API.ITMInventory.FindItem(StudioForge.TotalMiner.Item)">
             <summary>

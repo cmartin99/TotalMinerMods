@@ -47,6 +47,10 @@ namespace Tree_Feller_v1
         #endregion
 
         #region Update
+        public bool HandleInput(ITMPlayer player)
+        {
+            return false;
+        }
         public void Update(ITMPlayer player)
         {
         }

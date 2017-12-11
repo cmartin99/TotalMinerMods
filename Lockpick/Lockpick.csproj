@@ -100,7 +100,6 @@
     <None Include="Content\357_reload1.wav" />
     <None Include="Content\357_reload2.wav" />
     <None Include="Content\357_reload3.wav" />
-    <None Include="Content\Craig.TotalMiner.API.xml" />
     <None Include="Content\ItemData.xml">
       <SubType>Designer</SubType>
     </None>

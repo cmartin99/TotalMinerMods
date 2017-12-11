@@ -38,6 +38,11 @@ namespace ArcadeGames
             game.AddNotification("Arcade Games: Activated", NotifyRecipient.Local);
         }
 
+        public bool HandleInput(ITMPlayer player)
+        {
+            return false;
+        }
+
         public void Update()
         {
         }

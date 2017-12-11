@@ -50,6 +50,11 @@ namespace CraigMod1
             game.AddNotification("Craig Mod 1: Activated", NotifyRecipient.Local);
         }
 
+        public bool HandleInput(ITMPlayer player)
+        {
+            return false;
+        }
+
         public void Update()
         {
             notifyElapsed += Services.ElapsedTime;
