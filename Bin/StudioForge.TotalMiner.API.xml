@@ -9,7 +9,7 @@
             Initialize the Mod. This method is called by the game when the mod is first activated/loaded.
             </summary>
             <param name="mgr">ITMPluginManager object.</param>
-            <param name="path">The absolute path of your Mods folder on disk. Store and use this path if you require to read/write files from your Mods folder.</param>
+            <param name="path">The path of your Mods folder on disk relative to FileSystem.RootPath. Store and use this path if you require to read/write files from your Mods folder.</param>
         </member>
         <member name="M:StudioForge.TotalMiner.API.ITMPlugin.InitializeGame(StudioForge.TotalMiner.API.ITMGame)">
             <summary>

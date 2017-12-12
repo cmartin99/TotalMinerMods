@@ -173,7 +173,7 @@
   <PropertyGroup>
     <PostBuildEvent>xcopy /Y /E /I "$(TargetPath)" "$(ProjectDir)\Install\"
 xcopy /Y /E /I "$(ProjectDir)\Content" "$(ProjectDir)\Install"
-xcopy /Y /E /I "$(ProjectDir)\Install" "$(HOMEDRIVE)$(HOMEPATH)\Documents\SavedGames\StudioForge.TotalMiner\Total Miner Forge Data\AllPlayers\Mods\$(ProjectName)"</PostBuildEvent>
+xcopy /Y /E /I "$(ProjectDir)\Install" "$(HOMEDRIVE)$(HOMEPATH)\Documents\My Games\TotalMiner\Mods\$(ProjectName)"</PostBuildEvent>
   </PropertyGroup>
   <!--
       To modify your build process, add your task inside one of the targets below and uncomment it. 
