@@ -80,10 +80,10 @@ namespace Lockpick
 
             // Preload sound effects so gameplay is not stuttered by load.
             pickSounds = new SoundEffect[4];
-            //pickSounds[0] = game.AudioManager.LoadSoundEffectFromStream(ModPath + "357_reload1.wav");
-            //pickSounds[1] = game.AudioManager.LoadSoundEffectFromStream(ModPath + "357_reload2.wav");
-            //pickSounds[2] = game.AudioManager.LoadSoundEffectFromStream(ModPath + "357_reload3.wav");
-            //pickSounds[3] = game.AudioManager.LoadSoundEffectFromStream(ModPath + "smg1_reload.wav");            
+            pickSounds[0] = game.AudioManager.LoadSoundEffectFromStream(FileSystem.RootPath + ModPath + "357_reload1.wav");
+            pickSounds[1] = game.AudioManager.LoadSoundEffectFromStream(FileSystem.RootPath + ModPath + "357_reload2.wav");
+            pickSounds[2] = game.AudioManager.LoadSoundEffectFromStream(FileSystem.RootPath + ModPath + "357_reload3.wav");
+            pickSounds[3] = game.AudioManager.LoadSoundEffectFromStream(FileSystem.RootPath + ModPath + "smg1_reload.wav");            
 
             game.AddNotification("Lockpick Activated", NotifyRecipient.Local);
             game.AddEventItemSwing(Items.Lockpick, OnLockpickSwing);

@@ -65,7 +65,7 @@ namespace VehiclesMod
             Items.TrainSpawner = itemOffset++;
             Items.VehicleSpawner = itemOffset++;
 
-            var data = StudioForge.Engine.Core.Utils.Deserialize1<VehicleDataXML[]>(path + "VehicleData.XML");
+            var data = FileSystem.Deserialize<VehicleDataXML[]>(path + "VehicleData.XML");
             var cars = new List<VehicleDataXML>();
             var trucks = new List<VehicleDataXML>();
             var trains = new List<VehicleDataXML>();
