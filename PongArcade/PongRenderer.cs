@@ -5,7 +5,7 @@ using StudioForge.Engine.Core;
 using StudioForge.Engine.Integration;
 using StudioForge.TotalMiner;
 
-namespace ArcadeGames
+namespace PongArcade
 {
     class PongRenderer : IArcadeMachineRenderer
     {

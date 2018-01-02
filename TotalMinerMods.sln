@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraigMod1", "CraigMod1\Crai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vehicles", "Vehicles\Vehicles.csproj", "{6118D9FF-DA77-4A3A-B5DF-2BC4F59995E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcadeGames", "ArcadeGames\ArcadeGames.csproj", "{8FB6C9F3-37C9-43D4-AEB9-B8D5187B7E58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PongArcade", "PongArcade\PongArcade.csproj", "{8FB6C9F3-37C9-43D4-AEB9-B8D5187B7E58}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lockpick", "Lockpick\Lockpick.csproj", "{755A1420-C00E-4693-8465-A28633C053A8}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadBlocks", "BadBlocks\BadBlocks.csproj", "{DD71C055-A520-4102-80E2-36CE7CE4E9C1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWeapons", "TestWeapons\TestWeapons.csproj", "{58A68479-D89A-48CF-8796-3369E0C04CE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TotalDefenderArcade", "TotalDefender\TotalDefenderArcade.csproj", "{E8DDEC8E-B19B-4421-808A-DF5B25F76978}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{58A68479-D89A-48CF-8796-3369E0C04CE3}.Debug|x86.Build.0 = Debug|x86
 		{58A68479-D89A-48CF-8796-3369E0C04CE3}.Release|x86.ActiveCfg = Release|x86
 		{58A68479-D89A-48CF-8796-3369E0C04CE3}.Release|x86.Build.0 = Release|x86
+		{E8DDEC8E-B19B-4421-808A-DF5B25F76978}.Debug|x86.ActiveCfg = Debug|x86
+		{E8DDEC8E-B19B-4421-808A-DF5B25F76978}.Debug|x86.Build.0 = Debug|x86
+		{E8DDEC8E-B19B-4421-808A-DF5B25F76978}.Release|x86.ActiveCfg = Release|x86
+		{E8DDEC8E-B19B-4421-808A-DF5B25F76978}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
