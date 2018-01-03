@@ -65,15 +65,20 @@ namespace TotalDefender
         {
             spriteBatch.Draw(CoreGlobals.BlankTexture, new Rectangle(0, game.GameScreenY, game.ScreenSize.X, 1), Color.White);
             spriteBatch.Draw(CoreGlobals.BlankTexture, new Rectangle(0, game.ScreenSize.Y - 1, game.ScreenSize.X, 1), Color.White);
-            spriteBatch.Draw(CoreGlobals.BlankTexture, game.BallRect, Color.White);
-            spriteBatch.Draw(CoreGlobals.BlankTexture, game.Paddle1Rect, Color.White);
-            spriteBatch.Draw(CoreGlobals.BlankTexture, game.Paddle2Rect, Color.White);
+
+            for (int i = 0; i < game.Mountains.Length; ++i)
+            {
+                var m2 = game.Mountains[i + 1];
+                spriteBatch.DrawLine(CoreGlobals.BlankTexture, 1, Color.RosyBrown, game.Mountains[i], m2);
+                if (m2.X >= game.ScreenSize.X) break;
+            }
+
+            spriteBatch.Draw(CoreGlobals.BlankTexture, game.PlayerRect, Color.White);
         }
 
         void DrawHud()
         {
-            spriteBatch.DrawString(font, game.ScoreText1, new Vector2(4f, 0f), Color.White, 0f, Vector2.Zero, 0.4f, SpriteEffects.None, 0f);
-            spriteBatch.DrawString(font, game.ScoreText2, new Vector2(220, 0f), Color.White, 0f, Vector2.Zero, 0.4f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(font, game.ScoreText, new Vector2(4f, 0f), Color.White, 0f, Vector2.Zero, 0.4f, SpriteEffects.None, 0f);
         }
 
         void DrawGameOver()
