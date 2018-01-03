@@ -8,7 +8,7 @@ using StudioForge.Engine.Integration;
 using StudioForge.TotalMiner;
 using StudioForge.TotalMiner.API;
 
-namespace ArcadeGames
+namespace PongArcade
 {
     class PongGame : ArcadeMachine
     {
@@ -48,15 +48,14 @@ namespace ArcadeGames
         float velInc;
         bool cpu1, cpu2;
 
-        public Rectangle Paddle1Rect { get { return new Rectangle(paddleIndent, (int)(paddlePos1 - paddleSize2.Y), paddleSize.X, paddleSize.Y); } }
-        public Rectangle Paddle2Rect { get { return new Rectangle(ScreenSize.X - paddleIndent - paddleSize.X, (int)(paddlePos2 - paddleSize2.Y), paddleSize.X, paddleSize.Y); } }
-        public Rectangle BallRect { get { return new Rectangle((int)(ballPos.X - ballSize2), (int)(ballPos.Y - ballSize2), ballSize, ballSize);  } }
-
         #endregion
 
         #region Properties
 
         public override bool CanDeactivate { get { return State == GameState.GameOver; } }
+        public Rectangle Paddle1Rect { get { return new Rectangle(paddleIndent, (int)(paddlePos1 - paddleSize2.Y), paddleSize.X, paddleSize.Y); } }
+        public Rectangle Paddle2Rect { get { return new Rectangle(ScreenSize.X - paddleIndent - paddleSize.X, (int)(paddlePos2 - paddleSize2.Y), paddleSize.X, paddleSize.Y); } }
+        public Rectangle BallRect { get { return new Rectangle((int)(ballPos.X - ballSize2), (int)(ballPos.Y - ballSize2), ballSize, ballSize); } }
 
         #endregion
 

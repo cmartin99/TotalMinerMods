@@ -122,7 +122,7 @@ namespace Lockpick
                 {
                     case LockPickStatus.Picking:
                         game.AddNotification("Lockpicking..", NotifyRecipient.Local);
-                        pickSounds[game.Random.Next(3)].Play();
+                        PlayRandSound();
                         playerData.LockPickTimer.Start(1);
                         ++playerData.LockPickState;
                         break;
@@ -142,7 +142,7 @@ namespace Lockpick
 
                     case LockPickStatus.PickBroke:
                         game.AddNotification("Your lockpick has broken!", NotifyRecipient.Local);
-                        pickSounds[3].Play();
+                        PlaySound(3);
                         player.Inventory.DecrementItem(Items.Lockpick, 1);
                         playerData.LockPickState = LockPickStatus.None;
                         break;
@@ -182,6 +182,17 @@ namespace Lockpick
                     playerData.PickAttemptsRequired = b == Block.Granite ? 3 : b == Block.Rhyolite ? 4 : 2;
                 }
             }
+        }
+
+        void PlayRandSound()
+        {
+            PlaySound(game.Random.Next(3));
+        }
+
+        void PlaySound(int i)
+        {
+            if (i >= 0 && i < pickSounds.Length && pickSounds[i] != null)
+                pickSounds[i].Play();
         }
 
         #endregion

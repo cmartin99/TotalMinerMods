@@ -2,9 +2,9 @@ using StudioForge.Engine.Integration;
 using StudioForge.TotalMiner;
 using StudioForge.TotalMiner.API;
 
-namespace ArcadeGames
+namespace TotalDefender
 {
-    class ArcadeGamesMod : ITMPlugin
+    class TotalDefenderMod : ITMPlugin
     {
         #region ITMPlugin
 
@@ -23,7 +23,6 @@ namespace ArcadeGames
         #endregion
 
         public static string Path;
-        ITMGame game;
 
         public void Initialize(ITMPluginManager mgr, string path)
         {
@@ -35,8 +34,6 @@ namespace ArcadeGames
 
         public void InitializeGame(ITMGame game)
         {
-            this.game = game;
-            game.AddNotification("Arcade Games: Activated", NotifyRecipient.Local);
         }
 
         public bool HandleInput(ITMPlayer player)

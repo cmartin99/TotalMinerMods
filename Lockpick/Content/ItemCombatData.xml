@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<ArrayOfModItemCombatDataXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModItemCombatDataXML>
+    <CombatID>Lockpick</CombatID>
+    <Health>10</Health>
+    <Attack>20</Attack>
+    <Strength>30</Strength>
+    <Defence>40</Defence>
+    <Ranged>50</Ranged>
+    <Looting>60</Looting>
+  </ModItemCombatDataXML>
+</ArrayOfModItemCombatDataXML>
