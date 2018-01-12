@@ -66,14 +66,32 @@ namespace TotalDefender
             spriteBatch.Draw(CoreGlobals.BlankTexture, new Rectangle(0, game.GameScreenY, game.ScreenSize.X, 1), Color.White);
             spriteBatch.Draw(CoreGlobals.BlankTexture, new Rectangle(0, game.ScreenSize.Y - 1, game.ScreenSize.X, 1), Color.White);
 
-            for (int i = 0; i < game.Mountains.Length; ++i)
+            for (int i = 0; i < game.Mountains.Length - 1; ++i)
             {
+                var m1 = game.Mountains[i];
+                m1.X -= game.PlayerWorldPos.X;
                 var m2 = game.Mountains[i + 1];
-                spriteBatch.DrawLine(CoreGlobals.BlankTexture, 1, Color.RosyBrown, game.Mountains[i], m2);
-                if (m2.X >= game.ScreenSize.X) break;
+                m2.X -= game.PlayerWorldPos.X;
+                if (m2.X > 0 && m1.X < game.ScreenSize.X)
+                    spriteBatch.DrawLine(CoreGlobals.BlankTexture, 1, Color.RosyBrown, m1, m2);
+            }
+
+            var bulletRect = new Rectangle(0, 0, 0, 1);
+            Vector3 bullet;
+            for (int i = 0; i < game.BulletsAlive.Length; ++i)
+            {
+                if (game.BulletsAlive[i])
+                {
+                    bullet = game.Bullets[i];
+                    bulletRect.X = (int)bullet.X;
+                    bulletRect.Y = (int)bullet.Y;
+                    bulletRect.Width = (int)bullet.Z;
+                    spriteBatch.Draw(CoreGlobals.BlankTexture, bulletRect, Color.Green);
+                }
             }
 
             spriteBatch.Draw(CoreGlobals.BlankTexture, game.PlayerRect, Color.White);
+            spriteBatch.DrawString(font, game.PlayerWorldPos.ToString(), new Vector2(40, 1), Color.White, 0, Vector2.Zero, 0.4f, SpriteEffects.None, 0);
         }
 
         void DrawHud()
