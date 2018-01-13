@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StudioForge.Engine.Integration;
 using StudioForge.Engine.Core;
@@ -73,7 +74,8 @@ namespace SimpleGui
             win.Colors = Colors.LabelColors;
             canvas.AddChild(win);
             win = tbox = df = new DataField(data.DataField, x + w + 1, y, w, h, scale);
-            win.Colors = Colors.DataFieldColors;
+            win.Colors = Colors.DataFieldColors.Copy(new DataField.ColorProfile());
+            win.Colors.BackColor = Color.Transparent;
             ((ITextInputWindow)df).OnValidateInput = ValidateDatafield;
             canvas.AddChild(win);
             y += h + g;
