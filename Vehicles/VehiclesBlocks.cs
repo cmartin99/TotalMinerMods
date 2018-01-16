@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
+using StudioForge.Engine.GamerServices;
 using StudioForge.BlockWorld;
 using StudioForge.TotalMiner;
 using StudioForge.TotalMiner.API;
@@ -27,7 +28,7 @@ namespace VehiclesMod
             this.map = game.World.Map;
         }
 
-        public DataBlock NewDataBlock(GlobalPoint3D p, Block blockID, short playerID)
+        public DataBlock NewDataBlock(GlobalPoint3D p, Block blockID, GamerID playerID)
         {
             return null;
         }

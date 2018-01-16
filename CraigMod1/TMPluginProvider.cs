@@ -23,5 +23,10 @@ namespace CraigMod1
         {
             return null;
         }
+
+        public ITMPluginNet GetPluginNet()
+        {
+            return null;
+        }
     }
 }

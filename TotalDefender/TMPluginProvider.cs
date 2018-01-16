@@ -6,7 +6,7 @@ namespace TotalDefender
     {
         public ITMPlugin GetPlugin()
         {
-            return new TotalDefender.TotalDefenderMod();
+            return new TotalDefenderMod();
         }
 
         public ITMPluginBlocks GetPluginBlocks()
@@ -20,6 +20,11 @@ namespace TotalDefender
         }
 
         public ITMPluginGUI GetPluginGUI()
+        {
+            return null;
+        }
+
+        public ITMPluginNet GetPluginNet()
         {
             return null;
         }

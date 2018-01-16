@@ -1,16 +1,22 @@
-﻿using StudioForge.TotalMiner.API;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using StudioForge.TotalMiner.API;
 
-namespace BadBlocks
+namespace ProjectOSRS
 {
-    class TMPluginProvider : ITMPluginProvider
+    public class TMPluginProvider : ITMPluginProvider
     {
         public ITMPlugin GetPlugin()
         {
-            return new BadBlocks();
+            return new ProjectOSRS();
         }
 
         public ITMPluginArcade GetPluginArcade()

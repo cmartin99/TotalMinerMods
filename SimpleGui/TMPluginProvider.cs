@@ -23,5 +23,10 @@ namespace SimpleGui
         {
             return null;
         }
+
+        public ITMPluginNet GetPluginNet()
+        {
+            return null;
+        }
     }
 }

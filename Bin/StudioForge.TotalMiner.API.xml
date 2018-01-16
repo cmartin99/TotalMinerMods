@@ -329,6 +329,28 @@
             Clear all items from inventory.
             </summary>
         </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMInventory.AddToInventory(StudioForge.TotalMiner.Item)">
+            <summary>
+            Add an item to inventory pack.
+            </summary>
+            <param name="itemID">The item to add.</param>
+            <returns>The quantity added.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMInventory.AddToInventory(StudioForge.TotalMiner.Item,System.Int32)">
+            <summary>
+            Add an item to inventory pack.
+            </summary>
+            <param name="itemID">The item to add.</param>
+            <param name="count">The quantity to add.</param>
+            <returns>The quantity added.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMInventory.AddToInventory(StudioForge.TotalMiner.InventoryItem)">
+            <summary>
+            Add an item to inventory pack.
+            </summary>
+            <param name="item">The item to add.</param>
+            <returns>The quantity added.</returns>
+        </member>
         <member name="M:StudioForge.TotalMiner.API.ITMInventory.DecrementItem(StudioForge.TotalMiner.Item,System.Int32)">
             <summary>
             Decrement an items count. If the item count reaches zero, it is also correctly removed from the players hand, hotbar etc.

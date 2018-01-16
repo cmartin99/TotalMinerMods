@@ -27,5 +27,10 @@ namespace TestWeapons
         {
             return null;
         }
+
+        public ITMPluginNet GetPluginNet()
+        {
+            return null;
+        }
     }
 }

@@ -20,5 +20,10 @@ namespace Tree_Feller_v1
         {
             return null;
         }
+
+        public ITMPluginNet GetPluginNet()
+        {
+            return null;
+        }
     }
 }

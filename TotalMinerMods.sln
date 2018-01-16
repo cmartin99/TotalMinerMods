@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TotalDefenderArcade", "Tota
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleGui", "SimpleGui\SimpleGui.csproj", "{8383EAE1-6B5D-465F-88A0-CD1AB5289A4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestNet", "TestNet\TestNet.csproj", "{890E4064-4B48-4D1F-ACBB-8E06BC15854C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectOSRS", "ProjectOSRS\ProjectOSRS.csproj", "{FDB74348-D583-48D4-B736-269214A6D449}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -67,6 +71,14 @@ Global
 		{8383EAE1-6B5D-465F-88A0-CD1AB5289A4A}.Debug|x86.Build.0 = Debug|x86
 		{8383EAE1-6B5D-465F-88A0-CD1AB5289A4A}.Release|x86.ActiveCfg = Release|x86
 		{8383EAE1-6B5D-465F-88A0-CD1AB5289A4A}.Release|x86.Build.0 = Release|x86
+		{890E4064-4B48-4D1F-ACBB-8E06BC15854C}.Debug|x86.ActiveCfg = Debug|x86
+		{890E4064-4B48-4D1F-ACBB-8E06BC15854C}.Debug|x86.Build.0 = Debug|x86
+		{890E4064-4B48-4D1F-ACBB-8E06BC15854C}.Release|x86.ActiveCfg = Release|x86
+		{890E4064-4B48-4D1F-ACBB-8E06BC15854C}.Release|x86.Build.0 = Release|x86
+		{FDB74348-D583-48D4-B736-269214A6D449}.Debug|x86.ActiveCfg = Debug|x86
+		{FDB74348-D583-48D4-B736-269214A6D449}.Debug|x86.Build.0 = Debug|x86
+		{FDB74348-D583-48D4-B736-269214A6D449}.Release|x86.ActiveCfg = Release|x86
+		{FDB74348-D583-48D4-B736-269214A6D449}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
