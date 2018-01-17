@@ -56,25 +56,26 @@ namespace TestNet
         {
         }
 
-        void ITMNetworkManager.EndSession(INetworkSession session)
+        void ITMNetworkManager.EndSession()
         {
         }
 
-        INetworkSession ITMNetworkManager.JoinSession(IAvailableNetworkSession session)
+        INetworkSession ITMNetworkManager.JoinSession(IAvailableNetworkSession session, Gamer joiner)
         {
             return null;
         }
 
-        void ITMNetworkManager.ReadData(PacketReader data, out NetworkGamer sender)
+        bool ITMNetworkManager.ReadData(PacketReader data, out NetworkGamer sender)
         {
             sender = null;
+            return false;
         }
 
         void ITMNetworkManager.SendData(PacketWriter data, SendDataOptions options, NetworkGamer recipient)
         {
         }
 
-        bool ITMNetworkManager.ProcessPacket(PacketReader data, NetworkGamer sender)
+        bool ITMNetworkManager.ParseCustomPacket(PacketReader data, NetworkGamer sender)
         {
             return false;
         }
