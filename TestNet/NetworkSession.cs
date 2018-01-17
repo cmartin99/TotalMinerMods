@@ -13,13 +13,19 @@ namespace TestNet
         public event EventHandler<GameEventArgs> GameEnded;
         public event EventHandler<NetworkSessionEndedEventArgs> SessionEnded;
 
+        List<NetworkGamer> localGamers = new List<NetworkGamer>();
+        List<NetworkGamer> remoteGamers = new List<NetworkGamer>();
+        List<NetworkGamer> allGamers = new List<NetworkGamer>();
+        NetworkSessionProperties properties = new NetworkSessionProperties();
+        bool isDisposed;
+
         public void Update()
         {
         }
 
         List<NetworkGamer> INetworkSession.AllGamers
         {
-            get { return null; }
+            get { return allGamers; }
         }
 
         void INetworkSession.EndGame()
@@ -39,7 +45,7 @@ namespace TestNet
 
         bool INetworkSession.IsDisposed
         {
-            get { return false; }
+            get { return isDisposed; }
         }
 
         bool INetworkSession.IsHost
@@ -49,22 +55,22 @@ namespace TestNet
 
         List<NetworkGamer> INetworkSession.LocalGamers
         {
-            get { return null; }
+            get { return localGamers; }
         }
 
         List<NetworkGamer> INetworkSession.RemoteGamers
         {
-            get { return null; }
+            get { return remoteGamers; }
         }
 
         NetworkSessionProperties INetworkSession.SessionProperties
         {
-            get { return null; }
+            get { return properties; }
         }
 
         NetworkSessionState INetworkSession.SessionState
         {
-            get { throw new NotImplementedException(); }
+            get { return NetworkSessionState.Playing; }
         }
 
         NetworkSessionType INetworkSession.SessionType
@@ -82,6 +88,7 @@ namespace TestNet
 
         void IDisposable.Dispose()
         {
+            isDisposed = true;
         }
     }
 }
