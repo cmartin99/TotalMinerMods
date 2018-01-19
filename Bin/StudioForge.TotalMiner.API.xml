@@ -60,6 +60,12 @@
             </summary>
             <param name="player"></param>
         </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMNetworkManager.Initialize(System.Int32)">
+            <summary>
+            Used to initialize the Network Manager.
+            </summary>
+            <param name="exeVersion">The current version of the game executable.</param>
+        </member>
         <member name="M:StudioForge.TotalMiner.API.ITMNetworkManager.FindSessions">
             <summary>
             Retrieves a list of network sessions available to join.
@@ -68,7 +74,7 @@
         </member>
         <member name="M:StudioForge.TotalMiner.API.ITMNetworkManager.JoinSession(StudioForge.Engine.Net.IAvailableNetworkSession,StudioForge.Engine.GamerServices.Gamer)">
             <summary>
-            Joins a network session.
+            Called by a client to join an existing network session.
             </summary>
             <param name="session">The available session to join.</param>
             <param name="joiner">The gamer joining the session.</param>
@@ -76,7 +82,7 @@
         </member>
         <member name="M:StudioForge.TotalMiner.API.ITMNetworkManager.CreateSession(StudioForge.Engine.Net.NetworkSessionType,StudioForge.Engine.GamerServices.Gamer)">
             <summary>
-            Create a new network session for others to join.
+            Called by the Host Gamer to create a new network session for others to join.
             </summary>
             <param name="type">Type of network session.</param>
             <param name="host">The gamer who is the host of the session (session creator).</param>
@@ -84,7 +90,7 @@
         </member>
         <member name="M:StudioForge.TotalMiner.API.ITMNetworkManager.EndSession">
             <summary>
-            End the current network session. 
+            Called if the Host ends the current network session or the session is disconnected.
             </summary>
         </member>
         <member name="M:StudioForge.TotalMiner.API.ITMNetworkManager.SendData(StudioForge.Engine.Net.PacketWriter,StudioForge.Engine.Net.SendDataOptions,StudioForge.Engine.Net.NetworkGamer)">

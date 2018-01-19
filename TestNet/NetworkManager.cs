@@ -20,6 +20,10 @@ namespace TestNet
             gamers = new List<NetworkGamer>();
         }
 
+        public void Initialize(int exeVersion)
+        {
+        }
+
         public INetworkSession CreateSession(NetworkSessionType type, Gamer host)
         {
             gamers.Clear();
