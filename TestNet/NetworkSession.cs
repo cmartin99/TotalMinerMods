@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using StudioForge.Engine.GamerServices;
 using StudioForge.Engine.Net;
+using StudioForge.TotalMiner;
 
 namespace TestNet
 {
@@ -16,8 +17,13 @@ namespace TestNet
         List<NetworkGamer> localGamers = new List<NetworkGamer>();
         List<NetworkGamer> remoteGamers = new List<NetworkGamer>();
         List<NetworkGamer> allGamers = new List<NetworkGamer>();
-        NetworkSessionProperties properties = new NetworkSessionProperties();
+        SessionProperties properties;
         bool isDisposed;
+
+        public NetworkSession(SessionProperties properties)
+        {
+            this.properties = properties;
+        }
 
         public void Update()
         {
@@ -63,7 +69,7 @@ namespace TestNet
             get { return remoteGamers; }
         }
 
-        NetworkSessionProperties INetworkSession.SessionProperties
+        object INetworkSession.SessionProperties
         {
             get { return properties; }
         }

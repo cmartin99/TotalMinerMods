@@ -60,12 +60,6 @@
             </summary>
             <param name="player"></param>
         </member>
-        <member name="M:StudioForge.TotalMiner.API.ITMNetworkManager.Initialize(System.Int32)">
-            <summary>
-            Used to initialize the Network Manager.
-            </summary>
-            <param name="exeVersion">The current version of the game executable.</param>
-        </member>
         <member name="M:StudioForge.TotalMiner.API.ITMNetworkManager.FindSessions">
             <summary>
             Retrieves a list of network sessions available to join.
@@ -80,12 +74,13 @@
             <param name="joiner">The gamer joining the session.</param>
             <returns>A connected network session or null if coould not join.</returns>
         </member>
-        <member name="M:StudioForge.TotalMiner.API.ITMNetworkManager.CreateSession(StudioForge.Engine.Net.NetworkSessionType,StudioForge.Engine.GamerServices.Gamer)">
+        <member name="M:StudioForge.TotalMiner.API.ITMNetworkManager.CreateSession(StudioForge.Engine.Net.NetworkSessionType,StudioForge.Engine.GamerServices.Gamer,StudioForge.TotalMiner.SessionProperties)">
             <summary>
             Called by the Host Gamer to create a new network session for others to join.
             </summary>
             <param name="type">Type of network session.</param>
             <param name="host">The gamer who is the host of the session (session creator).</param>
+            <param name="properties">Properties describing the session.</param>
             <returns>A connected session or null if it could not be created.</returns>
         </member>
         <member name="M:StudioForge.TotalMiner.API.ITMNetworkManager.EndSession">

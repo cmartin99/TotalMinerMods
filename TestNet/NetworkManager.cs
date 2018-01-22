@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using StudioForge.Engine.GamerServices;
 using StudioForge.Engine.Net;
+using StudioForge.TotalMiner;
 using StudioForge.TotalMiner.API;
 
 namespace TestNet
@@ -20,14 +21,10 @@ namespace TestNet
             gamers = new List<NetworkGamer>();
         }
 
-        public void Initialize(int exeVersion)
-        {
-        }
-
-        public INetworkSession CreateSession(NetworkSessionType type, Gamer host)
+        public INetworkSession CreateSession(NetworkSessionType type, Gamer host, SessionProperties properties)
         {
             gamers.Clear();
-            session = new NetworkSession();
+            session = new NetworkSession(properties);
             return session;
         }
 
@@ -40,7 +37,6 @@ namespace TestNet
         public List<IAvailableNetworkSession> FindSessions()
         {
             var sess = new AvailableNetworkSession(NetworkSessionType.PlayerMatch, "Hello");
-            sess.SessionProperties[0] = 0;
             sess.QualityOfService = new QualityOfService();
             var result = new List<IAvailableNetworkSession>();
             result.Add(sess);
