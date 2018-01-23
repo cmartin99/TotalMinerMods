@@ -60,10 +60,11 @@
             </summary>
             <param name="player"></param>
         </member>
-        <member name="M:StudioForge.TotalMiner.API.ITMNetworkManager.FindSessions">
+        <member name="M:StudioForge.TotalMiner.API.ITMNetworkManager.FindSessions(StudioForge.TotalMiner.SessionMatching)">
             <summary>
             Retrieves a list of network sessions available to join.
             </summary>
+            <param name="match">Matchmaking properties.</param>
             <returns>List of network sessions available to join.</returns>
         </member>
         <member name="M:StudioForge.TotalMiner.API.ITMNetworkManager.JoinSession(StudioForge.Engine.Net.IAvailableNetworkSession,StudioForge.Engine.GamerServices.Gamer)">

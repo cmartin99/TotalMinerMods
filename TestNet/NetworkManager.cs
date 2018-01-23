@@ -34,7 +34,7 @@ namespace TestNet
             session = null;
         }
 
-        public List<IAvailableNetworkSession> FindSessions()
+        public List<IAvailableNetworkSession> FindSessions(SessionMatching match)
         {
             var sess = new AvailableNetworkSession(NetworkSessionType.PlayerMatch, "Hello");
             sess.QualityOfService = new QualityOfService();
