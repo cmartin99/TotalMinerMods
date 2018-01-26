@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TotalDefenderArcade", "Tota
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleGui", "SimpleGui\SimpleGui.csproj", "{8383EAE1-6B5D-465F-88A0-CD1AB5289A4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TotalRoboArcade", "TotalRoboArcade\TotalRoboArcade.csproj", "{BEAB97C9-3992-48CA-93ED-2C69E8D45E7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -67,6 +69,10 @@ Global
 		{8383EAE1-6B5D-465F-88A0-CD1AB5289A4A}.Debug|x86.Build.0 = Debug|x86
 		{8383EAE1-6B5D-465F-88A0-CD1AB5289A4A}.Release|x86.ActiveCfg = Release|x86
 		{8383EAE1-6B5D-465F-88A0-CD1AB5289A4A}.Release|x86.Build.0 = Release|x86
+		{BEAB97C9-3992-48CA-93ED-2C69E8D45E7E}.Debug|x86.ActiveCfg = Debug|x86
+		{BEAB97C9-3992-48CA-93ED-2C69E8D45E7E}.Debug|x86.Build.0 = Debug|x86
+		{BEAB97C9-3992-48CA-93ED-2C69E8D45E7E}.Release|x86.ActiveCfg = Release|x86
+		{BEAB97C9-3992-48CA-93ED-2C69E8D45E7E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
