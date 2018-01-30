@@ -60,11 +60,83 @@
             </summary>
             <param name="player"></param>
         </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMNetworkManager.FindSessions(StudioForge.TotalMiner.SessionMatching)">
+            <summary>
+            Retrieves a list of network sessions available to join.
+            </summary>
+            <param name="match">Matchmaking properties.</param>
+            <returns>List of network sessions available to join.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMNetworkManager.JoinSession(StudioForge.Engine.Net.IAvailableNetworkSession,StudioForge.Engine.GamerServices.Gamer)">
+            <summary>
+            Called by a client to join an existing network session.
+            </summary>
+            <param name="session">The available session to join.</param>
+            <param name="joiner">The gamer joining the session.</param>
+            <returns>A connected network session or null if coould not join.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMNetworkManager.CreateSession(StudioForge.Engine.Net.NetworkSessionType,StudioForge.Engine.GamerServices.Gamer,StudioForge.TotalMiner.SessionProperties)">
+            <summary>
+            Called by the Host Gamer to create a new network session for others to join.
+            </summary>
+            <param name="type">Type of network session.</param>
+            <param name="host">The gamer who is the host of the session (session creator).</param>
+            <param name="properties">Properties describing the session.</param>
+            <returns>A connected session or null if it could not be created.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMNetworkManager.EndSession">
+            <summary>
+            Called if the Host ends the current network session or the session is disconnected.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMNetworkManager.SendData(StudioForge.Engine.Net.PacketWriter,StudioForge.Engine.Net.SendDataOptions,StudioForge.Engine.Net.NetworkGamer)">
+            <summary>
+            Send a packet to a remote gamer. If recipient is null, send the packet to all remote gamers.
+            </summary>
+            <param name="data">Packet to send.</param>
+            <param name="options">Send options.</param>
+            <param name="recipient">Gamer to receive the packet. If null all remote gamers in the session receive the packet.</param>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMNetworkManager.ReadData(StudioForge.Engine.Net.PacketReader,StudioForge.Engine.Net.NetworkGamer@)">
+            <summary>
+            Fill a PacketReader with packet data intended for the local gamer.
+            </summary>
+            <param name="data">The PacketReader stream to be filled with the packet data intended for the local gamer.</param>
+            <param name="sender">The gamer who sent the packet.</param>
+            <returns>True if there is still packets to read (from other senders). False if no more packets to read.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMNetworkManager.ParseCustomPacket(StudioForge.Engine.Net.PacketReader,StudioForge.Engine.Net.NetworkGamer)">
+            <summary>
+            Allows Mods to read and parse custom packets.
+            </summary>
+            <param name="data"></param>
+            <param name="sender">The gamer who sent the packet.</param>
+            <returns>Returns True if the packet was processed, false if not (a different mods packet).</returns>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMNetworkManager.Session">
+            <summary>
+            Returns the current Network Session or null if no session connected.
+            </summary>
+        </member>
         <member name="M:StudioForge.TotalMiner.Sounds.Initialize(StudioForge.TotalMiner.API.ITMGame)">
             <summary>
             Implementation detail. Consumers should not call.
             </summary>
             <param name="game">Game Instance</param>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMEntityManager.AddEntity(System.String,System.String,StudioForge.TotalMiner.Entity)">
+            <summary>
+            Add an Entity to the world.
+            </summary>
+            <param name="comPack">The name of the Component Pack the the entities model component resides in.</param>
+            <param name="comName">The name of the component used as the entities model.</param>
+            <param name="entity">An entity object.</param>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMEntityManager.RemoveEntity(StudioForge.TotalMiner.Entity)">
+            <summary>
+            Remove an Entity from the world.
+            </summary>
+            <param name="entity">The entity to remove.</param>
         </member>
         <member name="M:StudioForge.TotalMiner.API.ITMWorld.GetBlockBox(StudioForge.BlockWorld.GlobalPoint3D,StudioForge.TotalMiner.Block)">
             <summary>
@@ -194,9 +266,84 @@
             <param name="dest">The destination Tile position to teleport the entities to.</param>
             <param name="relative">False = all entities are teleported directly to tile position 'dest' regardless of their position in the area. True = all entities are teleported to a tile position relative to 'dest' and their original position relative to 'min'. e.g. final position = dest + (entity position - min)</param>
         </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMWorld.IsCreativeMode">
+            <summary>
+            Returns True if this is a Creative Mode world.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMWorld.IsSurvivalMode">
+            <summary>
+             Returns True if this is a Survival Mode world.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMWorld.IsPeacefulMode">
+            <summary>
+            Returns True if this is a Peaceful Mode world.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMWorld.IsDigDeepMode">
+            <summary>
+            Returns True if this is a Dig Deep Mode world.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMWorld.IsFiniteResources">
+            <summary>
+            Returns True if Finite Resources is enabled.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMWorld.IsSkillsEnabled">
+            <summary>
+            Returns True if Local or Global Skills are enabled.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMWorld.IsLocalSkillsEnabled">
+            <summary>
+            Returns True if Local Skills are enabled.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMWorld.IsLocalSkills">
+            <summary>
+            Returns True if this is a Local Skills world.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMWorld.IsPeacefulDifficulty">
+            <summary>
+            Returns True if Peaceful Difficulty is enabled.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMWorld.IsEasyDifficulty">
+            <summary>
+            Returns True if Easy Difficulty is enabled.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMWorld.IsNormalDifficulty">
+            <summary>
+            Returns True if Normal Difficulty is enabled.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMWorld.IsLegendaryDifficulty">
+            <summary>
+            Returns True if Legendary Difficulty is enabled.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMWorld.Map">
+            <summary>
+            Returns a reference to the Map object.
+            </summary>
+        </member>
         <member name="P:StudioForge.TotalMiner.API.ITMWorld.Header">
             <summary>
             Returns header data about the current world. This property returns a clone so that if you change a field on the object it does not effect the actual world header. For this reason it is best to cache this object and only call this getter again if it is critical to have any changes that might have been made since the last time you called the getter (such as a map rename).
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMWorld.CurrentBiome">
+            <summary>
+            Returns the worlds current Biome.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMWorld.Zones">
+            <summary>
+             Returns a List of all Zones in the world.
             </summary>
         </member>
         <member name="M:StudioForge.TotalMiner.API.ITMGame.AddNotification(System.String)">
@@ -328,6 +475,28 @@
             <summary>
             Clear all items from inventory.
             </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMInventory.AddToInventory(StudioForge.TotalMiner.Item)">
+            <summary>
+            Add an item to inventory pack.
+            </summary>
+            <param name="itemID">The item to add.</param>
+            <returns>The quantity added.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMInventory.AddToInventory(StudioForge.TotalMiner.Item,System.Int32)">
+            <summary>
+            Add an item to inventory pack.
+            </summary>
+            <param name="itemID">The item to add.</param>
+            <param name="count">The quantity to add.</param>
+            <returns>The quantity added.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMInventory.AddToInventory(StudioForge.TotalMiner.InventoryItem)">
+            <summary>
+            Add an item to inventory pack.
+            </summary>
+            <param name="item">The item to add.</param>
+            <returns>The quantity added.</returns>
         </member>
         <member name="M:StudioForge.TotalMiner.API.ITMInventory.DecrementItem(StudioForge.TotalMiner.Item,System.Int32)">
             <summary>
@@ -515,6 +684,12 @@
             <param name="lootTable">A custom loot table for the NPC. null = use default.</param>
             <param name="combatStats">Custom combat stats for the NPC. null = use default.</param>
             <returns></returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMNpcManager.DeactivateNpc(StudioForge.TotalMiner.API.ITMActor)">
+            <summary>
+            Deactivate an NPC.
+            </summary>
+            <param name="npc">The NPC to deactivate.</param>
         </member>
         <member name="P:StudioForge.TotalMiner.API.ITMNpcManager.NpcList">
             <summary>

@@ -18,7 +18,7 @@ namespace Dice
         public static Item Dice;
     }
 
-    public class Dice : ITMPlugin
+    class Dice : ITMPlugin
     {
         #region Fields
 

@@ -23,5 +23,10 @@ namespace PongArcade
         {
             return null;
         }
+
+        public ITMPluginNet GetPluginNet()
+        {
+            return null;
+        }
     }
 }

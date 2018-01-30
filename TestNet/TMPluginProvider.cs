@@ -1,20 +1,20 @@
 ﻿using StudioForge.TotalMiner.API;
 
-namespace Lockpick
+namespace TestNet
 {
-    public class TMPluginProvider : ITMPluginProvider
+    class TMPluginProvider : ITMPluginProvider
     {
         public ITMPlugin GetPlugin()
         {
-            return new Lockpick();
+            return new TestNetPlugin();
         }
 
-        public ITMPluginBlocks GetPluginBlocks()
+        public ITMPluginArcade GetPluginArcade()
         {
             return null;
         }
 
-        public ITMPluginArcade GetPluginArcade()
+        public ITMPluginBlocks GetPluginBlocks()
         {
             return null;
         }
@@ -26,7 +26,7 @@ namespace Lockpick
 
         public ITMPluginNet GetPluginNet()
         {
-            return null;
+            return new TestNetPluginNet();
         }
     }
 }
