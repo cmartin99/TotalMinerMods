@@ -27,6 +27,10 @@ namespace TestNet
         {
         }
 
+        void ITMPlugin.UnloadMod()
+        {
+        }
+
         void ITMPlugin.PlayerJoined(ITMPlayer player)
         {
         }

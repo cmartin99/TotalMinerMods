@@ -36,6 +36,10 @@ namespace ProjectOSRS
             setRegistry.RegisterEvents(game);
         }
 
+        public void UnloadMod()
+        {
+        }
+
         public void PlayerJoined(ITMPlayer player)
         {
         }

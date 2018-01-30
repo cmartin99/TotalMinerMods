@@ -30,6 +30,10 @@ namespace Dice
 
         #region ITMPlugin
 
+        public void UnloadMod()
+        {
+        }
+
         public void PlayerJoined(ITMPlayer player)
         {
         }

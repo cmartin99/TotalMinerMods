@@ -20,6 +20,10 @@ namespace Tree_Feller_v1
         ITMMap map;
 
         #region ITMPlugin
+
+        public void UnloadMod()
+        {
+        }
         public void WorldSaved(int version)
         {
         }

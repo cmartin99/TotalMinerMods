@@ -17,6 +17,11 @@
             </summary>
             <param name="game">ITMGame object.</param>
         </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMPlugin.UnloadMod">
+            <summary>
+            Called if the mod is unloaded.
+            </summary>
+        </member>
         <member name="M:StudioForge.TotalMiner.API.ITMPlugin.HandleInput(StudioForge.TotalMiner.API.ITMPlayer)">
             <summary>
             This method is called by the game once every frame for every local player. Use this method to process user input.

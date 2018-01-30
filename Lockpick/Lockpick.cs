@@ -48,6 +48,10 @@ namespace Lockpick
 
         #region ITMPlugin
 
+        void ITMPlugin.UnloadMod()
+        {
+        }
+
         void ITMPlugin.WorldSaved(int version)
         {
         }

@@ -14,6 +14,10 @@ namespace SimpleGui
 
         #region ITMPlugin
 
+        void ITMPlugin.UnloadMod()
+        {
+        }
+
         public void PlayerJoined(ITMPlayer player)
         {
         }
