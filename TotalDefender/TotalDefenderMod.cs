@@ -2,7 +2,7 @@ using StudioForge.Engine.Integration;
 using StudioForge.TotalMiner;
 using StudioForge.TotalMiner.API;
 
-namespace TotalDefender
+namespace TotalDefenderArcade
 {
     class TotalDefenderMod : ITMPlugin
     {

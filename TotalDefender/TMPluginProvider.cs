@@ -1,6 +1,6 @@
 using StudioForge.TotalMiner.API;
 
-namespace TotalDefender
+namespace TotalDefenderArcade
 {
     public class TMPluginProvider : ITMPluginProvider
     {
@@ -16,7 +16,7 @@ namespace TotalDefender
 
         public ITMPluginArcade GetPluginArcade()
         {
-            return new TotalDefender.TotalDefenderPlugin();
+            return new TotalDefenderPlugin();
         }
 
         public ITMPluginGUI GetPluginGUI()
