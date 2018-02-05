@@ -44,7 +44,7 @@ namespace TotalDefenderArcade
 
             using (var stream = File.OpenRead(FileSystem.RootPath + TotalDefenderMod.Path + "SpriteSheet.png")) SpriteSheet = Texture2D.FromStream(CoreGlobals.GraphicsDevice, stream);
 
-            SpriteAnimations = new SpriteAnimation[9];
+            SpriteAnimations = new SpriteAnimation[10];
             SpriteAnimations[(int)EntityType.Player] = new SpriteAnimation() { Rect = new Rectangle[] { new Rectangle(0, 39, 15, 6), new Rectangle(22, 39, 15, 6) } };
             SpriteAnimations[(int)EntityType.Humaniod] = new SpriteAnimation() { Rect = new Rectangle[] { new Rectangle(82,0,3,8) } };
             SpriteAnimations[(int)EntityType.Lander] = new SpriteAnimation() { Rect = new Rectangle[] { new Rectangle(110, 13, 9, 8), new Rectangle(126, 13, 9, 8), new Rectangle(140, 13, 9, 8), new Rectangle(1, 26, 9, 8), new Rectangle(15, 26, 9, 8), new Rectangle(31, 26, 9, 8) } };
@@ -53,6 +53,7 @@ namespace TotalDefenderArcade
             SpriteAnimations[(int)EntityType.Pod] = new SpriteAnimation() { Rect = new Rectangle[] { new Rectangle(56, 0, 7, 7), new Rectangle(70, 0, 7, 7) } };
             SpriteAnimations[(int)EntityType.Swarmer] = new SpriteAnimation() { Rect = new Rectangle[] { new Rectangle(88, 13, 5, 4), new Rectangle(100, 13, 5, 4) } };
             SpriteAnimations[(int)EntityType.Baiter] = new SpriteAnimation() { Rect = new Rectangle[] { new Rectangle(45, 26, 11, 4), new Rectangle(63, 26, 11, 4), new Rectangle(79, 26, 11, 4), new Rectangle(97, 26, 11, 4), new Rectangle(113, 26, 11, 4), new Rectangle(131, 26, 11, 4) } };
+            SpriteAnimations[(int)EntityType.BomberBomb] = new SpriteAnimation() { Rect = new Rectangle[] { new Rectangle(52, 13, 3, 3), new Rectangle(62, 13, 3, 3), new Rectangle(70, 13, 3, 3), new Rectangle(80, 13, 3, 3) } };
 
             playerDeathRect = new Rectangle(21, 90, 15, 6);
         }
@@ -143,7 +144,7 @@ namespace TotalDefenderArcade
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, DepthStencilState.None, null);
 
-            var rect = new Rectangle();
+            var bulletOrigin = new Vector2(1.0f, 1.0f);
             Entity entity;
             for (i = 0; i < game.Entities.Length; ++i)
             {
@@ -152,11 +153,20 @@ namespace TotalDefenderArcade
                 {
                     pos.X = game.GetScreenX(entity.Position.X);
                     pos.Y = entity.Position.Y + y;
-                    DrawAnimatedSprite(pos, entity.Type);
+
+                    if (entity.Type != EntityType.EnemyBullet)
+                    {
+                        DrawAnimatedSprite(pos, entity.Type);
+                    }
+                    else
+                    {
+                        spriteBatch.Draw(CoreGlobals.BlankTexture, pos, null, Color.White, 0, bulletOrigin, 2, SpriteEffects.None, 0);
+                    }
                 }
             }
 
             Vector4 bullet;
+            var rect = new Rectangle();
             rect.Height = 1;
             for (i = 0; i < game.BulletsAlive.Length; ++i)
             {
@@ -211,7 +221,8 @@ namespace TotalDefenderArcade
             y += 24;
             spriteBatch.DrawStringCentered(font, "Completed", y, color, scale);
             y += 40;
-            spriteBatch.DrawStringCentered(font, "Bonus X 100", y, color, scale);
+            int points = game.Wave < 5 ? game.Wave * 100 : 500;
+            spriteBatch.DrawStringCentered(font, "Bonus X " + points.ToString() , y, color, scale);
             y += 40;
             int x = 112;
             for (int i = 0; i < 10; i++)
@@ -275,7 +286,7 @@ namespace TotalDefenderArcade
             for (int i = 0; i < game.Entities.Length; ++i)
             {
                 entity = game.Entities[i];
-                if (entity.Type != EntityType.None)
+                if (entity.Type != EntityType.None && entity.Type != EntityType.EnemyBullet && entity.Type != EntityType.BomberBomb)
                 {
                     pos = game.GetRadarSpace(entity.Position) + game.RadarPos;
                     spriteBatch.Draw(CoreGlobals.BlankTexture, new Rectangle((int)pos.X, (int)pos.Y, 1, 1), GetEntityColor(entity.Type));

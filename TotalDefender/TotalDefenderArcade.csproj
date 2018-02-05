@@ -88,7 +88,7 @@
   <PropertyGroup>
     <PostBuildEvent>xcopy /Y /E /I "$(TargetPath)" "$(ProjectDir)\Install\"
 xcopy /Y /E /I "$(ProjectDir)\Content" "$(ProjectDir)\Install"
-xcopy /Y /E /I "$(ProjectDir)\Install" "$(HOMEDRIVE)$(HOMEPATH)\Documents\My Games\TotalMiner\Mods\$(ProjectName)"
+xcopy /Y /E /I "$(ProjectDir)\Install" "$(HOMEDRIVE)$(HOMEPATH)\Documents\My Games\TotalMinerBeta\Mods\$(ProjectName)"
 xcopy /Y /E /I "$(ProjectDir)\Install" "$(HOMEDRIVE)$(HOMEPATH)\Documents\My Games\TotalMinerBeta\Mods\$(ProjectName)"
 xcopy /Y /E /I "$(ProjectDir)\Install" "$(HOMEDRIVE)$(HOMEPATH)\Documents\My Games\TotalMinerBetaNet\Mods\$(ProjectName)"
 </PostBuildEvent>
