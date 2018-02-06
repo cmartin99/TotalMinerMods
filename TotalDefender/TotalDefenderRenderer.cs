@@ -156,7 +156,7 @@ namespace TotalDefenderArcade
 
                     if (entity.Type != EntityType.EnemyBullet)
                     {
-                        DrawAnimatedSprite(pos, entity.Type);
+                        DrawAnimatedSprite(pos, entity.Rotation, entity.Type);
                     }
                     else
                     {
@@ -184,7 +184,7 @@ namespace TotalDefenderArcade
             if (game.PlayerState == EntityState.Default)
             {
                 SpriteAnimations[(int)EntityType.Player].Effects = game.PlayerDir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-                DrawAnimatedSprite(game.PlayerScreenPos + new Vector2(0, y), EntityType.Player);
+                DrawAnimatedSprite(game.PlayerScreenPos + new Vector2(0, y), 0, EntityType.Player);
             }
             else if (game.PlayerState == EntityState.PlayerDeath)
             {
@@ -193,12 +193,12 @@ namespace TotalDefenderArcade
             }
         }
 
-        void DrawAnimatedSprite(Vector2 pos, EntityType type)
+        void DrawAnimatedSprite(Vector2 pos, float rot, EntityType type)
         {
-            DrawAnimatedSprite(pos, type, 1);
+            DrawAnimatedSprite(pos, type, rot, 1);
         }
 
-        void DrawAnimatedSprite(Vector2 pos, EntityType type, float scale)
+        void DrawAnimatedSprite(Vector2 pos, EntityType type, float rot, float scale)
         {
             var anim = SpriteAnimations[(int)type];
             int frame = (int)((long)(Services.TotalTime * 10) % (long)anim.Rect.Length);
@@ -208,7 +208,7 @@ namespace TotalDefenderArcade
                 pos.X += (float)(game.Random.NextDouble() * 2.0 - 1.0);
                 pos.Y += (float)(game.Random.NextDouble() * 2.0 - 1.0);
             }
-            spriteBatch.Draw(SpriteSheet, pos, animRect, Color.White, 0, new Vector2(animRect.Width * 0.5f, animRect.Height * 0.5f), scale, anim.Effects, 0);
+            spriteBatch.Draw(SpriteSheet, pos, animRect, Color.White, rot, new Vector2(animRect.Width * 0.5f, animRect.Height * 0.5f), scale, anim.Effects, 0);
         }
 
         void DrawEndOfWave()
@@ -229,7 +229,7 @@ namespace TotalDefenderArcade
             {
                 if (game.Entities[i].Type == EntityType.Humaniod)
                 {
-                    DrawAnimatedSprite(new Vector2(x, y), EntityType.Humaniod, 1.5f);
+                    DrawAnimatedSprite(new Vector2(x, y), EntityType.Humaniod, 0, 1.5f);
                     x += 18;
                 }
             }
@@ -316,7 +316,7 @@ namespace TotalDefenderArcade
                 case EntityType.Mutant:
                     return Color.Gray;
                 case EntityType.Bomber:
-                    return Color.Blue;
+                    return Color.BlueViolet;
                 case EntityType.Pod:
                     return Color.Purple;
                 case EntityType.Swarmer:
