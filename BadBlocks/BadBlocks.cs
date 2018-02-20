@@ -33,6 +33,10 @@ namespace BadBlocks
 
         #region ITMPlugin
 
+        void ITMPlugin.UnloadMod()
+        {
+        }
+
         public void PlayerJoined(ITMPlayer player)
         {
         }

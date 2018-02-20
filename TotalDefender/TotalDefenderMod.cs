@@ -2,11 +2,15 @@ using StudioForge.Engine.Integration;
 using StudioForge.TotalMiner;
 using StudioForge.TotalMiner.API;
 
-namespace TotalDefender
+namespace TotalDefenderArcade
 {
     class TotalDefenderMod : ITMPlugin
     {
         #region ITMPlugin
+
+        void ITMPlugin.UnloadMod()
+        {
+        }
 
         void ITMPlugin.WorldSaved(int version)
         {

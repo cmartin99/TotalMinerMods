@@ -12,6 +12,10 @@ namespace CraigMod1
     {
         #region ITMPlugin
 
+        void ITMPlugin.UnloadMod()
+        {
+        }
+
         void ITMPlugin.WorldSaved(int version)
         {
         }

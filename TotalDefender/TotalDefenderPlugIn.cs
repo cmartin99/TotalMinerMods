@@ -2,7 +2,7 @@ using StudioForge.BlockWorld;
 using StudioForge.TotalMiner;
 using StudioForge.TotalMiner.API;
 
-namespace TotalDefender
+namespace TotalDefenderArcade
 {
     class TotalDefenderPlugin : ITMPluginArcade
     {

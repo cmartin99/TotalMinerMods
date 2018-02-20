@@ -21,6 +21,10 @@ namespace VehiclesMod
     {
         #region ITMPlugin
 
+        void ITMPlugin.UnloadMod()
+        {
+        }
+
         void ITMPlugin.WorldSaved(int version)
         {
         }

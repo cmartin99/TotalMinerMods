@@ -23,5 +23,10 @@ namespace VehiclesMod
         {
             return new GUIPlugin();
         }
+
+        public ITMPluginNet GetPluginNet()
+        {
+            return null;
+        }
     }
 }

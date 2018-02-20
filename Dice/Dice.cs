@@ -18,7 +18,7 @@ namespace Dice
         public static Item Dice;
     }
 
-    public class Dice : ITMPlugin
+    class Dice : ITMPlugin
     {
         #region Fields
 
@@ -29,6 +29,10 @@ namespace Dice
         #endregion
 
         #region ITMPlugin
+
+        public void UnloadMod()
+        {
+        }
 
         public void PlayerJoined(ITMPlayer player)
         {

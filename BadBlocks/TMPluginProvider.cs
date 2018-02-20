@@ -27,5 +27,10 @@ namespace BadBlocks
         {
             return null;
         }
+
+        public ITMPluginNet GetPluginNet()
+        {
+            return null;
+        }
     }
 }

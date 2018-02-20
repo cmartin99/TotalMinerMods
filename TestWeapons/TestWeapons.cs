@@ -26,6 +26,10 @@ namespace TestWeapons
         {
         }
 
+        void ITMPlugin.UnloadMod()
+        {
+        }
+
         public void PlayerJoined(ITMPlayer player)
         {
         }
