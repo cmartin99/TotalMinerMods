@@ -341,6 +341,11 @@
             Returns header data about the current world. This property returns a clone so that if you change a field on the object it does not effect the actual world header. For this reason it is best to cache this object and only call this getter again if it is critical to have any changes that might have been made since the last time you called the getter (such as a map rename).
             </summary>
         </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMWorld.WorldPath">
+            <summary>
+            Returns the full file path for the current world.
+            </summary>
+        </member>
         <member name="P:StudioForge.TotalMiner.API.ITMWorld.CurrentBiome">
             <summary>
             Returns the worlds current Biome.
