@@ -4,6 +4,36 @@
         <name>StudioForge.TotalMiner.API</name>
     </assembly>
     <members>
+        <member name="M:StudioForge.TotalMiner.API.ITMPluginProvider.GetPlugin">
+            <summary>
+            Called by the game. Implemented by the mod. All mods must implement this method.
+            </summary>
+            <returns>An ITMPlugin implementation.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMPluginProvider.GetPluginGUI">
+            <summary>
+            Called by the game. Implemented by mods that provide custom GUI screens.
+            </summary>
+            <returns>An ITMPluginGUI implementation.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMPluginProvider.GetPluginBlocks">
+            <summary>
+            Called by the game. Implemented by mods that customize blocks.
+            </summary>
+            <returns>An ITMPluginBlocks implementation.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMPluginProvider.GetPluginArcade">
+            <summary>
+            Called by the game. Implemented by mods that supply arcade block games.
+            </summary>
+            <returns>An ITMPluginArcade implementation.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMPluginProvider.GetPluginNet">
+            <summary>
+            Called by the game. Implemented by mods that supply a networking server.
+            </summary>
+            <returns>An ITMPluginNet implementation.</returns>
+        </member>
         <member name="M:StudioForge.TotalMiner.API.ITMPlugin.Initialize(StudioForge.TotalMiner.API.ITMPluginManager,System.String)">
             <summary>
             Initialize the Mod. This method is called by the game when the mod is first activated/loaded.
@@ -64,6 +94,66 @@
             This method is called once for each player that leaves the game.
             </summary>
             <param name="player"></param>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMEnvManager.AddFog(StudioForge.BlockWorld.GlobalPoint3D,System.Single,System.Single,System.Single,System.Single,Microsoft.Xna.Framework.Color,System.Int32,System.Boolean)">
+            <summary>
+            Add a Fog section.
+            </summary>
+            <param name="center">The center of the section.</param>
+            <param name="radius">The radius of the section.</param>
+            <param name="duration">The duration of the section in seconds.</param>
+            <param name="transitDuration">The on/off transition duration time in seconds.</param>
+            <param name="intensity">The intensity of the fog. Normalized. 0 = Weak. 1 = Opaque.</param>
+            <param name="color">The color of the fog.</param>
+            <param name="visibility">The view distance in blocks through the fog.</param>
+            <param name="transmit">Transmit the section addition to remote gamers.</param>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMEnvManager.RemoveFog(StudioForge.BlockWorld.GlobalPoint3D,System.Boolean)">
+            <summary>
+            Remove a Fog section.
+            </summary>
+            <param name="center">The center of the section to remove.</param>
+            <param name="transmit">Transmit the section removal to remote gamers.</param>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMEnvManager.AddHail(StudioForge.BlockWorld.GlobalPoint3D,System.Single,System.Single,System.Single,System.Single,Microsoft.Xna.Framework.Color,System.Single,System.Single,System.Boolean)">
+            <summary>
+            Add a Hail section.
+            </summary>
+            <param name="center">The center of the section.</param>
+            <param name="radius">The radius of the section.</param>
+            <param name="duration">The duration of the section in seconds.</param>
+            <param name="transitDuration">The on/off transition duration time in seconds.</param>
+            <param name="intensity">The intensity of the hail. Normalized. 0 = Weak. 1 = Intense.</param>
+            <param name="color">The color of the hail.</param>
+            <param name="minSize">The minimum size of a hail stone in meters. e.g. 0.01 = 1 cm.</param>
+            <param name="maxSize">The maximum size of a hail stone in meters. e.g. 0.01 = 1 cm.</param>
+            <param name="transmit">Transmit the section addition to remote gamers.</param>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMEnvManager.RemoveHail(StudioForge.BlockWorld.GlobalPoint3D,System.Boolean)">
+            <summary>
+            Remove a Hail section.
+            </summary>
+            <param name="center">The center of the section to remove.</param>
+            <param name="transmit">Transmit the section removal to remote gamers.</param>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMEnvManager.AddRain(StudioForge.BlockWorld.GlobalPoint3D,System.Single,System.Single,System.Single,System.Single,Microsoft.Xna.Framework.Color,System.Boolean)">
+            <summary>
+            Add a Rain section.
+            </summary>
+            <param name="center">The center of the section.</param>
+            <param name="radius">The radius of the section.</param>
+            <param name="duration">The duration of the section in seconds.</param>
+            <param name="transitDuration">The on/off transition duration time in seconds.</param>
+            <param name="intensity">The intensity of the rain. Normalized. 0 = Weak. 1 = Strong.</param>
+            <param name="color">The color of the rain.</param>
+            <param name="transmit">Transmit the section addition to remote gamers.</param>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMEnvManager.RemoveRain(StudioForge.BlockWorld.GlobalPoint3D,System.Boolean)">
+            <summary>
+            Remove a Rain section.
+            </summary>
+            <param name="center">The center of the section to remove.</param>
+            <param name="transmit">Transmit the section removal to remote gamers.</param>
         </member>
         <member name="M:StudioForge.TotalMiner.API.ITMNetworkManager.FindSessions(StudioForge.TotalMiner.SessionMatching)">
             <summary>
@@ -129,6 +219,172 @@
             </summary>
             <param name="game">Game Instance</param>
         </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMActor.AddToInventory(StudioForge.TotalMiner.InventoryItem)">
+            <summary>
+            Add an item to the actors inventory.
+            </summary>
+            <returns>The quantity added.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMActor.AddToInventory(StudioForge.TotalMiner.InventoryItem,System.Int32@)">
+            <summary>
+            Add an item to the actors inventory, returning the slot id where the item was added.
+            </summary>
+            <returns>The quantity added.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMActor.EquipFromInventory(StudioForge.TotalMiner.Item)">
+            <summary>
+            Equip an item from the actors inventory into the items default hand.
+            </summary>
+            <returns>True if the item was successfully equipped.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMActor.EquipFromInventory(StudioForge.TotalMiner.API.ITMHand,StudioForge.TotalMiner.Item)">
+            <summary>
+            Equip an item from the actors inventory into a specified hand.
+            </summary>
+            <param name="hand">The hand to equip the item into. If null, result = EquipFromInventory(Item itemID)</param>
+            <param name="itemID"></param>
+            <returns>True if the item was successfully equipped.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMActor.DropItem(System.Int32)">
+            <summary>
+            Drop an item from the players hand or inventory to the ground, as a pickup.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMActor.ChangeState(StudioForge.TotalMiner.ActorState)">
+            <summary>
+            Change the players current state.
+            </summary>
+            <param name="newState"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMActor.TakeDamageAndDisplay(StudioForge.TotalMiner.DamageType,System.Single,Microsoft.Xna.Framework.Vector3)">
+            <summary>
+            Cause damage to the player. Damage particles are spawned. Player dies if resulting health is less than or equal to 0.
+            </summary>
+            <returns>The actual damage taken.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMActor.TakeDamageAndDisplay(StudioForge.TotalMiner.DamageType,System.Single,Microsoft.Xna.Framework.Vector3,StudioForge.TotalMiner.API.ITMActor,StudioForge.TotalMiner.Item,StudioForge.BlockWorld.SkillType)">
+            <summary>
+            Cause damage to the player. Damage particles are spawned. Player dies if resulting health is less than or equal to 0.
+            </summary>
+            <returns>The actual damage taken.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMActor.HasPermission(StudioForge.TotalMiner.Permissions)">
+            <summary>
+            Returns true if the actor has all of the specified (or'd) permissions.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMActor.HasPermissionAny(StudioForge.TotalMiner.Permissions)">
+            <summary>
+            Returns true if the actor has at least one of the specified (or'd) permissions.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMActor.LineOfSightTest(Microsoft.Xna.Framework.Vector3,System.Single)">
+            <summary>
+            Casts a ray from EyePosition in a specified direction for a specified distance. Returns true if no solid block is intersected by the ray.
+            </summary>
+            <param name="dir">The ray direction.</param>
+            <param name="distance">The distance to test.</param>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMActor.TeleportTo(Microsoft.Xna.Framework.Vector3)">
+            <summary>
+            Teleport the actor to a world space map position.
+            </summary>
+            <param name="pos"></param>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMActor.Position">
+            <summary>
+            The position of the actor in world space. The actors origin is bottom center of the actors feet.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMActor.EyeOffset">
+            <summary>
+            The offset of the actors eyes from origin (bottom center of feet).
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMActor.EyePosition">
+            <summary>
+            The position of the actors eyes in world space = Position + EyeOffset
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMActor.Velocity">
+            <summary>
+            The actors current velocity in meters per second.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMActor.ViewDirection">
+            <summary>
+            Normalized view direction.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMActor.ViewMatrix">
+            <summary>
+            View Matrix in world space.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMActor.ViewMatrixLocal">
+            <summary>
+            View Matrix in local space (used for local space rendering).
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMActor.Frustum">
+            <summary>
+            The actors view frustum in world space.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMActor.Box">
+            <summary>
+            The actors main bounding box in world space.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMActor.Oxygen">
+            <summary>
+            Current oxygen.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMActor.Health">
+            <summary>
+            Current health.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMActor.MaxHealth">
+            <summary>
+            The maximum health this actor can have.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMActor.Reach">
+            <summary>
+            The actors current reach in blocks (meters).
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMActor.IsPlayer">
+            <summary>
+            Flag indicating if this actor is a player (gamer).
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMActor.IsOnGround">
+            <summary>
+            True if the actor is currently rested on a solid block.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMPluginArcade.GetArcadeMachine(System.Int32,StudioForge.TotalMiner.API.ITMGame,StudioForge.TotalMiner.API.ITMMap,StudioForge.TotalMiner.API.ITMPlayer,StudioForge.BlockWorld.GlobalPoint3D,StudioForge.BlockWorld.BlockFace)">
+            <summary>
+            Called by the game when a player swings at an arcade block face.
+            </summary>
+            <returns>An instance of a type that subclasses ArcadeMachine to provide an Arcade game.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMPluginArcade.GetArcadeMachineRenderer(System.Int32)">
+            <summary>
+            Called by the game when a player swings at an arcade block face.
+            </summary>
+            <returns>An instance of a type that implementes IArcadeMachineRenderer.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMPluginArcade.GetArcadeMachineName(System.Int32)">
+            <summary>
+            Called by the game. Return the name of the Arcade game.
+            </summary>
+            <returns>The name of the Arcade game.</returns>
+        </member>
         <member name="M:StudioForge.TotalMiner.API.ITMEntityManager.AddEntity(System.String,System.String,StudioForge.TotalMiner.Entity)">
             <summary>
             Add an Entity to the world.
@@ -142,6 +398,67 @@
             Remove an Entity from the world.
             </summary>
             <param name="entity">The entity to remove.</param>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMTexturePack.BlockTextureSize">
+            <summary>
+            Get the size in pixels of a block on the current texture pack.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMTexturePack.ItemTextureSize">
+            <summary>
+            Get the size in pixels of an item on the current texture pack.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMTexturePack.GetTexureForItem(StudioForge.TotalMiner.Item)">
+            <summary>
+            Get the correct texture for an ItemID. If ItemID is >= Item.Hand then ItemTexture is returned, otherwise BlockTexture is returned.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMTexturePack.ItemSrcRect(StudioForge.TotalMiner.Item)">
+            <summary>
+            Returns the source rectangle for the item's texture in either BlockTexture or ItemTexture.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMTexturePack.GetBlockColorData(StudioForge.TotalMiner.Block)">
+            <summary>
+            Get Color data for a block. The array returned is a cached array and reused for each call, so you must use the data or copy it before calling this method again.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMTexturePack.GetItemColorData(StudioForge.TotalMiner.Item)">
+            <summary>
+            Get Color data for an item. The array returned is a cached array and reused for each call, so you must use the data or copy it before calling this method again.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMTexturePack.Name">
+            <summary>
+            Get the name of the texture pack.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMTexturePack.BlockTexture">
+            <summary>
+            Get the Blocks Texture2D object.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMTexturePack.BlockTextureLOD">
+            <summary>
+            Get the Blocks Level of Detail Texture2D object.
+            BlockTextureLOD = BlockTexture for SD texture packs.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMTexturePack.ItemTexture">
+            <summary>
+            Get the Items Texture2D object.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMTexturePack.LightMapTexture">
+            <summary>
+            Get the Light Map Texture2D object.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMTexturePack.NightLightMapTexture">
+            <summary>
+            Get the Night time Light Map Texture2D object.
+            </summary>
         </member>
         <member name="M:StudioForge.TotalMiner.API.ITMWorld.GetBlockBox(StudioForge.BlockWorld.GlobalPoint3D,StudioForge.TotalMiner.Block)">
             <summary>
@@ -441,6 +758,14 @@
             <param name="clan">True if the message is to be sent to all members of recipients clan.</param>
             <param name="admins">True if the message is to be sent to all admins (recipient and clan are ignored).</param>
         </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMGame.ReceiveTextMessage(System.String,StudioForge.Engine.Net.NetworkGamer,StudioForge.TotalMiner.TextMsgTarget)">
+            <summary>
+            Called by the game when a text message is received from a remote gamer.
+            </summary>
+            <param name="message">The message text.</param>
+            <param name="sender">The sender.</param>
+            <param name="target">Recipient target(s).</param>
+        </member>
         <member name="M:StudioForge.TotalMiner.API.ITMGame.RemoveEventBlockMined(StudioForge.TotalMiner.Block,System.Action{StudioForge.TotalMiner.Block,System.Byte,StudioForge.BlockWorld.GlobalPoint3D,StudioForge.TotalMiner.API.ITMHand})">
             <summary>
             Removes an block mined event that was previously added with AddEventBlockMined(..).
@@ -636,6 +961,51 @@
             The raw list of inventory items. Includes all pack, equip and temp items. It is best not to add/remove items from this list directly.
             </summary>
         </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMPlayer.Tag">
+            <summary>
+            Custom data for the player.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMPlayer.PlayerIndex">
+            <summary>
+            Controller player index.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMPlayer.VirtualPlayer">
+            <summary>
+            Spectate or CCTV virtualization.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMPlayer.SwingFacePos">
+            <summary>
+            The quarter position of the reticle on the block face.
+            A block face is divided into 4 quarters and a center quarter.
+            Values 0 - 3 represent the 4 corner quarters.
+            If Value is > 3 then the recticle is also in the center quarter. In this case, AND the value with 0x03 to extract the corner quarter.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMPlayer.SwingFace">
+            <summary>
+            The block face the reticle is currently intersecting at SwingTarget.
+            Value = ProxyDefault if reticle is currently not intersecting a block.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMPlayer.SwingTarget">
+            <summary>
+            The voxel location where the reticle intersects a block.
+            First check if SwingFace != ProxyDefault to determine if the reticle is actually intersecting a block.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMPlayer.SwingTargetDistance">
+            <summary>
+            The distance in meters between the actors EyePosition and the reticles intersection of a block.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMPlayer.PlaceTarget">
+            <summary>
+            The voxel location where a block would be placed if the player was to place a block.
+            </summary>
+        </member>
         <member name="M:StudioForge.TotalMiner.API.ITMHand.SetItem(StudioForge.TotalMiner.Item)">
             <summary>
             Directly set the item equipped by the hand.
@@ -710,6 +1080,237 @@
         <member name="P:StudioForge.TotalMiner.API.ITMNpcManager.HasFreeNpcSlots">
             <summary>
             Returns False if no more NPCs can be spawned (all slots are allocated).
+            </summary>
+        </member>
+        <member name="T:StudioForge.TotalMiner.API.ITMMap">
+            <summary>
+            Total Miner maps are made up of regions. Each region is made up of chunks.
+            Typically you don't have to deal directly with regions or chunks.
+            Chunks are compressed in RAM using Run Length Encoded compression to minimize the games RAM footprint.
+            If the data in a chunk is being edited (block id, light data, aux data), the chunk is first uncompressed into a plain x,y,z array.
+            The array of chunk data is cached so multiple edits do not require subsequent uncompressions. The game releases the cache after some time of no edits.
+            The game automatically handles the compression/uncompression/caching of chunk data.
+            Typical Get methods such as GetBlockID, GetLight, GetAux will first check if an uncompressed cache of the chunk data exists, and if not, will uncompress the data and cache it, before returning the data you request.
+            For the first uncompress this obviously has both time and RAM penalties. Subsequent calls will be fast, until the game releases the cache.
+            For this reason it is not a good idea to access (uncompress) too many chunks at one time. RAM usage will sky rocket, potentially causing out of memory errors.
+            For this reason there are Get...NoCache alternative methods for the Get methods. These NoCache methods will not uncompress/cache the chunk data while performing the query.
+            If the chunk data is already uncompressed it will read from that, otherwise it will read directly from the RLE stream. Depending on the complexity of the stream, reads can be
+            slower than reading from an uncompressed cache, but the RAM savings usually make up for that.
+            Rule of thumb, if you are just doing the occasional queries for a few blocks, or you are querying blocks dispersed all over the map then then use the NoCache methods.
+            If you are querying many blocks within a close proximity, use the Get methods.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.Commit">
+            <summary>
+            Force mesh rebuilds after map block changes.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.IsValidPoint(StudioForge.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Check if a voxel location is within the loaded bounds of a map.
+            </summary>
+            <param name="p">Voxel location</param>
+            <returns>True if the location is within the map bounds, otherwise false.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.GetPoint(Microsoft.Xna.Framework.Vector3)">
+            <summary>
+            Get an integral voxel location from a map position vector.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.GetPosition(StudioForge.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Get a map position vector from an integral voxel location.
+            </summary>
+            <returns> The top north west corner of the voxel location.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.GetBlockCenter(StudioForge.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Get a map position vector from an integral voxel location.
+            </summary>
+            <returns> The center of the voxel location.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.GetBlockID(Microsoft.Xna.Framework.Vector3)">
+            <summary>
+            Get the Block ID at a map position.
+            If there is no uncompressed cache for the chunk that contains the block, the chunk is uncompressed and cached before the Block ID is read.
+            This will be a slow operation if the chunk is not already uncompressed and will consume 32 x 32 x 32 bytes of RAM, but subsequent calls will be faster, until the cache is discarded by the game.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.GetBlockID(StudioForge.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Get the Block ID at an integral voxel location. 
+            If there is no uncompressed cache for the chunk that contains the block, the chunk is uncompressed and cached before the Block ID is read.
+            This will be a slow operation if the chunk is not already uncompressed and will consume 32 x 32 x 32 bytes of RAM, but subsequent calls will be faster, until the cache is discarded by the game.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.GetBlockIDNoCache(StudioForge.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Get the Block ID at an integral voxel location.
+            If there is no uncompressed cache for the chunk that contains the block, Block ID is read from the compressed stream. 
+            This call will not consume RAM to store a cache, and will not cause a chunk uncompression, so there is no first up penalty if the chunk not uncompressed. But generally, reading Block ID's from an uncompressed stream is slower than reading Block ID's from a compressed cache. It depends how complex the chunk is. If you plan to only make a few reads from the chunk, this method should be fine. If you plan to make hundreds or thousands of reads, it might be better to use the method that uncompresses and caches the chunk.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.GetBlockData(StudioForge.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Get the Block ID, Light and Aux data at an integral voxel location. 
+            If there is no uncompressed cache for the chunk that contains the block, the chunk is uncompressed and cached before the Block data is read.
+            This will be a slow operation if the chunk is not already uncompressed and will consume 32 x 32 x 32 x 3 bytes of RAM, but subsequent calls will be faster, until the cache is discarded by the game.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.GetBlockIDAndAux(StudioForge.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Get the Block ID and Aux data at an integral voxel location. 
+            This method is slightly faster than calling GetBlockID and GetAuxData separately, and is faster than calling GetBlockData.
+            If there is no uncompressed cache for the chunk that contains the block, the chunk is uncompressed and cached before the Block data is read.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.GetBlockIDAndAuxNoCache(StudioForge.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Get the Block ID and Aux data at an integral voxel location. 
+            This method is slightly faster than calling GetBlockIDNoCache and GetAuxDataNoCache separately.
+            If there is no uncompressed cache for the chunk that contains the block, Block ID and Aux is read from the compressed streams. 
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.GetBlockAndLight(StudioForge.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Get the Block ID and Light data at an integral voxel location. 
+            This method is slightly faster than calling GetBlockID and GetBlockLight separately, and is faster than calling GetBlockData.
+            If there is no uncompressed cache for the chunk that contains the block, the chunk is uncompressed and cached before the Block data is read.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.IsBlockDataEqual(Microsoft.Xna.Framework.Vector3,StudioForge.TotalMiner.Block,System.Byte)">
+            <summary>
+            Compares if the block data at a map position matches inputs.
+            </summary>
+            <param name="pos">The map position of the block to compare.</param>
+            <param name="blockID">The Block ID to compare.</param>
+            <param name="aux">The Aux data to compare.</param>
+            <returns>True of the Block ID and Aux data at the map position matches the blockID and aux parameters above.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.HasChanged(System.Byte)">
+            <summary>
+            Tests if the auxData indicates the source block has been edited.
+            </summary>
+            <param name="auxData">Source block auxData.</param>
+            <returns>Returns true of the auxData indicates the source block has been edited, i.e. the block is not the originally generated block.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.HasChanged(StudioForge.BlockWorld.MapBlock)">
+            <summary>
+            Tests if the blockData.AuxData indicates the source block has been edited.
+            </summary>
+            <param name="blockData">Source block data.</param>
+            <returns>Returns true of the data indicates the source block has been edited, i.e. the block is not the originally generated block.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.HasChanged(StudioForge.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Tests if the block at the voxel location has been edited.
+            </summary>
+            <param name="p">Voxel location.</param>
+            <returns>Returns true of the block at the voxel location has been edited, i.e. the block is not the originally generated block.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.GetSunLight(StudioForge.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Get the amount of sunlight at a voxel location. Sunlight can have a value from 0 to 15.
+            This value of sun light is affected by the current time of day.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.GetBlockLight(StudioForge.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Get the amount of blocklight at a voxel location. Blocklight can have a value from 0 to 15.
+            Block light is light emitted from light emitting blocks, such as torches, sun blocks, etc.
+            Block light is not affected by the current time of day.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.GetMaxNeighbourLight(StudioForge.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Get the highest light data from a voxels adjacent locations. Excludes p and diagonally adjacent voxels.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.GetMaxNeighbourLight(StudioForge.BlockWorld.GlobalPoint3D,StudioForge.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Get the highest light data from a voxels adjacent locations. Excludes p, op and diagonally adjacent voxels.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.GetMaxNeighbourSunLight(StudioForge.BlockWorld.GlobalPoint3D,StudioForge.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Get the highest sunlight value from a voxels adjacent locations. Excludes p, op and diagonally adjacent voxels.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.GetMaxNeighbourBlockLight(StudioForge.BlockWorld.GlobalPoint3D,StudioForge.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Get the highest block light value from a voxels adjacent locations. Excludes p, op and diagonally adjacent voxels.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.CanBlockSeeTheSky(StudioForge.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Return true of the voxel location is either ground level or above.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.GetLightNormalized(System.Byte)">
+            <summary>
+            Get the normalized value of a raw light value.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.GetLightNormalized(StudioForge.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Get the normalized value of light at a voxel location.
+            The value returned could be either sunlight or block light, whichever is higher.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.GetLightNormalized(StudioForge.BlockWorld.MapBlock)">
+            <summary>
+            Get the normalized value of light from block data.
+            The value returned could be either sunlight or block light, whichever is higher.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.GetLightNormalized(StudioForge.BlockWorld.MapLight)">
+            <summary>
+            Get the normalized value of light from light data.
+            The value returned could be either sun light or block light, whichever is higher.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.GetSunLightNormalized(StudioForge.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Get the normalized value of sunlight from a voxel location.
+            This value of sunlight is affected by the current time of day.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.GetBlockLightNormalized(StudioForge.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Get the normalized value of block light from a voxel location.
+            Block light is light emitted from light emitting blocks, such as torches, sun blocks, etc.
+            Block light is not affected by the current time of day.
+            </summary>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.GetSunAndBlockLightNormalized(StudioForge.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Get the normalized values of both block light and sun light from a voxel location.
+            </summary>
+            <returns>X = normalized sunlight, Y = normalized block light.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.GetBlockInventory(StudioForge.BlockWorld.GlobalPoint3D,StudioForge.Engine.GamerServices.GamerID,System.Boolean)">
+            <summary>
+            Get a blocks ITMInventory object. Certain types of blocks in the game have inventory, such as chests, safes, etc.
+            </summary>
+            <param name="p">Voxel location</param>
+            <param name="gamerID">ID of gamer who owns the block inventory. Only valid for locked chests. If the block at the location is not a locked chest, pass in GamerID.Sys1</param>
+            <param name="createIfNotExist">By default, if the blocks inventory is empty, this method will return null. If you require the inventory object even if it is empty, pass TRUE, otherwise pass FALSE.</param>
+            <returns></returns>
+            
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMMap.GetOrAddDataBlock(StudioForge.BlockWorld.GlobalPoint3D)">
+            <summary>
+            Get the data block associated with a block id at a voxel location.
+            If the data block doesn't exist, create it.
+            Some blocks require extra data, such as chests for inventory.
+            Data blocks are used to store this extra data.
+            </summary>
+            <param name="p">Voxel location.</param>
+            <returns></returns>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMMap.TileSize">
+            <summary>
+            The size of a map tile (in meters).
             </summary>
         </member>
     </members>
