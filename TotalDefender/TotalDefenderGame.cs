@@ -85,7 +85,7 @@ namespace TotalDefenderArcade
         public int HUDHeight;
         public Vector2 PlayerWorldPos;
         public Vector2 PlayerScreenPos;
-        public Rectangle PlayerScreenRect;
+        public Rectangle PlayerShipScreenRect;
         public EntityState PlayerState;
         public int PlayerDeathTimer;
         public float PlayerDir;
@@ -145,9 +145,7 @@ namespace TotalDefenderArcade
             HUDHeight = 20;
             playerEdgeSettle = 50;
             playerSpeed = new Vector2(3, 2);
-            PlayerScreenRect = new Rectangle(0, 0, 15, 6);
-            PlayerLives = 2;
-            PlayerSmartBombs = 3;
+            PlayerShipScreenRect = new Rectangle(0, 0, 15, 6);
             playerMaxVelX = 1.6f;
             WorldSize = new Point(ScreenSize.X * 8, ScreenSize.Y - HUDHeight);
             RadarPos = new Vector2(72, -1);
@@ -278,8 +276,8 @@ namespace TotalDefenderArcade
         Rectangle GetPlayerRect()
         {
             var rect = new Rectangle();
-            rect.Width = PlayerScreenRect.Width;
-            rect.Height = PlayerScreenRect.Height;
+            rect.Width = PlayerShipScreenRect.Width;
+            rect.Height = PlayerShipScreenRect.Height;
             rect.X = (int)(PlayerWorldPos.X - rect.Width * 0.5f);
             rect.Y = (int)(PlayerWorldPos.Y - rect.Height * 0.5f);
             return rect;
@@ -385,6 +383,11 @@ namespace TotalDefenderArcade
 
         void ExplodeEntity(Entity e)
         {
+            ExplodeEntity(e, 1, 1, 1, 0);
+        }
+
+        void ExplodeEntity(Entity e, float velocityFactor, float ageFactor, int sizeBase, int sizeVar)
+        {
             int ti = (int)e.Type;
             if (ti >= TotalDefenderRenderer.TotalDefenderRendererInstance.SpriteAnimations.Length) return;
 
@@ -396,7 +399,7 @@ namespace TotalDefenderArcade
             var pos = new Vector2();
             var vel = new Vector2();
             var rectCenter = new Vector2(rect.Width * 0.5f, rect.Height * 0.5f);
-            float size = 1;// Random.Next(2) + 1;
+            float size = sizeBase;
 
             for (int y = 0; y < rect.Height; ++y)
             {
@@ -409,9 +412,16 @@ namespace TotalDefenderArcade
                         pos.Y = y + e.Position.Y;
                         for (int p = 0; p < 2; ++p)
                         {
-                            vel.X = x - rectCenter.X * ((float)Random.NextDouble() * 0.9f + 0.2f);
-                            vel.Y = y - rectCenter.Y * ((float)Random.NextDouble() * 0.9f + 0.2f);
-                            SpawnParticle(0.5f + (float)Random.NextDouble() * 0.25f, pos, vel, color, size, null);
+                            vel.X = (x - rectCenter.X * ((float)Random.NextDouble() * 0.9f + 0.2f)) * velocityFactor;
+                            vel.Y = (y - rectCenter.Y * ((float)Random.NextDouble() * 0.9f + 0.2f)) * velocityFactor;
+                            float age = (0.5f + (float)Random.NextDouble() * 0.25f) * ageFactor;
+                            SpawnParticle(age, pos, vel, color, size, null);
+                            if (sizeVar > 0 && Random.Next(2) == 0)
+                            {
+                                ++vel.X;
+                                --vel.Y;
+                                SpawnParticle(age, pos, vel, color, size, null);
+                            }
                         }
                     }
                 }
@@ -446,7 +456,8 @@ namespace TotalDefenderArcade
                 {
                     ChangeCredits(-1);
                     Wave = 0;
-                    PlayerLives = 2;
+                    PlayerLives = 20;
+                    PlayerSmartBombs = 20;
                     ChangeState(GameState.Play);
                 }
             }
@@ -630,12 +641,17 @@ namespace TotalDefenderArcade
                         if (!BulletsAlive[i])
                         {
                             BulletsAlive[i] = true;
-                            Bullets[i] = new Vector4(PlayerScreenPos.X + PlayerScreenRect.Width * PlayerDir, 
-                                PlayerScreenPos.Y + PlayerScreenRect.Height * 0.5f - 2, 20, PlayerDir);
+                            Bullets[i] = new Vector4(PlayerScreenPos.X + PlayerShipScreenRect.Width * PlayerDir, 
+                                PlayerScreenPos.Y + PlayerShipScreenRect.Height * 0.5f - 2, 20, PlayerDir);
                             break;
                         }
                     }
                     autoRepeatFireTimer = 0.1f;
+                }
+
+                if (InputManager.IsButtonPressedNew(tmPlayer.PlayerIndex, Buttons.X))
+                {
+                    ReleaseSmartBomb();
                 }
 
                 if (InputManager1.IsInputReleasedNew(tmPlayer.PlayerIndex, GuiInput.ExitScreen))
@@ -757,7 +773,7 @@ namespace TotalDefenderArcade
             else if (playerVel.X > playerMaxVelX) playerVel.X = playerMaxVelX;
 
             // Clamp player Y position
-            float halfPlayerHeight = PlayerScreenRect.Height * 0.5f;
+            float halfPlayerHeight = PlayerShipScreenRect.Height * 0.5f;
             if (PlayerWorldPos.Y - halfPlayerHeight <= 0) PlayerWorldPos.Y = halfPlayerHeight;
             else if (PlayerWorldPos.Y + halfPlayerHeight + 2 >= WorldSize.Y) PlayerWorldPos.Y = WorldSize.Y - halfPlayerHeight - 2;
             
@@ -830,8 +846,8 @@ namespace TotalDefenderArcade
             if (PlayerWorldPos.X < 0) PlayerWorldPos.X += WorldSize.X;
             else if (PlayerWorldPos.X >= WorldSize.X) PlayerWorldPos.X -= WorldSize.X;
 
-            PlayerScreenRect.X = (int)(PlayerScreenPos.X - PlayerScreenRect.Width * 0.5f);
-            PlayerScreenRect.Y = (int)(PlayerScreenPos.Y - PlayerScreenRect.Height * 0.5f);
+            PlayerShipScreenRect.X = (int)(PlayerScreenPos.X - PlayerShipScreenRect.Width * 0.5f);
+            PlayerShipScreenRect.Y = (int)(PlayerScreenPos.Y - PlayerShipScreenRect.Height * 0.5f);
 
             var y = MountainHeightMap[GetMountainHeightMapIndex(PlayerWorldPos.X)];
             int passengerCount = 0;
@@ -845,7 +861,7 @@ namespace TotalDefenderArcade
                     {
                         humanoid.Velocity = Vector2.Zero;
                         humanoid.Position = PlayerWorldPos;
-                        humanoid.Position.Y += PlayerScreenRect.Height * 0.5f + entityBounds[(int)EntityType.Humaniod].Y * 0.5f + 1;
+                        humanoid.Position.Y += PlayerShipScreenRect.Height * 0.5f + entityBounds[(int)EntityType.Humaniod].Y * 0.5f + 1;
                         humanoid.Position.X += passengerCount++;
                         if (humanoid.Position.Y > y + 10)
                         {
@@ -1347,6 +1363,43 @@ namespace TotalDefenderArcade
             }
         }
 
+        void ReleaseSmartBomb()
+        {
+            if (PlayerSmartBombs == 0) return;
+            --PlayerSmartBombs;
+
+            var screenLeftX = GetScreenLeftEdge() - 10;
+            var screenRightX = screenLeftX + ScreenSize.X + 20;
+
+            for (int i = 10; i < Entities.Length; ++i)
+            {
+                var entity = Entities[i];
+                switch (entity.Type)
+                {
+                    case EntityType.None:
+                    case EntityType.BomberBomb:
+                    case EntityType.EnemyBullet:
+                        break;
+
+                    default:
+                        if (entity.Position.X > screenLeftX && entity.Position.X < screenRightX)
+                        {
+                            EntityLastAct(entity);
+                            ExplodeEntity(entity, 0.15f, 5f, 1, 2);
+                            AddShootScore(entity.Type);
+                            entity.Type = EntityType.None;
+                            Entities[i] = entity;
+                        }
+                        break;
+                }
+            }
+
+            if (AllEnemiesDead())
+            {
+                ChangeState(GameState.EndOfWave);
+            }
+        }
+
         void UpdateParticles()
         {
             var p = new Particle();
@@ -1359,7 +1412,7 @@ namespace TotalDefenderArcade
                     if (p.Age > 0)
                     {
                         p.Position += p.Velocity;
-                        if (p.Position.Y < HUDHeight)
+                        if (p.Position.Y < 0)
                             p.Age = 0;
                     }
 
