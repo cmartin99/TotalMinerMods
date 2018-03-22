@@ -88,6 +88,7 @@ namespace TotalDefenderArcade
         public Rectangle PlayerShipScreenRect;
         public EntityState PlayerState;
         public int PlayerDeathTimer;
+        public int PlayerSpawnTimer;
         public float PlayerDir;
         public int PlayerLives;
         public int PlayerSmartBombs;
@@ -158,15 +159,15 @@ namespace TotalDefenderArcade
 
             MountainHeightMap = new float[50];
             Mountains = new List<Vector2>();
-            int x = 0, y = WorldSize.Y - 10;
+            int x = 0, y = WorldSize.Y - 40;
             while (x < WorldSize.X - 30)
             {
                 var step = game.Random.Next(30) + 2;
                 Mountains.Add(new Vector2(x, y));
                 MountainHeightMap[GetMountainHeightMapIndex(x)] = y;
                 x += step;
-                y += game.Random.Next(5) == 0 ? 0 : game.Random.Next(step) - step / 2;
-                if (y > WorldSize.Y - 10) y = WorldSize.Y - 10; else if (y < WorldSize.Y / 2) y = WorldSize.Y / 2;
+                y += (int)(game.Random.Next(5) == 0 ? 0 : game.Random.Next(step) - step * 0.493f);
+                if (y > WorldSize.Y - 10) y = WorldSize.Y - 10; else if (y < WorldSize.Y * 0.65f) y = (int)(WorldSize.Y * 0.65f);
             }
 
             Entities = new Entity[200];
@@ -511,10 +512,14 @@ namespace TotalDefenderArcade
                 Entities[ie++] = e;
             }
 
+            int bomberBaseX = Random.Next(WorldSize.X);
             for (int i = 0; i < bomberCount; ++i)
             {
                 e.Type = EntityType.Bomber;
-                e.Position.X = Random.Next(ScreenSize.X) + Random.Next(WorldSize.X) - ScreenSize.X;
+                e.Position.X = Random.Next(10) == 0
+                    ? Random.Next(WorldSize.X)                  // random
+                    : bomberBaseX + Random.Next(ScreenSize.X);   // clustered
+
                 e.Position.Y = Random.Next(WorldSize.Y / 2) + 30;
                 var sineWave = new Vector2();
                 sineWave.X = (float)(Random.NextDouble() * MathHelper.TwoPi);
@@ -523,10 +528,13 @@ namespace TotalDefenderArcade
                 Entities[ie++] = e;
             }
 
+            int podBaseX = Random.Next(WorldSize.X);
             for (int i = 0; i < podCount; ++i)
             {
                 e.Type = EntityType.Pod;
-                e.Position.X = Random.Next(WorldSize.X);
+                e.Position.X = Random.Next(10) == 0
+                    ? Random.Next(WorldSize.X)                // random
+                    : podBaseX + Random.Next(ScreenSize.X);   // clustered
                 e.Position.Y = Random.Next(WorldSize.Y / 2) + 30;
                 Entities[ie++] = e;
             }
@@ -557,24 +565,49 @@ namespace TotalDefenderArcade
             playerAccelerationX = 0;
             PlayerDir = 1;
             PlayerDeathTimer = 0;
+            PlayerSpawnTimer = 150;
 
             RemoveAllEntities(EntityType.EnemyBullet);
             RemoveAllEntities(EntityType.BomberBomb);
 
-            // Reset Lander abductions and Humanoids
-            for (int i = 10; i < Entities.Length; ++i)
+            // Reset Lander abductions and Falling Humanoids
+            for (int i = 0; i < Entities.Length; ++i)
             {
-                if (Entities[i].Type == EntityType.Lander)
+                var state = Entities[i].State;
+                if (state == EntityState.LanderPickupHumanoid ||
+                    state == EntityState.LanderAbductHumanoid)
                 {
-                    if (Entities[i].State == EntityState.LanderPickupHumanoid ||
-                        Entities[i].State == EntityState.LanderAbductHumanoid)
-                    {
-                        Entities[i].State = EntityState.Default;
-                        int hi = (int)Entities[i].StateData;
-                        Entities[hi].State = EntityState.Default;
-                        Entities[hi].Position.Y = WorldSize.Y - 10;
-                    }
+                    Entities[i].State = EntityState.Default;
+                    int hi = (int)Entities[i].StateData;
+                    ResetHumanoid(hi);
                 }
+                else if (state == EntityState.HumanoidFalling)
+                {
+                    ResetHumanoid(i);
+                }
+            }
+
+            // Reset Humanoids attached to player ship
+            for (int i = 0; i < humanoidPassengers.Length; ++i)
+            {
+                if (humanoidPassengers[i] > 0)
+                {
+                    int hi = humanoidPassengers[i] - 1;
+                    ResetHumanoid(hi);
+                    humanoidPassengers[i] = 0;
+                }
+            }
+        }
+
+        void ResetHumanoid(int i)
+        {
+            var humanoid = Entities[i];
+            if (humanoid.Type == EntityType.Humaniod)
+            {
+                humanoid.Velocity = Vector2.Zero;
+                var y = MountainHeightMap[GetMountainHeightMapIndex(humanoid.Position.X)];
+                humanoid.Position.Y = y + 10;
+                Entities[i] = humanoid;
             }
         }
 
@@ -642,7 +675,7 @@ namespace TotalDefenderArcade
                         {
                             BulletsAlive[i] = true;
                             Bullets[i] = new Vector4(PlayerScreenPos.X + PlayerShipScreenRect.Width * PlayerDir, 
-                                PlayerScreenPos.Y + PlayerShipScreenRect.Height * 0.5f - 2, 20, PlayerDir);
+                                PlayerScreenPos.Y + PlayerShipScreenRect.Height * 0.5f + 1, 20, PlayerDir);
                             break;
                         }
                     }
@@ -726,7 +759,7 @@ namespace TotalDefenderArcade
             UpdatePlayer();
             if (PlayerState != EntityState.PlayerExplosion)
             {
-                UpdateEntities();
+                if (PlayerSpawnTimer <= 0) UpdateEntities();
                 UpdatePlayerBullets();
             }
             UpdateParticles();
@@ -758,11 +791,15 @@ namespace TotalDefenderArcade
                         if (AllEnemiesDead())
                             ChangeState(GameState.EndOfWave);
                         else
+                        {
                             RespawnPlayer();
+                        }
                     }
                 }
                 return;
             }
+            else
+                --PlayerSpawnTimer;
 
             // Add thrust to player velocity
             playerVel.X += playerAccelerationX * PlayerDir;
@@ -774,8 +811,8 @@ namespace TotalDefenderArcade
 
             // Clamp player Y position
             float halfPlayerHeight = PlayerShipScreenRect.Height * 0.5f;
-            if (PlayerWorldPos.Y - halfPlayerHeight <= 0) PlayerWorldPos.Y = halfPlayerHeight;
-            else if (PlayerWorldPos.Y + halfPlayerHeight + 2 >= WorldSize.Y) PlayerWorldPos.Y = WorldSize.Y - halfPlayerHeight - 2;
+            if (PlayerWorldPos.Y < halfPlayerHeight) PlayerWorldPos.Y = halfPlayerHeight;
+            else if (PlayerWorldPos.Y + halfPlayerHeight >= WorldSize.Y) PlayerWorldPos.Y = WorldSize.Y - halfPlayerHeight;
             
             PlayerScreenPos.Y = PlayerWorldPos.Y;
             PlayerScreenPos.X += playerAccelerationX * 3 * PlayerDir;
@@ -909,11 +946,11 @@ namespace TotalDefenderArcade
                         // Y coord world wrap
                         var bound = entityBounds[(int)entity.Type];
                         if (entity.Position.Y < bound.Y * 0.5f) entity.Position.Y += WorldSize.Y;
-                        else if (entity.Position.Y > WorldSize.Y + bound.Y * 0.5f) entity.Position.Y -= WorldSize.Y;
+                        else if (entity.Position.Y >= WorldSize.Y + bound.Y * 0.5f) entity.Position.Y -= WorldSize.Y;
                     }
                     else 
                     {
-                        if (entity.Position.Y < 0 || entity.Position.Y > WorldSize.Y)
+                        if (entity.Position.Y <= 0 || entity.Position.Y >= WorldSize.Y)
                             entity.Type = EntityType.None;
                     }
 
@@ -1310,8 +1347,8 @@ namespace TotalDefenderArcade
                                 rect.Height = 1;
                                 entity = Entities[j];
                                 bound = entityBounds[(int)entity.Type];
-                                rect2.X = (int)(GetScreenX(entity.Position.X) - bound.X * 0.5f);
-                                rect2.Y = (int)(entity.Position.Y - bound.X * 0.5f);
+                                rect2.X = (int)(GetScreenX(entity.Position.X - bound.X * 0.5f));
+                                rect2.Y = (int)(entity.Position.Y - bound.Y * 0.5f);
                                 rect2.Width = bound.X;
                                 rect2.Height = bound.Y;
                                 if (rect.Intersects(rect2))
@@ -1412,7 +1449,7 @@ namespace TotalDefenderArcade
                     if (p.Age > 0)
                     {
                         p.Position += p.Velocity;
-                        if (p.Position.Y < 0)
+                        if (p.Position.Y - p.Size * 0.5f < 2)
                             p.Age = 0;
                     }
 

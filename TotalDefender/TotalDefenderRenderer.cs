@@ -102,10 +102,11 @@ namespace TotalDefenderArcade
 
         void DrawPlay()
         {
+            int y = game.HUDHeight + 1;
             float camX = game.PlayerWorldPos.X - game.PlayerScreenPos.X;
+            var origin = new Vector2(0.5f, 0.5f);
 
             int i;
-            int y = game.HUDHeight + 1;
             Vector2 m2 = Vector2.Zero;
             for (i = 0; i < game.Mountains.Count; ++i)
             {
@@ -116,8 +117,8 @@ namespace TotalDefenderArcade
                 m2.X = game.GetScreenX(m2.X);
                 m2.Y += y;
 
-                if (i + 1 == game.Mountains.Count) 
-                    spriteBatch.Draw(CoreGlobals.BlankTexture, new Rectangle((int)m2.X, y, 1, game.ScreenSize.Y), Color.Red);
+                //if (i + 1 == game.Mountains.Count) 
+                //    spriteBatch.Draw(CoreGlobals.BlankTexture, new Rectangle((int)m2.X, y, 1, game.ScreenSize.Y), Color.Red);
 
                 if (m2.X > 0 && m1.X < game.ScreenSize.X)
                     spriteBatch.DrawLine(CoreGlobals.BlankTexture, 1, Color.RosyBrown, m1, m2);
@@ -137,16 +138,16 @@ namespace TotalDefenderArcade
                     pos.Y = p.Position.Y + y;
                     Color c = p.Color;
                     if (p.Age < 0.3f) c.A = (byte)(MathHelper.Lerp(c.A / 255.0f, 0, (0.3f - p.Age) * 3.333f) * 255f);
-                    spriteBatch.Draw(CoreGlobals.BlankTexture, pos, null, c, 0, new Vector2(p.Size * 0.5f, p.Size * 0.5f), p.Size, SpriteEffects.None, 0);
+                    spriteBatch.Draw(CoreGlobals.BlankTexture, pos, null, c, 0, origin, p.Size, SpriteEffects.None, 0);
                 }
             }
 
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, DepthStencilState.None, null);
 
-            var bulletOrigin = new Vector2(1.0f, 1.0f);
             Entity entity;
-            for (i = 0; i < game.Entities.Length; ++i)
+            var length = game.PlayerSpawnTimer > 0 ? 10 : game.Entities.Length;
+            for (i = 0; i < length; ++i)
             {
                 entity = game.Entities[i];
                 if (entity.Type != EntityType.None)
@@ -160,7 +161,7 @@ namespace TotalDefenderArcade
                     }
                     else
                     {
-                        spriteBatch.Draw(CoreGlobals.BlankTexture, pos, null, Color.White, 0, bulletOrigin, 2, SpriteEffects.None, 0);
+                        spriteBatch.Draw(CoreGlobals.BlankTexture, pos, null, Color.White, 0, origin, 2, SpriteEffects.None, 0);
                     }
                 }
             }
@@ -189,7 +190,7 @@ namespace TotalDefenderArcade
             else if (game.PlayerState == EntityState.PlayerDeath)
             {
                 Color color = ((game.PlayerDeathTimer / 10) % 2) == 0 ? Color.Red : Color.White;
-                spriteBatch.Draw(SpriteSheet, game.PlayerScreenPos + new Vector2(0, y), playerDeathRect, color, 0, new Vector2(playerDeathRect.Width * 0.5f, playerDeathRect.Height * 0.5f), 1, game.PlayerDir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+                spriteBatch.Draw(SpriteSheet, game.PlayerScreenPos + new Vector2(0, y), playerDeathRect, color, 0, origin, 1, game.PlayerDir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
             }
         }
 
@@ -202,13 +203,21 @@ namespace TotalDefenderArcade
         {
             var anim = SpriteAnimations[(int)type];
             int frame = (int)((long)(Services.TotalTime * 10) % (long)anim.Rect.Length);
-            var animRect = anim.Rect[frame];
+            var animSrcRect = anim.Rect[frame];
             if (type == EntityType.Mutant)
             {
                 pos.X += (float)(game.Random.NextDouble() * 2.0 - 1.0);
                 pos.Y += (float)(game.Random.NextDouble() * 2.0 - 1.0);
             }
-            spriteBatch.Draw(SpriteSheet, pos, animRect, Color.White, rot, new Vector2(animRect.Width * 0.5f, animRect.Height * 0.5f), scale, anim.Effects, 0);
+            var origin = new Vector2(animSrcRect.Width * 0.5f, animSrcRect.Height * 0.5f);
+            spriteBatch.Draw(SpriteSheet, pos, animSrcRect, Color.White, rot, origin, scale, anim.Effects, 0);
+
+            //var rect2 = new Rectangle();
+            //rect2.X = (int)(pos.X - animRect.Width * 0.5f);
+            //rect2.Y = (int)(pos.Y - animRect.Height * 0.5f);
+            //rect2.Width = animRect.Width;
+            //rect2.Height = animRect.Height;
+            //spriteBatch.DrawBox(rect2, 1, Color.White, 0);
         }
 
         void DrawEndOfWave()
@@ -283,10 +292,13 @@ namespace TotalDefenderArcade
 
             Vector2 pos;
             Entity entity;
-            for (int i = 0; i < game.Entities.Length; ++i)
+            var length = game.PlayerSpawnTimer > 0 ? 10 : game.Entities.Length;
+            for (int i = 0; i < length; ++i)
             {
                 entity = game.Entities[i];
-                if (entity.Type != EntityType.None && entity.Type != EntityType.EnemyBullet && entity.Type != EntityType.BomberBomb)
+                if (entity.Type != EntityType.None && 
+                    entity.Type != EntityType.EnemyBullet && 
+                    entity.Type != EntityType.BomberBomb)
                 {
                     pos = game.GetRadarSpace(entity.Position) + game.RadarPos;
                     spriteBatch.Draw(CoreGlobals.BlankTexture, new Rectangle((int)pos.X, (int)pos.Y, 1, 1), GetEntityColor(entity.Type));
