@@ -119,6 +119,8 @@ namespace TotalDefenderArcade
         Point[] entityBounds;
         Color[] spriteColors;
         Color[] starColors = { Color.Red, Color.Green, Color.Yellow, Color.Blue, Color.White, Color.Purple, Color.Orange };
+        const int starCount = 50;
+        const int humanoidCount = 10;
 
         #endregion
 
@@ -153,7 +155,7 @@ namespace TotalDefenderArcade
             RadarPos = new Vector2(72, -1);
             RadarSize = new Point(180 - 2, HUDHeight);
             spriteColors = new Color[2500];
-            humanoidPassengers = new int[10];
+            humanoidPassengers = new int[humanoidCount];
             Bullets = new Vector4[20];
             BulletsAlive = new bool[20];
             entityBounds = new Point[] { new Point(), new Point(15, 6), new Point(3, 8), new Point(9, 8), new Point(9, 8), new Point(6, 7), new Point(9, 8), new Point(9, 8), new Point(9, 8), new Point(2, 2), new Point(1, 1) };
@@ -173,6 +175,16 @@ namespace TotalDefenderArcade
 
             Entities = new Entity[200];
             Particles = new Particle[1000];
+
+            for (int i = 0; i < starCount; ++i)
+            {
+                var p = Particles[i];
+                SpawnStar(ref p);
+                p.Size = 1;
+                p.Expired = SpawnStar;
+                p.Tag = i;
+                Particles[i] = p;
+            }
         }
 
         #endregion
@@ -219,7 +231,7 @@ namespace TotalDefenderArcade
         {
             int points = Wave < 5 ? Wave * 100 : 500;
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < humanoidCount; i++)
             {
                 if (Entities[i].Type == EntityType.Humaniod)
                 {
@@ -316,7 +328,12 @@ namespace TotalDefenderArcade
 
         int GetNextEntityID()
         {
-            for (int i = 10; i < Entities.Length; ++i)
+            return GetNextEntityID(humanoidCount);
+        }
+
+        int GetNextEntityID(int startIndex)
+        {
+            for (int i = startIndex; i < Entities.Length; ++i)
                 if (Entities[i].Type == EntityType.None) return i;
             return -1;
         }
@@ -332,7 +349,7 @@ namespace TotalDefenderArcade
         bool AllEnemiesDead()
         {
             if (landerLateSpawnTimer > 0) return false;
-            for (int i = 10; i < Entities.Length; ++i)
+            for (int i = humanoidCount; i < Entities.Length; ++i)
             {
                 var type = Entities[i].Type;
                 switch (type)
@@ -377,7 +394,7 @@ namespace TotalDefenderArcade
 
         int GetNextParticleID()
         {
-            for (int i = 0; i < Particles.Length; ++i)
+            for (int i = starCount; i < Particles.Length; ++i)
                 if (Particles[i].Age <= 0) return i;
             return -1;
         }
@@ -465,8 +482,9 @@ namespace TotalDefenderArcade
                 {
                     ChangeCredits(-1);
                     Wave = 0;
-                    PlayerLives = 20;
-                    PlayerSmartBombs = 20;
+                    PlayerLives = 2;
+                    PlayerSmartBombs = 3;
+                    AddScore(-score);
                     ChangeState(GameState.Play);
                 }
             }
@@ -494,36 +512,27 @@ namespace TotalDefenderArcade
             ++Wave;
             landerLateSpawnTimer = 10;
 
-            for (int i = 0; i < Entities.Length; ++i) Entities[i].Type = EntityType.None;
+            for (int i = humanoidCount; i < Entities.Length; ++i) Entities[i].Type = EntityType.None;
             for (int i = 0; i < BulletsAlive.Length; ++i) BulletsAlive[i] = false;
             for (int i = 0; i < humanoidPassengers.Length; ++i) humanoidPassengers[i] = 0;
-            for (int i = 0; i < Particles.Length; ++i) Particles[i].Age = 0;
-
-            for (int i = 0; i < 50; ++i)
-            {
-                var p = Particles[i];
-                SpawnStar(ref p);
-                p.Size = 1;
-                p.Expired = SpawnStar;
-                p.Tag = i;
-                Particles[i] = p;
-            }
 
             int landerCount = 8;
             int bomberCount = Wave == 1 ? 0 : Wave == 2 ? 3 : Wave == 3 ? 4 : 5;
             int podCount = Wave == 1 ? 0 : Wave == 2 ? 1 : Wave == 3 ? 3 : 4;
 
-            int ie = 0;
             Entity e = new Entity();
-
-            for (int i = 0; i < 10; ++i)
+            if ((Wave % 4) == 1)
             {
-                e.Type = EntityType.Humaniod;
-                e.Position.X = Random.Next(WorldSize.X);
-                e.Position.Y = WorldSize.Y - 12 - Random.Next(4);
-                Entities[ie++] = e;
+                for (int i = 0; i < humanoidCount; ++i)
+                {
+                    e.Type = EntityType.Humaniod;
+                    e.Position.X = Random.Next(WorldSize.X);
+                    e.Position.Y = WorldSize.Y - 12 - Random.Next(4);
+                    Entities[i] = e;
+                }
             }
 
+            int ie = humanoidCount;
             for (int i = 0; i < landerCount; ++i)
             {
                 e.Type = EntityType.Lander;
@@ -573,9 +582,9 @@ namespace TotalDefenderArcade
             PlayerDir = 1;
             PlayerDeathTimer = 0;
 
+            for (int i = starCount; i < Particles.Length; ++i) Particles[i].Age = 0;
             RemoveAllEntities(EntityType.EnemyBullet);
             RemoveAllEntities(EntityType.BomberBomb);
-            for (int i = 50; i < Particles.Length; ++i) Particles[i].Age = 0;
 
             // Reset entity spawn
             for (int i = 0; i < Entities.Length; ++i)
@@ -658,11 +667,11 @@ namespace TotalDefenderArcade
                     var color = spriteColors[x + y * rect.Width];
                     if (color.R > 20 || color.G > 20 || color.B > 20)
                     {
-                        pos.X = e.Position.X + (x - rectCenter.X) * 80;
-                        pos.Y = e.Position.Y + (y - rectCenter.Y) * 80;
-                        vel.X = (e.Position.X - pos.X) / 60;
-                        vel.Y = (e.Position.Y - pos.Y) / 60;
-                        SpawnParticle(1.5f, pos, vel, color, 1, callback, entityIndex);
+                        pos.X = e.Position.X + (x - rectCenter.X) * 60f;
+                        pos.Y = e.Position.Y + (y - rectCenter.Y) * 60f;
+                        vel.X = (e.Position.X - pos.X) / 60f;
+                        vel.Y = (e.Position.Y - pos.Y) / 60f;
+                        SpawnParticle(1f, pos, vel, color, 1, callback, entityIndex);
                         callback = null;
                     }
                 }
@@ -671,8 +680,8 @@ namespace TotalDefenderArcade
 
         void SpawnEntityFromParticles(ref Particle particle)
         {
-            var entityIndex = (int)particle.Tag;
-            Entities[entityIndex].State = EntityState.Default;
+            var i = (int)particle.Tag;
+            Entities[i].State = EntityState.Default;
         }
 
         #endregion
@@ -987,7 +996,8 @@ namespace TotalDefenderArcade
                     }
 
                     // Update the entities position by its velocity
-                    entity.Position += entity.Velocity;
+                    entity.Position.X += entity.Velocity.X;
+                    entity.Position.Y += entity.Velocity.Y;
                     entity.Position.X = entity.Position.X % WorldSize.X;
                     entity.Rotation += entity.RotationVelocity;
 
@@ -1261,7 +1271,7 @@ namespace TotalDefenderArcade
             }
         }
 
-        void SpawnSwarmers(Entity pod)
+        void SpawnSwarmers(Entity pod, int podIndex)
         {
             int swarmerCount = GetEntityCount(EntityType.Swarmer);
             int newCount = 0;
@@ -1271,22 +1281,22 @@ namespace TotalDefenderArcade
                 newCount = Random.Next(4, 7);
 
             if (swarmerCount + newCount > 20) newCount = 20 - swarmerCount;
+            int startIndex = podIndex + 1;
 
             for (int j = 0; j < newCount; ++j)
             {
-                int i = GetNextEntityID();
+                int i = GetNextEntityID(startIndex);
                 if (i >= 0)
                 {
                     var e = new Entity();
                     e.Type = EntityType.Swarmer;
                     e.Position = pod.Position;
                     e.Velocity.X = Random.Next(2) == 0 ? -3f : 3f;
-
                     var sineWave = new Vector2();
                     sineWave.X = (float)(Random.NextDouble() * MathHelper.TwoPi);
                     sineWave.Y = (float)(Random.NextDouble() * 1 + 1);
                     e.StateData = sineWave;
-                    Entities[i++] = e;
+                    Entities[i] = e;
                 }
             }
         }
@@ -1331,7 +1341,7 @@ namespace TotalDefenderArcade
 
                         if ((float)humanoid.StateData < humanoid.Position.Y - 75)
                         {
-                            EntityLastAct(humanoid);
+                            EntityLastAct(humanoidIndex, humanoid);
                             ExplodeEntity(humanoid);
                             humanoid.Type = EntityType.None;
                         }
@@ -1407,7 +1417,7 @@ namespace TotalDefenderArcade
                                 rect2.Height = bound.Y;
                                 if (rect.Intersects(rect2))
                                 {
-                                    EntityLastAct(entity);
+                                    EntityLastAct(j, entity);
                                     BulletsAlive[i] = false;
                                     ExplodeEntity(entity);
                                     AddShootScore(entity.Type);
@@ -1441,11 +1451,11 @@ namespace TotalDefenderArcade
             }
         }
 
-        void EntityLastAct(Entity entity)
+        void EntityLastAct(int entityIndex, Entity entity)
         {
             if (entity.Type == EntityType.Pod)
             {
-                SpawnSwarmers(entity);
+                SpawnSwarmers(entity, entityIndex);
             }
             if (entity.State == EntityState.LanderAbductHumanoid)
             {
@@ -1475,11 +1485,14 @@ namespace TotalDefenderArcade
                     default:
                         if (entity.Position.X > screenLeftX && entity.Position.X < screenRightX)
                         {
-                            EntityLastAct(entity);
-                            ExplodeEntity(entity, 0.15f, 5f, 1, 2);
-                            AddShootScore(entity.Type);
-                            entity.Type = EntityType.None;
-                            Entities[i] = entity;
+                            if (entity.Type != EntityType.Swarmer || Random.Next(10) > 0)
+                            {
+                                EntityLastAct(i, entity);
+                                ExplodeEntity(entity, 0.15f, 5f, 1, 2);
+                                AddShootScore(entity.Type);
+                                entity.Type = EntityType.None;
+                                Entities[i] = entity;
+                            }
                         }
                         break;
                 }
@@ -1500,13 +1513,8 @@ namespace TotalDefenderArcade
                 {
                     p = Particles[i];
                     p.Age -= Services.ElapsedTime;
-                    if (p.Age > 0)
-                    {
-                        p.Position += p.Velocity;
-                        if (p.Position.Y - p.Size * 0.5f < 2)
-                            p.Age = 0;
-                    }
-
+                    p.Position.X += p.Velocity.X;
+                    p.Position.Y += p.Velocity.Y;
                     if (p.Age <= 0)
                         if (p.Expired != null) p.Expired(ref p);
 

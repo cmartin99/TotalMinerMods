@@ -134,11 +134,14 @@ namespace TotalDefenderArcade
                 if (game.Particles[i].Age > 0)
                 {
                     p = game.Particles[i];
-                    pos.X = game.GetScreenX(p.Position.X);
-                    pos.Y = p.Position.Y + y;
-                    Color c = p.Color;
-                    if (p.Age < 0.3f) c.A = (byte)(MathHelper.Lerp(c.A / 255.0f, 0, (0.3f - p.Age) * 3.333f) * 255f);
-                    spriteBatch.Draw(CoreGlobals.BlankTexture, pos, null, c, 0, origin, p.Size, SpriteEffects.None, 0);
+                    if (p.Position.Y - p.Size * 0.5f >= 2)
+                    {
+                        pos.X = game.GetScreenX(p.Position.X);
+                        pos.Y = p.Position.Y + y;
+                        Color c = p.Color;
+                        if (p.Age < 0.3f) c.A = (byte)(MathHelper.Lerp(c.A / 255.0f, 0, (0.3f - p.Age) * 3.333f) * 255f);
+                        spriteBatch.Draw(CoreGlobals.BlankTexture, pos, null, c, 0, origin, p.Size, SpriteEffects.None, 0);
+                    }
                 }
             }
 
@@ -233,7 +236,7 @@ namespace TotalDefenderArcade
             int points = game.Wave < 5 ? game.Wave * 100 : 500;
             spriteBatch.DrawStringCentered(font, "Bonus X " + points.ToString() , y, color, scale);
             y += 40;
-            int x = 112;
+            int x = 100;
             for (int i = 0; i < 10; i++)
             {
                 if (game.Entities[i].Type == EntityType.Humaniod)
