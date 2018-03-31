@@ -146,11 +146,11 @@ namespace TotalDefenderArcade
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, DepthStencilState.None, null);
 
             Entity entity;
-            var length = game.PlayerSpawnTimer > 0 ? 10 : game.Entities.Length;
-            for (i = 0; i < length; ++i)
+            for (i = 0; i < game.Entities.Length; ++i)
             {
                 entity = game.Entities[i];
-                if (entity.Type != EntityType.None)
+                if (entity.Type != EntityType.None && 
+                    entity.State != EntityState.Spawning)
                 {
                     pos.X = game.GetScreenX(entity.Position.X);
                     pos.Y = entity.Position.Y + y;
@@ -292,13 +292,13 @@ namespace TotalDefenderArcade
 
             Vector2 pos;
             Entity entity;
-            var length = game.PlayerSpawnTimer > 0 ? 10 : game.Entities.Length;
-            for (int i = 0; i < length; ++i)
+            for (int i = 0; i < game.Entities.Length; ++i)
             {
                 entity = game.Entities[i];
                 if (entity.Type != EntityType.None && 
                     entity.Type != EntityType.EnemyBullet && 
-                    entity.Type != EntityType.BomberBomb)
+                    entity.Type != EntityType.BomberBomb && 
+                    entity.State != EntityState.Spawning)
                 {
                     pos = game.GetRadarSpace(entity.Position) + game.RadarPos;
                     spriteBatch.Draw(CoreGlobals.BlankTexture, new Rectangle((int)pos.X, (int)pos.Y, 1, 1), GetEntityColor(entity.Type));
