@@ -129,7 +129,8 @@ namespace TotalDefenderArcade
 
             var p = new Particle();
             Vector2 pos;
-            for (i = 0; i < game.Particles.Length; ++i)
+            int particleCount = game.PlayerSpawnTimer <= 0 ? game.Particles.Length : game.StarCount;
+            for (i = 0; i < particleCount; ++i)
             {
                 if (game.Particles[i].Age > 0)
                 {
@@ -149,7 +150,8 @@ namespace TotalDefenderArcade
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, DepthStencilState.None, null);
 
             Entity entity;
-            for (i = 0; i < game.Entities.Length; ++i)
+            int entityCount = game.PlayerSpawnTimer <= 0 ? game.Entities.Length : game.HumanoidCount;
+            for (i = 0; i < entityCount; ++i)
             {
                 entity = game.Entities[i];
                 if (entity.Type != EntityType.None && 
@@ -160,6 +162,11 @@ namespace TotalDefenderArcade
 
                     if (entity.Type != EntityType.EnemyBullet)
                     {
+                        if (entity.Type == EntityType.Mutant)
+                        {
+                            pos.X += (float)(game.Random.NextDouble() * 2.0 - 1.0);
+                            pos.Y += (float)(game.Random.NextDouble() * 2.0 - 1.0);
+                        }
                         DrawAnimatedSprite(pos, entity.Rotation, entity.Type);
                     }
                     else
@@ -193,6 +200,7 @@ namespace TotalDefenderArcade
             else if (game.PlayerState == EntityState.PlayerDeath)
             {
                 Color color = ((game.PlayerDeathTimer / 10) % 2) == 0 ? Color.Red : Color.White;
+                origin = new Vector2(playerDeathRect.Width * 0.5f, playerDeathRect.Height * 0.5f);
                 spriteBatch.Draw(SpriteSheet, game.PlayerScreenPos + new Vector2(0, y), playerDeathRect, color, 0, origin, 1, game.PlayerDir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
             }
         }
@@ -207,11 +215,6 @@ namespace TotalDefenderArcade
             var anim = SpriteAnimations[(int)type];
             int frame = (int)((long)(Services.TotalTime * 10) % (long)anim.Rect.Length);
             var animSrcRect = anim.Rect[frame];
-            if (type == EntityType.Mutant)
-            {
-                pos.X += (float)(game.Random.NextDouble() * 2.0 - 1.0);
-                pos.Y += (float)(game.Random.NextDouble() * 2.0 - 1.0);
-            }
             var origin = new Vector2(animSrcRect.Width * 0.5f, animSrcRect.Height * 0.5f);
             spriteBatch.Draw(SpriteSheet, pos, animSrcRect, Color.White, rot, origin, scale, anim.Effects, 0);
 

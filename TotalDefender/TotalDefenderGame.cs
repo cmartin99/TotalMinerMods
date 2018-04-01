@@ -90,6 +90,7 @@ namespace TotalDefenderArcade
         public Rectangle PlayerShipScreenRect;
         public EntityState PlayerState;
         public int PlayerDeathTimer;
+        public float PlayerSpawnTimer;
         public float PlayerDir;
         public int PlayerLives;
         public int PlayerSmartBombs;
@@ -103,6 +104,8 @@ namespace TotalDefenderArcade
         public int Wave;
         public Vector2 RadarPos;
         public Point RadarSize;
+        public int StarCount = 50;
+        public int HumanoidCount = 10;
 
         float gameOverTransitionTimer;
         int score;
@@ -116,11 +119,11 @@ namespace TotalDefenderArcade
         int[] humanoidPassengers;
         float landerLateSpawnTimer;
         float endOfWaveTimer;
+        float baiterSpawnTimer;
+        Vector2 baiterMaxVelocity;
         Point[] entityBounds;
         Color[] spriteColors;
         Color[] starColors = { Color.Red, Color.Green, Color.Yellow, Color.Blue, Color.White, Color.Purple, Color.Orange };
-        const int starCount = 50;
-        const int humanoidCount = 10;
 
         #endregion
 
@@ -151,11 +154,12 @@ namespace TotalDefenderArcade
             playerSpeed = new Vector2(3, 2);
             PlayerShipScreenRect = new Rectangle(0, 0, 15, 6);
             playerMaxVelX = 1.6f;
+            baiterMaxVelocity = new Vector2(100, 60);
             WorldSize = new Point(ScreenSize.X * 8, ScreenSize.Y - HUDHeight);
             RadarPos = new Vector2(72, -1);
             RadarSize = new Point(180 - 2, HUDHeight);
             spriteColors = new Color[2500];
-            humanoidPassengers = new int[humanoidCount];
+            humanoidPassengers = new int[HumanoidCount];
             Bullets = new Vector4[20];
             BulletsAlive = new bool[20];
             entityBounds = new Point[] { new Point(), new Point(15, 6), new Point(3, 8), new Point(9, 8), new Point(9, 8), new Point(6, 7), new Point(9, 8), new Point(9, 8), new Point(9, 8), new Point(2, 2), new Point(1, 1) };
@@ -176,7 +180,7 @@ namespace TotalDefenderArcade
             Entities = new Entity[200];
             Particles = new Particle[1000];
 
-            for (int i = 0; i < starCount; ++i)
+            for (int i = 0; i < StarCount; ++i)
             {
                 var p = Particles[i];
                 SpawnStar(ref p);
@@ -231,7 +235,7 @@ namespace TotalDefenderArcade
         {
             int points = Wave < 5 ? Wave * 100 : 500;
 
-            for (int i = 0; i < humanoidCount; i++)
+            for (int i = 0; i < HumanoidCount; i++)
             {
                 if (Entities[i].Type == EntityType.Humaniod)
                 {
@@ -297,6 +301,23 @@ namespace TotalDefenderArcade
             return rect;
         }
 
+        Vector2 GetPlayerEstimatedPos(float time)
+        {
+            var x = PlayerWorldPos.X + playerVel.X * time * 60f;
+            var y = PlayerWorldPos.Y + playerVel.Y * time * 60f;
+            return new Vector2(x, y);
+        }
+            
+        void SpawnBaiter()
+        {
+            Vector2 pos;
+            pos.X = Random.Next(50) + PlayerWorldPos.X - 25;
+            pos.Y = Random.Next(50) + PlayerWorldPos.Y - 25;
+            if (pos.Y < 0) pos.Y += 50;
+            if (pos.Y > ScreenSize.Y) pos.Y -= 50;
+            SpawnEntity(EntityType.Baiter, pos);
+        }
+
         void SpawnRemainingLanders()
         {
             Vector2 pos;
@@ -309,7 +330,7 @@ namespace TotalDefenderArcade
             }
         }
 
-        void SpawnEntity(EntityType type, Vector2 pos)
+        int SpawnEntity(EntityType type, Vector2 pos)
         {
             int i = GetNextEntityID();
             if (i >= 0)
@@ -321,14 +342,16 @@ namespace TotalDefenderArcade
                 e.Velocity = Vector2.Zero;
                 e.Rotation = 0;
                 e.RotationVelocity = 0;
+                e.StateData = null;
                 Entities[i] = e;
                 CreateSpawnParticles(i);
             }
+            return i;
         }
 
         int GetNextEntityID()
         {
-            return GetNextEntityID(humanoidCount);
+            return GetNextEntityID(HumanoidCount);
         }
 
         int GetNextEntityID(int startIndex)
@@ -349,7 +372,7 @@ namespace TotalDefenderArcade
         bool AllEnemiesDead()
         {
             if (landerLateSpawnTimer > 0) return false;
-            for (int i = humanoidCount; i < Entities.Length; ++i)
+            for (int i = HumanoidCount; i < Entities.Length; ++i)
             {
                 var type = Entities[i].Type;
                 switch (type)
@@ -359,7 +382,6 @@ namespace TotalDefenderArcade
                     case EntityType.Bomber:
                     case EntityType.Pod:
                     case EntityType.Swarmer:
-                    case EntityType.Baiter:
                         return false;
                 }
             }
@@ -394,7 +416,7 @@ namespace TotalDefenderArcade
 
         int GetNextParticleID()
         {
-            for (int i = starCount; i < Particles.Length; ++i)
+            for (int i = StarCount; i < Particles.Length; ++i)
                 if (Particles[i].Age <= 0) return i;
             return -1;
         }
@@ -511,8 +533,9 @@ namespace TotalDefenderArcade
         {
             ++Wave;
             landerLateSpawnTimer = 10;
+            baiterSpawnTimer = 30 - Math.Min(20, Wave);
 
-            for (int i = humanoidCount; i < Entities.Length; ++i) Entities[i].Type = EntityType.None;
+            for (int i = HumanoidCount; i < Entities.Length; ++i) Entities[i].Type = EntityType.None;
             for (int i = 0; i < BulletsAlive.Length; ++i) BulletsAlive[i] = false;
             for (int i = 0; i < humanoidPassengers.Length; ++i) humanoidPassengers[i] = 0;
 
@@ -523,7 +546,7 @@ namespace TotalDefenderArcade
             Entity e = new Entity();
             if ((Wave % 4) == 1)
             {
-                for (int i = 0; i < humanoidCount; ++i)
+                for (int i = 0; i < HumanoidCount; ++i)
                 {
                     e.Type = EntityType.Humaniod;
                     e.Position.X = Random.Next(WorldSize.X);
@@ -532,7 +555,7 @@ namespace TotalDefenderArcade
                 }
             }
 
-            int ie = humanoidCount;
+            int ie = HumanoidCount;
             for (int i = 0; i < landerCount; ++i)
             {
                 e.Type = EntityType.Lander;
@@ -581,10 +604,13 @@ namespace TotalDefenderArcade
             playerAccelerationX = 0;
             PlayerDir = 1;
             PlayerDeathTimer = 0;
+            PlayerSpawnTimer = 1.5f;
+            baiterSpawnTimer += 2;
 
-            for (int i = starCount; i < Particles.Length; ++i) Particles[i].Age = 0;
+            for (int i = StarCount; i < Particles.Length; ++i) Particles[i].Age = 0;
             RemoveAllEntities(EntityType.EnemyBullet);
             RemoveAllEntities(EntityType.BomberBomb);
+            RemoveAllEntities(EntityType.Baiter);
 
             // Reset entity spawn
             for (int i = 0; i < Entities.Length; ++i)
@@ -740,7 +766,7 @@ namespace TotalDefenderArcade
                         {
                             BulletsAlive[i] = true;
                             Bullets[i] = new Vector4(PlayerScreenPos.X + PlayerShipScreenRect.Width * PlayerDir, 
-                                PlayerScreenPos.Y + PlayerShipScreenRect.Height * 0.5f + 1, 20, PlayerDir);
+                                PlayerScreenPos.Y + 1.5f, 20, PlayerDir);
                             break;
                         }
                     }
@@ -864,6 +890,8 @@ namespace TotalDefenderArcade
                 return;
             }
 
+            PlayerSpawnTimer -= Services.ElapsedTime;
+
             // Add thrust to player velocity
             playerVel.X += playerAccelerationX * PlayerDir;
             PlayerWorldPos.Y += playerVel.Y * playerSpeed.Y;
@@ -979,7 +1007,8 @@ namespace TotalDefenderArcade
             var playerRect = GetPlayerRect();
             Rectangle rect;
 
-            for (int i = 0; i < Entities.Length; ++i)
+            int entityCount = PlayerSpawnTimer <= 0 ? Entities.Length : HumanoidCount;
+            for (int i = 0; i < entityCount; ++i)
             {
                 var entity = Entities[i];
                 if (entity.Type != EntityType.None && entity.State != EntityState.Spawning)
@@ -1068,6 +1097,16 @@ namespace TotalDefenderArcade
                 if (landerLateSpawnTimer <= 0)
                 {
                     SpawnRemainingLanders();
+                }
+            }
+
+            if (baiterSpawnTimer > 0)
+            {
+                baiterSpawnTimer -= Services.ElapsedTime;
+                if (baiterSpawnTimer <= 0)
+                {
+                    SpawnBaiter();
+                    baiterSpawnTimer = 10 - Math.Min(8, Wave / 2);
                 }
             }
         }
@@ -1303,6 +1342,40 @@ namespace TotalDefenderArcade
 
         void UpdateBaiter(ref Entity baiter)
         {
+            if (baiter.StateData == null)
+            {
+                // Decide new movement destination
+                var playerEstPos = GetPlayerEstimatedPos(3);
+                Vector2 destPos;
+                destPos.X = Random.Next(50) + playerEstPos.X - 25;
+                destPos.Y = Random.Next(50) + PlayerWorldPos.Y - 25;
+                if (destPos.Y < 0) destPos.Y += 50;
+                if (destPos.Y > ScreenSize.Y) destPos.Y -= 50;
+
+                float timeToDestination = 3;// Random.Next(2) + 1;
+                float vx = (destPos.X - baiter.Position.X) / timeToDestination / 60f;
+                float vy = (destPos.Y - baiter.Position.Y) / timeToDestination / 60;
+                baiter.Velocity = Vector2.Clamp(new Vector2(vx, vy), -baiterMaxVelocity, baiterMaxVelocity);
+                baiter.StateData = timeToDestination;
+            }
+            else
+            {
+                baiter.Position.X += baiter.Velocity.X;
+                baiter.Position.Y += baiter.Velocity.Y;
+                var timeToDestination = (float)baiter.StateData;
+                timeToDestination -= Services.ElapsedTime;
+                if (timeToDestination <= 0)
+                    baiter.StateData = null;
+                else
+                    baiter.StateData = timeToDestination;
+
+                // Shoot at Player?
+                var distance = Vector2.Distance(baiter.Position, PlayerWorldPos);
+                if (distance < ScreenSize.X && Random.Next(60) == 0)
+                {
+                    ShootAtPlayer(baiter, EntityType.EnemyBullet, 3f, 0);
+                }
+            }
         }
 
         void UpdateEnemyBullet(ref Entity bullet)
@@ -1507,7 +1580,8 @@ namespace TotalDefenderArcade
         void UpdateParticles()
         {
             var p = new Particle();
-            for (int i = 0; i < Particles.Length; ++i)
+            int particleCount = PlayerSpawnTimer <= 0 ? Particles.Length : StarCount;
+            for (int i = 0; i < particleCount; ++i)
             {
                 if (Particles[i].Age > 0)
                 {
