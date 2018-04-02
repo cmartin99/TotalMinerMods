@@ -95,6 +95,10 @@ namespace TotalDefenderArcade
                 case TotalDefenderGame.GameState.GameOver:
                     DrawGameOver();
                     break;
+
+                case TotalDefenderGame.GameState.Tutorial:
+                    DrawTutorial();
+                    break;
             }
 
             spriteBatch.End();
@@ -162,7 +166,7 @@ namespace TotalDefenderArcade
 
                     if (entity.Type != EntityType.EnemyBullet)
                     {
-                        if (entity.Type == EntityType.Mutant)
+                        if (entity.Type == EntityType.Mutant && game.State == TotalDefenderGame.GameState.Play)
                         {
                             pos.X += (float)(game.Random.NextDouble() * 2.0 - 1.0);
                             pos.Y += (float)(game.Random.NextDouble() * 2.0 - 1.0);
@@ -215,6 +219,7 @@ namespace TotalDefenderArcade
             var anim = SpriteAnimations[(int)type];
             int frame = (int)((long)(Services.TotalTime * 10) % (long)anim.Rect.Length);
             var animSrcRect = anim.Rect[frame];
+            animSrcRect.Width++;
             var origin = new Vector2(animSrcRect.Width * 0.5f, animSrcRect.Height * 0.5f);
             spriteBatch.Draw(SpriteSheet, pos, animSrcRect, Color.White, rot, origin, scale, anim.Effects, 0);
 
@@ -259,6 +264,7 @@ namespace TotalDefenderArcade
                 spriteBatch.Draw(SpriteSheet, rect, srcRect, Color.White);
                 rect.X += srcRect.Width + 2;
             }
+
             spriteBatch.DrawString(font, game.ScoreText, new Vector2(2, 5), Color.White, 0f, Vector2.Zero, 0.4f, SpriteEffects.None, 0f);
             srcRect = new Rectangle(99, 39, 6, 3);
             rect = new Rectangle(62, game.HUDHeight - 5, 6, 3);
@@ -279,6 +285,13 @@ namespace TotalDefenderArcade
             spriteBatch.Draw(CoreGlobals.BlankTexture, new Rectangle(150, game.HUDHeight + 1, 22, 1), Color.White);
             spriteBatch.Draw(CoreGlobals.BlankTexture, new Rectangle(150, game.HUDHeight, 1, 1), Color.White);
             spriteBatch.Draw(CoreGlobals.BlankTexture, new Rectangle(171, game.HUDHeight, 1, 1), Color.White);            
+        }
+
+        void DrawTutorial()
+        {
+            DrawHud();
+            DrawPlay();
+            DrawRadar();
         }
 
         void DrawRadar()

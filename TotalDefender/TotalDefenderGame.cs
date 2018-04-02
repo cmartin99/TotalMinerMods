@@ -64,6 +64,17 @@ namespace TotalDefenderArcade
         public object Tag;
     }
 
+    enum TutorialState
+    {
+        None,
+        Lander,
+        Mutant,
+        Bomber,
+        Pod,
+        Swarmer,
+        End,
+    }
+
     class TotalDefenderGame : ArcadeMachine
     {
         #region Enum
@@ -73,7 +84,8 @@ namespace TotalDefenderArcade
             Play,
             EndOfWave,
             GameOverTransition,
-            GameOver
+            GameOver,
+            Tutorial,
         }
 
         #endregion
@@ -85,6 +97,7 @@ namespace TotalDefenderArcade
         public PcgRandom Random;
         public string ScoreText;
         public int HUDHeight;
+        public TutorialState TutorialState;
         public Vector2 PlayerWorldPos;
         public Vector2 PlayerScreenPos;
         public Rectangle PlayerShipScreenRect;
@@ -120,6 +133,8 @@ namespace TotalDefenderArcade
         float landerLateSpawnTimer;
         float endOfWaveTimer;
         float baiterSpawnTimer;
+        float tutorialTimer;
+        bool tutorialPlayerBulletFired;
         Vector2 baiterMaxVelocity;
         Point[] entityBounds;
         Color[] spriteColors;
@@ -147,9 +162,8 @@ namespace TotalDefenderArcade
             ScreenSize = new Point(renderTarget.Width, renderTarget.Height);
             State = GameState.GameOver;
             Random = new PcgRandom(new Random().Next());
-            score = 0;
-            ScoreText = "0";
             HUDHeight = 20;
+            tutorialTimer = 3;
             playerEdgeSettle = 50;
             playerSpeed = new Vector2(3, 2);
             PlayerShipScreenRect = new Rectangle(0, 0, 15, 6);
@@ -335,18 +349,23 @@ namespace TotalDefenderArcade
             int i = GetNextEntityID();
             if (i >= 0)
             {
-                var e = Entities[i];
-                e.Type = type;
-                e.State = EntityState.Spawning;
-                e.Position = pos;
-                e.Velocity = Vector2.Zero;
-                e.Rotation = 0;
-                e.RotationVelocity = 0;
-                e.StateData = null;
-                Entities[i] = e;
-                CreateSpawnParticles(i);
+                SpawnEntity(i, type, pos);
             }
             return i;
+        }
+
+        void SpawnEntity(int i, EntityType type, Vector2 pos)
+        {
+            var e = Entities[i];
+            e.Type = type;
+            e.State = EntityState.Spawning;
+            e.Position = pos;
+            e.Velocity = Vector2.Zero;
+            e.Rotation = 0;
+            e.RotationVelocity = 0;
+            e.StateData = null;
+            Entities[i] = e;
+            CreateSpawnParticles(i);
         }
 
         int GetNextEntityID()
@@ -502,12 +521,7 @@ namespace TotalDefenderArcade
             {
                 if (Credits > 0)
                 {
-                    ChangeCredits(-1);
-                    Wave = 0;
-                    PlayerLives = 2;
-                    PlayerSmartBombs = 3;
-                    AddScore(-score);
-                    ChangeState(GameState.Play);
+                    NewGame();
                 }
             }
             else
@@ -526,7 +540,19 @@ namespace TotalDefenderArcade
             else
             {
                 State = GameState.GameOver;
+                tutorialTimer = 3;
             }
+        }
+
+        void NewGame()
+        {
+            ChangeCredits(-1);
+            score = 0;
+            ScoreText = "0";
+            Wave = 0;
+            PlayerLives = 2;
+            PlayerSmartBombs = 3;
+            ChangeState(GameState.Play);
         }
 
         void NewWave()
@@ -760,16 +786,7 @@ namespace TotalDefenderArcade
                     (InputManager.IsButtonPressed(tmPlayer.PlayerIndex, Buttons.A) || 
                     InputManager.IsKeyPressed(tmPlayer.PlayerIndex, Keys.OemQuotes)))
                 {
-                    for (int i = 0; i < BulletsAlive.Length; ++i)
-                    {
-                        if (!BulletsAlive[i])
-                        {
-                            BulletsAlive[i] = true;
-                            Bullets[i] = new Vector4(PlayerScreenPos.X + PlayerShipScreenRect.Width * PlayerDir, 
-                                PlayerScreenPos.Y + 1.5f, 20, PlayerDir);
-                            break;
-                        }
-                    }
+                    PlayerFireBullet();
                     autoRepeatFireTimer = 0.1f;
                 }
 
@@ -816,6 +833,15 @@ namespace TotalDefenderArcade
                     case GameState.GameOverTransition:
                         UpdateGameOverTransitionState();
                         break;
+
+                    case GameState.GameOver:
+                        UpdateGameOver();
+                        break;
+
+                    case GameState.Tutorial:
+                        UpdatePlayState();
+                        UpdateTutorial();
+                        break;
                 }
             }
             catch (Exception e)
@@ -826,22 +852,27 @@ namespace TotalDefenderArcade
 
         void ChangeState(GameState newState)
         {
-            if (newState != State)
+            State = newState;
+
+            switch (newState)
             {
-                State = newState;
+                case GameState.Play:
+                    NewWave();
+                    RespawnPlayer();
+                    break;
 
-                switch (newState)
-                {
-                    case GameState.Play:
-                        NewWave();
-                        RespawnPlayer();
-                        break;
+                case GameState.EndOfWave:
+                    endOfWaveTimer = 5;
+                    AddEndOfWaveBonusPoints();
+                    break;
 
-                    case GameState.EndOfWave:
-                        endOfWaveTimer = 5;
-                        AddEndOfWaveBonusPoints();
-                        break;
-                }
+                case GameState.Tutorial:
+                    ChangeTutorialState(TutorialState.None);
+                    break;
+
+                case GameState.GameOver:
+                    tutorialTimer = 10;
+                    break;
             }
         }
 
@@ -1002,6 +1033,88 @@ namespace TotalDefenderArcade
             }
         }
 
+        void UpdatePlayerBullets()
+        {
+            Rectangle rect = new Rectangle();
+            Rectangle rect2 = new Rectangle();
+            Vector4 bullet;
+            Entity entity;
+            Point bound;
+
+            for (int i = 0; i < BulletsAlive.Length; ++i)
+            {
+                if (BulletsAlive[i])
+                {
+                    bullet = Bullets[i];
+                    if (bullet.W > 0)
+                    {
+                        bullet.X += 3;
+                        bullet.Z += 10;
+                        if (bullet.X + bullet.Z > ScreenSize.X) BulletsAlive[i] = false;
+                    }
+                    else
+                    {
+                        bullet.X -= 3;
+                        bullet.Z += 10;
+                        if (bullet.X - bullet.Z < 0) BulletsAlive[i] = false;
+                    }
+                    Bullets[i] = bullet;
+
+                    if (BulletsAlive[i])
+                    {
+                        for (int j = 0; j < Entities.Length; ++j)
+                        {
+                            entity = Entities[j];
+                            if (entity.Type != EntityType.None &&
+                                entity.Type != EntityType.EnemyBullet &&
+                                entity.Type != EntityType.BomberBomb &&
+                                entity.State != EntityState.Spawning)
+                            {
+                                rect.X = (int)bullet.X;
+                                rect.Y = (int)bullet.Y;
+                                rect.Width = (int)bullet.Z;
+                                if (bullet.W < 1) rect.X -= rect.Width;
+                                rect.Height = 1;
+                                bound = entityBounds[(int)entity.Type];
+                                rect2.X = (int)(GetScreenX(entity.Position.X - bound.X * 0.5f));
+                                rect2.Y = (int)(entity.Position.Y - bound.Y * 0.5f);
+                                rect2.Width = bound.X;
+                                rect2.Height = bound.Y;
+                                if (rect.Intersects(rect2))
+                                {
+                                    EntityLastAct(j, entity);
+                                    BulletsAlive[i] = false;
+                                    ExplodeEntity(entity);
+                                    AddShootScore(entity.Type);
+                                    Entities[j].Type = EntityType.None;
+                                    if (entity.Type != EntityType.Humaniod && AllEnemiesDead())
+                                    {
+                                        if (State == GameState.Play)
+                                            ChangeState(GameState.EndOfWave);
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        void PlayerFireBullet()
+        {
+            for (int i = 0; i < BulletsAlive.Length; ++i)
+            {
+                if (!BulletsAlive[i])
+                {
+                    BulletsAlive[i] = true;
+                    Bullets[i] = new Vector4(PlayerScreenPos.X + PlayerShipScreenRect.Width * PlayerDir,
+                        PlayerScreenPos.Y + 1.5f, 20, PlayerDir);
+                    break;
+                }
+            }
+        }
+
         void UpdateEntities()
         {
             var playerRect = GetPlayerRect();
@@ -1047,33 +1160,52 @@ namespace TotalDefenderArcade
                             entity.Type = EntityType.None;
                     }
 
-                    switch (entity.Type)
+                    if (State == GameState.Play)
                     {
-                        case EntityType.Lander:
-                            UpdateLander(ref entity);
-                            break;
-                        case EntityType.Mutant:
-                            UpdateMutant(ref entity);
-                            break;
-                        case EntityType.Bomber:
-                            UpdateBomber(ref entity);
-                            break;
-                        case EntityType.Pod:
-                            UpdatePod(ref entity);
-                            break;
-                        case EntityType.Swarmer:
-                            UpdateSwarmer(ref entity);
-                            break;
-                        case EntityType.Baiter:
-                            UpdateBaiter(ref entity);
-                            break;
-                        case EntityType.EnemyBullet:
-                        case EntityType.BomberBomb:
-                            UpdateEnemyBullet(ref entity);
-                            break;
-                        case EntityType.Humaniod:
-                            UpdateHumanoid(ref entity, i);
-                            break;
+                        switch (entity.Type)
+                        {
+                            case EntityType.Lander:
+                                UpdateLander(ref entity);
+                                break;
+                            case EntityType.Mutant:
+                                UpdateMutant(ref entity);
+                                break;
+                            case EntityType.Bomber:
+                                UpdateBomber(ref entity);
+                                break;
+                            case EntityType.Pod:
+                                UpdatePod(ref entity);
+                                break;
+                            case EntityType.Swarmer:
+                                UpdateSwarmer(ref entity);
+                                break;
+                            case EntityType.Baiter:
+                                UpdateBaiter(ref entity);
+                                break;
+                            case EntityType.EnemyBullet:
+                            case EntityType.BomberBomb:
+                                UpdateEnemyBullet(ref entity);
+                                break;
+                            case EntityType.Humaniod:
+                                UpdateHumanoid(ref entity, i);
+                                break;
+                        }
+                    }
+                    else if (State == GameState.Tutorial)
+                    {
+                        switch (entity.Type)
+                        {
+                            case EntityType.EnemyBullet:
+                            case EntityType.BomberBomb:
+                                UpdateEnemyBullet(ref entity);
+                                break;
+                            case EntityType.Humaniod:
+                                UpdateHumanoid(ref entity, i);
+                                break;
+                            default:
+                                UpdateEntityTutorial(ref entity, i);
+                                break;
+                        }
                     }
 
                     if (entity.Type != EntityType.Humaniod)
@@ -1090,6 +1222,9 @@ namespace TotalDefenderArcade
                     Entities[i] = entity;
                 }
             }
+
+            if (State != GameState.Play)
+                return;
 
             if (landerLateSpawnTimer > 0)
             {
@@ -1441,73 +1576,6 @@ namespace TotalDefenderArcade
             AddScore(500);
         }
 
-        void UpdatePlayerBullets()
-        {
-            Rectangle rect = new Rectangle();
-            Rectangle rect2 = new Rectangle();
-            Vector4 bullet;
-            Entity entity;
-            Point bound;
-
-            for (int i = 0; i < BulletsAlive.Length; ++i)
-            {
-                if (BulletsAlive[i])
-                {
-                    bullet = Bullets[i];
-                    if (bullet.W > 0)
-                    {
-                        bullet.X += 3;
-                        bullet.Z += 10;
-                        if (bullet.X + bullet.Z > ScreenSize.X) BulletsAlive[i] = false;
-                    }
-                    else
-                    {
-                        bullet.X -= 3;
-                        bullet.Z += 10;
-                        if (bullet.X - bullet.Z < 0) BulletsAlive[i] = false;
-                    }
-                    Bullets[i] = bullet;
-
-                    if (BulletsAlive[i])
-                    {
-                        for (int j = 0; j < Entities.Length; ++j)
-                        {
-                            entity = Entities[j];
-                            if (entity.Type != EntityType.None && 
-                                entity.Type != EntityType.EnemyBullet && 
-                                entity.Type != EntityType.BomberBomb &&
-                                entity.State != EntityState.Spawning)
-                            {
-                                rect.X = (int)bullet.X;
-                                rect.Y = (int)bullet.Y;
-                                rect.Width = (int)bullet.Z;
-                                if (bullet.W < 1) rect.X -= rect.Width;
-                                rect.Height = 1;
-                                bound = entityBounds[(int)entity.Type];
-                                rect2.X = (int)(GetScreenX(entity.Position.X - bound.X * 0.5f));
-                                rect2.Y = (int)(entity.Position.Y - bound.Y * 0.5f);
-                                rect2.Width = bound.X;
-                                rect2.Height = bound.Y;
-                                if (rect.Intersects(rect2))
-                                {
-                                    EntityLastAct(j, entity);
-                                    BulletsAlive[i] = false;
-                                    ExplodeEntity(entity);
-                                    AddShootScore(entity.Type);
-                                    Entities[j].Type = EntityType.None;
-                                    if (entity.Type != EntityType.Humaniod && AllEnemiesDead())
-                                    {
-                                        ChangeState(GameState.EndOfWave);
-                                    }
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
         void ShootAtPlayer(Entity entity, EntityType type, float speed, float age)
         {
             var i = GetNextEntityID();
@@ -1528,12 +1596,25 @@ namespace TotalDefenderArcade
         {
             if (entity.Type == EntityType.Pod)
             {
-                SpawnSwarmers(entity, entityIndex);
+                if (State == GameState.Play)
+                    SpawnSwarmers(entity, entityIndex);
             }
             if (entity.State == EntityState.LanderAbductHumanoid)
             {
                 Entities[(int)entity.StateData].State = EntityState.HumanoidFalling;
                 Entities[(int)entity.StateData].StateData = Entities[(int)entity.StateData].Position.Y;
+            }
+
+            if (State == GameState.Tutorial)
+            {
+                switch (TutorialState)
+                {
+                    case TutorialState.Lander:
+                        SpawnEntity(11, EntityType.Lander, new Vector2(100, 100));
+                        break;
+                }
+
+                tutorialTimer = 2;
             }
         }
 
@@ -1606,6 +1687,15 @@ namespace TotalDefenderArcade
             }
         }
 
+        void UpdateGameOver()
+        {
+            tutorialTimer -= Services.ElapsedTime;
+            if (tutorialTimer <= 0)
+            {
+                ChangeState(GameState.Tutorial);
+            }
+        }
+
         void UpdateGameOverTransitionState()
         {
             gameOverTransitionTimer -= Services.ElapsedTime;
@@ -1615,6 +1705,83 @@ namespace TotalDefenderArcade
             else
             {
                 GameOver(false);
+            }
+        }
+
+        void ChangeTutorialState(TutorialState newState)
+        {
+            TutorialState = newState;
+            int y = 90;
+
+            switch (newState)
+            {
+                case TutorialState.None:
+                    ScoreText = "";
+                    tutorialTimer = 2;
+                    RespawnPlayer();
+                    PlayerWorldPos.Y = PlayerScreenPos.Y = 30;
+                    PlayerSpawnTimer = 0;
+                    break;
+
+                case TutorialState.Lander:
+                    SpawnEntity(10, EntityType.Lander, PlayerWorldPos + new Vector2(ScreenSize.X - 80, y));
+                    tutorialPlayerBulletFired = false;
+                    break;
+
+                case TutorialState.Mutant:
+                    SpawnEntity(10, EntityType.Mutant, PlayerWorldPos + new Vector2(ScreenSize.X - 80, y));
+                    tutorialPlayerBulletFired = false;
+                    break;
+
+                case TutorialState.Bomber:
+                    SpawnEntity(10, EntityType.Bomber, PlayerWorldPos + new Vector2(ScreenSize.X - 80, y));
+                    tutorialPlayerBulletFired = false;
+                    break;
+
+                case TutorialState.Pod:
+                    SpawnEntity(10, EntityType.Pod, PlayerWorldPos + new Vector2(ScreenSize.X - 80, y));
+                    tutorialPlayerBulletFired = false;
+                    break;
+
+                case TutorialState.Swarmer:
+                    SpawnEntity(10, EntityType.Swarmer, PlayerWorldPos + new Vector2(ScreenSize.X - 80, y));
+                    tutorialPlayerBulletFired = false;
+                    break;
+
+                case TutorialState.End:
+                    tutorialTimer = 5;
+                    break;
+            }
+        }
+
+        void UpdateTutorial()
+        {
+            if (tutorialTimer > 0)
+            {
+                tutorialTimer -= Services.ElapsedTime;
+                if (tutorialTimer <= 0)
+                {
+                    if (TutorialState == TutorialState.End)
+                        ChangeState(GameState.GameOver);
+                    else
+                        ChangeTutorialState(TutorialState + 1);
+                }
+            }
+        }
+
+        void UpdateEntityTutorial(ref Entity entity, int entityIndex)
+        {
+            if (entityIndex == 10)
+            {
+                entity.Velocity.Y = -1;
+                if (entity.Position.Y < PlayerWorldPos.Y + 17)
+                {
+                    if (!tutorialPlayerBulletFired)
+                    {
+                        PlayerFireBullet();
+                        tutorialPlayerBulletFired = true;
+                    }
+                }
             }
         }
 
