@@ -81,22 +81,22 @@ namespace TotalDefenderArcade
 
             switch (game.State)
             {
-                case TotalDefenderGame.GameState.Play:
+                case GameState.Play:
                     DrawPlay();
                     DrawRadar();
                     DrawHud();
                     break;
 
-                case TotalDefenderGame.GameState.EndOfWave:
+                case GameState.EndOfWave:
                     DrawHud();
                     DrawEndOfWave();
                     break;
 
-                case TotalDefenderGame.GameState.GameOver:
+                case GameState.GameOver:
                     DrawGameOver();
                     break;
 
-                case TotalDefenderGame.GameState.Tutorial:
+                case GameState.Tutorial:
                     DrawTutorial();
                     break;
             }
@@ -166,7 +166,7 @@ namespace TotalDefenderArcade
 
                     if (entity.Type != EntityType.EnemyBullet)
                     {
-                        if (entity.Type == EntityType.Mutant && game.State == TotalDefenderGame.GameState.Play)
+                        if (entity.Type == EntityType.Mutant && game.State == GameState.Play)
                         {
                             pos.X += (float)(game.Random.NextDouble() * 2.0 - 1.0);
                             pos.Y += (float)(game.Random.NextDouble() * 2.0 - 1.0);
@@ -292,6 +292,29 @@ namespace TotalDefenderArcade
             DrawHud();
             DrawPlay();
             DrawRadar();
+
+            float s = 0.28f;
+            spriteBatch.DrawStringCentered(font, "SCANNER", game.HUDHeight + 4, Color.Blue, s);
+
+            int x = 30, gx = 70;
+            int y = 96, gy = 60;
+            spriteBatch.DrawString(font, "LANDER", new Vector2(x, y), Color.Blue, 0, Vector2.Zero, s, SpriteEffects.None, 0);
+            spriteBatch.DrawString(font, "150", new Vector2(x + 10, y + 10), Color.Blue, 0, Vector2.Zero, s, SpriteEffects.None, 0);
+
+            spriteBatch.DrawString(font, "MUTANT", new Vector2(x + gx, y), Color.Blue, 0, Vector2.Zero, s, SpriteEffects.None, 0);
+            spriteBatch.DrawString(font, "150", new Vector2(x + gx + 10, y + 10), Color.Blue, 0, Vector2.Zero, s, SpriteEffects.None, 0);
+
+            spriteBatch.DrawString(font, "BAITER", new Vector2(x + gx + gx + 2, y), Color.Blue, 0, Vector2.Zero, s, SpriteEffects.None, 0);
+            spriteBatch.DrawString(font, "200", new Vector2(x + gx + gx + 10, y + 10), Color.Blue, 0, Vector2.Zero, s, SpriteEffects.None, 0);
+
+            spriteBatch.DrawString(font, "BOMBER", new Vector2(x, y + gy), Color.Blue, 0, Vector2.Zero, s, SpriteEffects.None, 0);
+            spriteBatch.DrawString(font, "250", new Vector2(x + 10, y + gy + 10), Color.Blue, 0, Vector2.Zero, s, SpriteEffects.None, 0);
+
+            spriteBatch.DrawString(font, "POD", new Vector2(x + gx + 10, y + gy), Color.Blue, 0, Vector2.Zero, s, SpriteEffects.None, 0);
+            spriteBatch.DrawString(font, "1000", new Vector2(x + gx + 8, y + gy + 10), Color.Blue, 0, Vector2.Zero, s, SpriteEffects.None, 0);
+
+            spriteBatch.DrawString(font, "SWARMER", new Vector2(x + gx + gx - 4, y + gy), Color.Blue, 0, Vector2.Zero, s, SpriteEffects.None, 0);
+            spriteBatch.DrawString(font, "150", new Vector2(x + gx + gx + 10, y + gy + 10), Color.Blue, 0, Vector2.Zero, s, SpriteEffects.None, 0);
         }
 
         void DrawRadar()

@@ -12,6 +12,15 @@ using StudioForge.TotalMiner.API;
 
 namespace TotalDefenderArcade
 {
+    public enum GameState
+    {
+        Play,
+        EndOfWave,
+        GameOverTransition,
+        GameOver,
+        Tutorial,
+    }
+
     enum EntityType
     {
         None,
@@ -69,6 +78,7 @@ namespace TotalDefenderArcade
         None,
         Lander,
         Mutant,
+        Baiter,
         Bomber,
         Pod,
         Swarmer,
@@ -77,19 +87,6 @@ namespace TotalDefenderArcade
 
     class TotalDefenderGame : ArcadeMachine
     {
-        #region Enum
-
-        public enum GameState
-        {
-            Play,
-            EndOfWave,
-            GameOverTransition,
-            GameOver,
-            Tutorial,
-        }
-
-        #endregion
-
         #region Fields
 
         public GameState State;
@@ -839,7 +836,6 @@ namespace TotalDefenderArcade
                         break;
 
                     case GameState.Tutorial:
-                        UpdatePlayState();
                         UpdateTutorial();
                         break;
                 }
@@ -1154,58 +1150,39 @@ namespace TotalDefenderArcade
                         if (entity.Position.Y < bound.Y * 0.5f) entity.Position.Y += WorldSize.Y;
                         else if (entity.Position.Y >= WorldSize.Y + bound.Y * 0.5f) entity.Position.Y -= WorldSize.Y;
                     }
-                    else 
+                    else
                     {
                         if (entity.Position.Y <= 0 || entity.Position.Y >= WorldSize.Y)
                             entity.Type = EntityType.None;
                     }
 
-                    if (State == GameState.Play)
+                    switch (entity.Type)
                     {
-                        switch (entity.Type)
-                        {
-                            case EntityType.Lander:
-                                UpdateLander(ref entity);
-                                break;
-                            case EntityType.Mutant:
-                                UpdateMutant(ref entity);
-                                break;
-                            case EntityType.Bomber:
-                                UpdateBomber(ref entity);
-                                break;
-                            case EntityType.Pod:
-                                UpdatePod(ref entity);
-                                break;
-                            case EntityType.Swarmer:
-                                UpdateSwarmer(ref entity);
-                                break;
-                            case EntityType.Baiter:
-                                UpdateBaiter(ref entity);
-                                break;
-                            case EntityType.EnemyBullet:
-                            case EntityType.BomberBomb:
-                                UpdateEnemyBullet(ref entity);
-                                break;
-                            case EntityType.Humaniod:
-                                UpdateHumanoid(ref entity, i);
-                                break;
-                        }
-                    }
-                    else if (State == GameState.Tutorial)
-                    {
-                        switch (entity.Type)
-                        {
-                            case EntityType.EnemyBullet:
-                            case EntityType.BomberBomb:
-                                UpdateEnemyBullet(ref entity);
-                                break;
-                            case EntityType.Humaniod:
-                                UpdateHumanoid(ref entity, i);
-                                break;
-                            default:
-                                UpdateEntityTutorial(ref entity, i);
-                                break;
-                        }
+                        case EntityType.Lander:
+                            UpdateLander(ref entity);
+                            break;
+                        case EntityType.Mutant:
+                            UpdateMutant(ref entity);
+                            break;
+                        case EntityType.Bomber:
+                            UpdateBomber(ref entity);
+                            break;
+                        case EntityType.Pod:
+                            UpdatePod(ref entity);
+                            break;
+                        case EntityType.Swarmer:
+                            UpdateSwarmer(ref entity);
+                            break;
+                        case EntityType.Baiter:
+                            UpdateBaiter(ref entity);
+                            break;
+                        case EntityType.EnemyBullet:
+                        case EntityType.BomberBomb:
+                            UpdateEnemyBullet(ref entity);
+                            break;
+                        case EntityType.Humaniod:
+                            UpdateHumanoid(ref entity, i);
+                            break;
                     }
 
                     if (entity.Type != EntityType.Humaniod)
@@ -1222,9 +1199,6 @@ namespace TotalDefenderArcade
                     Entities[i] = entity;
                 }
             }
-
-            if (State != GameState.Play)
-                return;
 
             if (landerLateSpawnTimer > 0)
             {
@@ -1607,14 +1581,35 @@ namespace TotalDefenderArcade
 
             if (State == GameState.Tutorial)
             {
+                int x = 50, y = 70, gx = 70, gy = 60;
                 switch (TutorialState)
                 {
                     case TutorialState.Lander:
-                        SpawnEntity(11, EntityType.Lander, new Vector2(100, 100));
+                        SpawnEntity(11, EntityType.Lander, new Vector2(GetScreenLeftEdge() + x, y));
+                        break;
+
+                    case TutorialState.Mutant:
+                        SpawnEntity(12, EntityType.Mutant, new Vector2(GetScreenLeftEdge() + x + gx, y));
+                        break;
+
+                    case TutorialState.Baiter:
+                        SpawnEntity(13, EntityType.Baiter, new Vector2(GetScreenLeftEdge() + x + gx + gx, y));
+                        break;
+
+                    case TutorialState.Bomber:
+                        SpawnEntity(14, EntityType.Bomber, new Vector2(GetScreenLeftEdge() + x, y + gy));
+                        break;
+
+                    case TutorialState.Pod:
+                        SpawnEntity(15, EntityType.Pod, new Vector2(GetScreenLeftEdge() + x + gx, y + gy));
+                        break;
+
+                    case TutorialState.Swarmer:
+                        SpawnEntity(16, EntityType.Swarmer, new Vector2(GetScreenLeftEdge() + x + gx + gx, y + gy));
                         break;
                 }
 
-                tutorialTimer = 2;
+                tutorialTimer = 1;
             }
         }
 
@@ -1711,40 +1706,42 @@ namespace TotalDefenderArcade
         void ChangeTutorialState(TutorialState newState)
         {
             TutorialState = newState;
-            int y = 90;
+            int y = 80;
+            int xw = (int)PlayerWorldPos.X + ScreenSize.X - 80;
 
             switch (newState)
             {
                 case TutorialState.None:
-                    ScoreText = "";
-                    tutorialTimer = 2;
-                    RespawnPlayer();
-                    PlayerWorldPos.Y = PlayerScreenPos.Y = 30;
-                    PlayerSpawnTimer = 0;
+                    NewTutorial();
                     break;
 
                 case TutorialState.Lander:
-                    SpawnEntity(10, EntityType.Lander, PlayerWorldPos + new Vector2(ScreenSize.X - 80, y));
+                    SpawnEntity(10, EntityType.Lander, new Vector2(xw, y));
                     tutorialPlayerBulletFired = false;
                     break;
 
                 case TutorialState.Mutant:
-                    SpawnEntity(10, EntityType.Mutant, PlayerWorldPos + new Vector2(ScreenSize.X - 80, y));
+                    SpawnEntity(10, EntityType.Mutant, new Vector2(xw, y));
+                    tutorialPlayerBulletFired = false;
+                    break;
+
+                case TutorialState.Baiter:
+                    SpawnEntity(10, EntityType.Baiter, new Vector2(xw, y));
                     tutorialPlayerBulletFired = false;
                     break;
 
                 case TutorialState.Bomber:
-                    SpawnEntity(10, EntityType.Bomber, PlayerWorldPos + new Vector2(ScreenSize.X - 80, y));
+                    SpawnEntity(10, EntityType.Bomber, new Vector2(xw, y));
                     tutorialPlayerBulletFired = false;
                     break;
 
                 case TutorialState.Pod:
-                    SpawnEntity(10, EntityType.Pod, PlayerWorldPos + new Vector2(ScreenSize.X - 80, y));
+                    SpawnEntity(10, EntityType.Pod, new Vector2(xw, y));
                     tutorialPlayerBulletFired = false;
                     break;
 
                 case TutorialState.Swarmer:
-                    SpawnEntity(10, EntityType.Swarmer, PlayerWorldPos + new Vector2(ScreenSize.X - 80, y));
+                    SpawnEntity(10, EntityType.Swarmer, new Vector2(xw, y));
                     tutorialPlayerBulletFired = false;
                     break;
 
@@ -1752,6 +1749,17 @@ namespace TotalDefenderArcade
                     tutorialTimer = 5;
                     break;
             }
+        }
+
+        void NewTutorial()
+        {
+            ScoreText = "";
+            tutorialTimer = 2;
+            for (int i = 0; i < Entities.Length; ++i) Entities[i].Type = EntityType.None;
+            RespawnPlayer();
+            PlayerScreenPos.X = 30;
+            PlayerWorldPos.Y = PlayerScreenPos.Y = 30;
+            PlayerSpawnTimer = 0;
         }
 
         void UpdateTutorial()
@@ -1765,6 +1773,38 @@ namespace TotalDefenderArcade
                         ChangeState(GameState.GameOver);
                     else
                         ChangeTutorialState(TutorialState + 1);
+                }
+            }
+
+            UpdateTutorialEntities();
+            UpdatePlayerBullets();
+            UpdateParticles();
+        }
+
+        void UpdateTutorialEntities()
+        {
+            for (int i = 0; i < Entities.Length; ++i)
+            {
+                var entity = Entities[i];
+                if (entity.Type != EntityType.None && entity.State != EntityState.Spawning)
+                {
+                    entity.Position.X += entity.Velocity.X;
+                    entity.Position.Y += entity.Velocity.Y;
+
+                    switch (entity.Type)
+                    {
+                        case EntityType.EnemyBullet:
+                        case EntityType.BomberBomb:
+                            UpdateEnemyBullet(ref entity);
+                            break;
+                        case EntityType.Humaniod:
+                            UpdateHumanoid(ref entity, i);
+                            break;
+                        default:
+                            UpdateEntityTutorial(ref entity, i);
+                            break;
+                    }
+                    Entities[i] = entity;
                 }
             }
         }
