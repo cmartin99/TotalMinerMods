@@ -96,6 +96,10 @@ namespace TotalDefenderArcade
                     DrawGameOver();
                     break;
 
+                case GameState.Controls:
+                    DrawControls();
+                    break;
+
                 case GameState.Tutorial:
                     DrawTutorial();
                     break;
@@ -106,25 +110,34 @@ namespace TotalDefenderArcade
 
         void DrawPlay()
         {
+            if (game.PlanetExplodeCounter > 0)
+            {
+                var color = new Color(game.Random.Next(0, 255), game.Random.Next(0, 255), game.Random.Next(0, 255));
+                spriteBatch.Draw(CoreGlobals.BlankTexture, new Rectangle(0, 0, game.ScreenSize.X, game.ScreenSize.Y), color);
+            }
+
             int y = game.HUDHeight + 1;
             var origin = new Vector2(0.5f, 0.5f);
 
             int i;
-            Vector2 m2 = Vector2.Zero;
-            for (i = 0; i < game.Mountains.Count; ++i)
+            if (!game.SpaceMode)
             {
-                var m1 = game.Mountains[i];
-                m1.X = game.GetScreenX(m1.X);
-                m1.Y += y;
-                m2 = game.Mountains[i + 1 == game.Mountains.Count ? 0 : i + 1];
-                m2.X = game.GetScreenX(m2.X);
-                m2.Y += y;
+                Vector2 m2 = Vector2.Zero;
+                for (i = 0; i < game.Mountains.Count; ++i)
+                {
+                    var m1 = game.Mountains[i];
+                    m1.X = game.GetScreenX(m1.X);
+                    m1.Y += y;
+                    m2 = game.Mountains[i + 1 == game.Mountains.Count ? 0 : i + 1];
+                    m2.X = game.GetScreenX(m2.X);
+                    m2.Y += y;
 
-                //if (i + 1 == game.Mountains.Count) 
-                //    spriteBatch.Draw(CoreGlobals.BlankTexture, new Rectangle((int)m2.X, y, 1, game.ScreenSize.Y), Color.Red);
+                    //if (i + 1 == game.Mountains.Count) 
+                    //    spriteBatch.Draw(CoreGlobals.BlankTexture, new Rectangle((int)m2.X, y, 1, game.ScreenSize.Y), Color.Red);
 
-                if (m2.X > 0 && m1.X < game.ScreenSize.X)
-                    spriteBatch.DrawLine(CoreGlobals.BlankTexture, 1, Color.RosyBrown, m1, m2);
+                    if (m2.X > 0 && m1.X < game.ScreenSize.X)
+                        spriteBatch.DrawLine(CoreGlobals.BlankTexture, 1, Color.RosyBrown, m1, m2);
+                }
             }
 
             spriteBatch.End();
@@ -158,6 +171,7 @@ namespace TotalDefenderArcade
             {
                 entity = game.Entities[i];
                 if (entity.Type != EntityType.None && 
+                    entity.Type != EntityType.Player &&
                     entity.State != EntityState.Spawning)
                 {
                     pos.X = game.GetScreenX(entity.Position.X);
@@ -195,16 +209,29 @@ namespace TotalDefenderArcade
                 }
             }
 
-            if (game.PlayerState == EntityState.Default)
+            var player = game.Entities[game.PlayerIndex];
+            if (player.State == EntityState.Default)
             {
                 SpriteAnimations[(int)EntityType.Player].Effects = game.PlayerDir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
                 DrawAnimatedSprite(game.PlayerScreenPos + new Vector2(0, y), 0, EntityType.Player);
             }
-            else if (game.PlayerState == EntityState.PlayerDeath)
+            else if (player.State == EntityState.PlayerDeath)
             {
                 Color color = ((game.PlayerDeathTimer / 10) % 2) == 0 ? Color.Red : Color.White;
                 origin = new Vector2(playerDeathRect.Width * 0.5f, playerDeathRect.Height * 0.5f);
                 spriteBatch.Draw(SpriteSheet, game.PlayerScreenPos + new Vector2(0, y), playerDeathRect, color, 0, origin, 1, game.PlayerDir > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+            }
+
+            var sprite = new TimedSprite();
+            for (i = 0; i < game.TimedSprites.Length; ++i)
+            {
+                if (game.TimedSprites[i].Frame > 0)
+                {
+                    sprite = game.TimedSprites[i];
+                    var srcRect = sprite.SrcRects[sprite.Frame - 1];
+                    var destRect = new Rectangle((int)sprite.Position.X, (int)sprite.Position.Y, srcRect.Width, srcRect.Height);
+                    spriteBatch.Draw(SpriteSheet, destRect, srcRect, Color.White);
+                }
             }
         }
 
@@ -286,6 +313,29 @@ namespace TotalDefenderArcade
             spriteBatch.Draw(CoreGlobals.BlankTexture, new Rectangle(171, game.HUDHeight, 1, 1), Color.White);            
         }
 
+        void DrawControls()
+        {
+            int x = 30, y = 25;
+            float scale = 0.5f;
+            int g = 20;
+            Color color = Color.Green;
+            spriteBatch.DrawString(font, "CONTROLS", new Vector2(x, y), color, 0f, Vector2.Zero, 0.65f, SpriteEffects.None, 0f);
+            y += g + g;
+            spriteBatch.DrawString(font, "Up = Move ship up", new Vector2(x, y), color, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            y += g;
+            spriteBatch.DrawString(font, "Down = Move ship down", new Vector2(x, y), color, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            y += g;
+            spriteBatch.DrawString(font, "Shoulder = Reverse", new Vector2(x, y), color, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            y += g;
+            spriteBatch.DrawString(font, "Trigger = Thrust", new Vector2(x, y), color, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            y += g;
+            spriteBatch.DrawString(font, "A = Fire", new Vector2(x, y), color, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            y += g;
+            spriteBatch.DrawString(font, "X = Smart Bomb", new Vector2(x, y), color, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            y += g;
+            spriteBatch.DrawString(font, "Y = Hyperspace", new Vector2(x, y), color, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+        }
+
         void DrawTutorial()
         {
             DrawHud();
@@ -338,26 +388,30 @@ namespace TotalDefenderArcade
 
         void DrawRadar()
         {
-            Vector2 m1 = game.GetRadarSpace(game.Mountains[0]) + game.RadarPos;
-            Vector2 m2 = Vector2.Zero;
-            for (int i = 0; i < game.Mountains.Count - 1; ++i)
+            if (!game.SpaceMode)
             {
-                m2 = game.GetRadarSpace(game.Mountains[i + 1]) + game.RadarPos;
+                Vector2 m1 = game.GetRadarSpace(game.Mountains[0]) + game.RadarPos;
+                Vector2 m2 = Vector2.Zero;
+                for (int i = 0; i < game.Mountains.Count - 1; ++i)
+                {
+                    m2 = game.GetRadarSpace(game.Mountains[i + 1]) + game.RadarPos;
+                    if (m1.X < m2.X && m2.X - m1.X < game.RadarSize.X * 0.5f)
+                        spriteBatch.DrawLine(CoreGlobals.BlankTexture, 1, Color.RosyBrown, m1, m2);
+                    m1 = m2;
+                }
+                m2 = game.GetRadarSpace(new Vector2(game.WorldSize.X, game.Mountains[0].Y)) + game.RadarPos;
                 if (m1.X < m2.X && m2.X - m1.X < game.RadarSize.X * 0.5f)
-                    spriteBatch.DrawLine(CoreGlobals.BlankTexture, 1, Color.RosyBrown, m1, m2);
-                m1 = m2;
+                    spriteBatch.DrawLine(CoreGlobals.BlankTexture, 1, Color.RosyBrown, m2, m1);
             }
-            m2 = game.GetRadarSpace(new Vector2(game.WorldSize.X, game.Mountains[0].Y)) + game.RadarPos;
-            if (m1.X < m2.X && m2.X - m1.X < game.RadarSize.X * 0.5f)
-                spriteBatch.DrawLine(CoreGlobals.BlankTexture, 1, Color.RosyBrown, m2, m1);
 
             Vector2 pos;
             Entity entity;
             for (int i = 0; i < game.Entities.Length; ++i)
             {
                 entity = game.Entities[i];
-                if (entity.Type != EntityType.None && 
-                    entity.Type != EntityType.EnemyBullet && 
+                if (entity.Type != EntityType.None &&
+                    entity.Type != EntityType.Player &&
+                    entity.Type != EntityType.EnemyBullet &&
                     entity.Type != EntityType.BomberBomb && 
                     entity.State != EntityState.Spawning)
                 {
@@ -366,7 +420,7 @@ namespace TotalDefenderArcade
                 }
             }
 
-            pos = game.GetRadarSpace(game.PlayerWorldPos) + game.RadarPos;
+            pos = game.GetRadarSpace(game.Entities[game.PlayerIndex].Position) + game.RadarPos;
             var rect = new Rectangle((int)pos.X - 1, (int)pos.Y, 3, 1);
             spriteBatch.Draw(CoreGlobals.BlankTexture, rect, GetEntityColor(EntityType.Player));
             rect.X++;
@@ -403,8 +457,8 @@ namespace TotalDefenderArcade
 
         void DrawGameOver()
         {
-            spriteBatch.DrawStringCentered(font, "Total", 40, Color.White, 1.2f);
-            spriteBatch.DrawStringCentered(font, "Defender", 70, Color.White, 1.2f);
+            spriteBatch.DrawStringCentered(font, "Total", 30, Color.White, 1.2f);
+            spriteBatch.DrawStringCentered(font, "Defender", 62, Color.White, 1.2f);
             spriteBatch.DrawStringCentered(font, "Game Over", 140, Color.White, 0.8f);
             spriteBatch.DrawStringCentered(font, game.CreditText, 180, Color.White, 0.6f);
         }
