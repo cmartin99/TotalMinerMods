@@ -107,7 +107,6 @@ namespace TotalDefenderArcade
         void DrawPlay()
         {
             int y = game.HUDHeight + 1;
-            float camX = game.PlayerWorldPos.X - game.PlayerScreenPos.X;
             var origin = new Vector2(0.5f, 0.5f);
 
             int i;
@@ -293,28 +292,48 @@ namespace TotalDefenderArcade
             DrawPlay();
             DrawRadar();
 
+            var color = Color.Blue;
             float s = 0.28f;
-            spriteBatch.DrawStringCentered(font, "SCANNER", game.HUDHeight + 4, Color.Blue, s);
+            spriteBatch.DrawStringCentered(font, "SCANNER", game.HUDHeight + 4, color, s);
 
             int x = 30, gx = 70;
             int y = 96, gy = 60;
-            spriteBatch.DrawString(font, "LANDER", new Vector2(x, y), Color.Blue, 0, Vector2.Zero, s, SpriteEffects.None, 0);
-            spriteBatch.DrawString(font, "150", new Vector2(x + 10, y + 10), Color.Blue, 0, Vector2.Zero, s, SpriteEffects.None, 0);
 
-            spriteBatch.DrawString(font, "MUTANT", new Vector2(x + gx, y), Color.Blue, 0, Vector2.Zero, s, SpriteEffects.None, 0);
-            spriteBatch.DrawString(font, "150", new Vector2(x + gx + 10, y + 10), Color.Blue, 0, Vector2.Zero, s, SpriteEffects.None, 0);
+            if (game.TutorialState > TutorialState.Lander)
+            {
+                spriteBatch.DrawString(font, "LANDER", new Vector2(x, y), color, 0, Vector2.Zero, s, SpriteEffects.None, 0);
+                spriteBatch.DrawString(font, "150", new Vector2(x + 10, y + 10), color, 0, Vector2.Zero, s, SpriteEffects.None, 0);
 
-            spriteBatch.DrawString(font, "BAITER", new Vector2(x + gx + gx + 2, y), Color.Blue, 0, Vector2.Zero, s, SpriteEffects.None, 0);
-            spriteBatch.DrawString(font, "200", new Vector2(x + gx + gx + 10, y + 10), Color.Blue, 0, Vector2.Zero, s, SpriteEffects.None, 0);
+                if (game.TutorialState > TutorialState.Mutant)
+                {
+                    spriteBatch.DrawString(font, "MUTANT", new Vector2(x + gx, y), color, 0, Vector2.Zero, s, SpriteEffects.None, 0);
+                    spriteBatch.DrawString(font, "150", new Vector2(x + gx + 10, y + 10), color, 0, Vector2.Zero, s, SpriteEffects.None, 0);
 
-            spriteBatch.DrawString(font, "BOMBER", new Vector2(x, y + gy), Color.Blue, 0, Vector2.Zero, s, SpriteEffects.None, 0);
-            spriteBatch.DrawString(font, "250", new Vector2(x + 10, y + gy + 10), Color.Blue, 0, Vector2.Zero, s, SpriteEffects.None, 0);
+                    if (game.TutorialState > TutorialState.Baiter)
+                    {
+                        spriteBatch.DrawString(font, "BAITER", new Vector2(x + gx + gx + 2, y), color, 0, Vector2.Zero, s, SpriteEffects.None, 0);
+                        spriteBatch.DrawString(font, "200", new Vector2(x + gx + gx + 10, y + 10), color, 0, Vector2.Zero, s, SpriteEffects.None, 0);
 
-            spriteBatch.DrawString(font, "POD", new Vector2(x + gx + 10, y + gy), Color.Blue, 0, Vector2.Zero, s, SpriteEffects.None, 0);
-            spriteBatch.DrawString(font, "1000", new Vector2(x + gx + 8, y + gy + 10), Color.Blue, 0, Vector2.Zero, s, SpriteEffects.None, 0);
+                        if (game.TutorialState > TutorialState.Bomber)
+                        {
+                            spriteBatch.DrawString(font, "BOMBER", new Vector2(x, y + gy), color, 0, Vector2.Zero, s, SpriteEffects.None, 0);
+                            spriteBatch.DrawString(font, "250", new Vector2(x + 10, y + gy + 10), color, 0, Vector2.Zero, s, SpriteEffects.None, 0);
 
-            spriteBatch.DrawString(font, "SWARMER", new Vector2(x + gx + gx - 4, y + gy), Color.Blue, 0, Vector2.Zero, s, SpriteEffects.None, 0);
-            spriteBatch.DrawString(font, "150", new Vector2(x + gx + gx + 10, y + gy + 10), Color.Blue, 0, Vector2.Zero, s, SpriteEffects.None, 0);
+                            if (game.TutorialState > TutorialState.Pod)
+                            {
+                                spriteBatch.DrawString(font, "POD", new Vector2(x + gx + 10, y + gy), color, 0, Vector2.Zero, s, SpriteEffects.None, 0);
+                                spriteBatch.DrawString(font, "1000", new Vector2(x + gx + 8, y + gy + 10), color, 0, Vector2.Zero, s, SpriteEffects.None, 0);
+
+                                if (game.TutorialState > TutorialState.Swarmer)
+                                {
+                                    spriteBatch.DrawString(font, "SWARMER", new Vector2(x + gx + gx - 4, y + gy), color, 0, Vector2.Zero, s, SpriteEffects.None, 0);
+                                    spriteBatch.DrawString(font, "150", new Vector2(x + gx + gx + 10, y + gy + 10), color, 0, Vector2.Zero, s, SpriteEffects.None, 0);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         void DrawRadar()

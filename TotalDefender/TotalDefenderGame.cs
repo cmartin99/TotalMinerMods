@@ -76,6 +76,10 @@ namespace TotalDefenderArcade
     enum TutorialState
     {
         None,
+        Humanoid,
+        CatchHumanoid,
+        DepositHumanoid,
+        ReturnToBase,
         Lander,
         Mutant,
         Baiter,
@@ -1584,6 +1588,15 @@ namespace TotalDefenderArcade
                 int x = 50, y = 70, gx = 70, gy = 60;
                 switch (TutorialState)
                 {
+                    case TutorialState.Humanoid:
+                        TutorialState = TutorialState.CatchHumanoid;
+                        return;
+
+                    case TutorialState.CatchHumanoid:
+                    case TutorialState.DepositHumanoid:
+                    case TutorialState.ReturnToBase:
+                        return;
+
                     case TutorialState.Lander:
                         SpawnEntity(11, EntityType.Lander, new Vector2(GetScreenLeftEdge() + x, y));
                         break;
@@ -1609,7 +1622,7 @@ namespace TotalDefenderArcade
                         break;
                 }
 
-                tutorialTimer = 1;
+                tutorialTimer = 0.75f;
             }
         }
 
@@ -1715,9 +1728,25 @@ namespace TotalDefenderArcade
                     NewTutorial();
                     break;
 
+                case TutorialState.Humanoid:
+                    SpawnEntity(10, EntityType.Lander, new Vector2(xw, y));
+                    tutorialPlayerBulletFired = false;
+                    break;
+
+                case TutorialState.ReturnToBase:
+                    var basePos = new Vector2(30, 30);
+                    playerVel = (basePos - PlayerWorldPos) / 120f;
+                    PlayerDir = -1;
+                    tutorialTimer = 2;
+                    Entities[0].State = EntityState.Default;
+                    Entities[0].Velocity = Vector2.Zero;
+                    break;
+
                 case TutorialState.Lander:
                     SpawnEntity(10, EntityType.Lander, new Vector2(xw, y));
                     tutorialPlayerBulletFired = false;
+                    PlayerWorldPos = PlayerScreenPos = new Vector2(30, 30);
+                    PlayerDir = 1;
                     break;
 
                 case TutorialState.Mutant:
@@ -1754,12 +1783,21 @@ namespace TotalDefenderArcade
         void NewTutorial()
         {
             ScoreText = "";
-            tutorialTimer = 2;
+            tutorialTimer = 0.5f;
             for (int i = 0; i < Entities.Length; ++i) Entities[i].Type = EntityType.None;
+            for (int i = 0; i < humanoidPassengers.Length; ++i) humanoidPassengers[i] = 0;
+
             RespawnPlayer();
-            PlayerScreenPos.X = 30;
+            PlayerWorldPos.X = PlayerScreenPos.X = 30;
             PlayerWorldPos.Y = PlayerScreenPos.Y = 30;
             PlayerSpawnTimer = 0;
+
+            var e = Entities[0];
+            e.Type = EntityType.Humaniod;
+            e.Position.X = PlayerWorldPos.X + ScreenSize.X - 80;
+            e.Position.Y = Math.Min(ScreenSize.Y - 12, MountainHeightMap[GetMountainHeightMapIndex(e.Position.X)] - 1);
+            Entities[0] = e;
+
         }
 
         void UpdateTutorial()
@@ -1774,6 +1812,29 @@ namespace TotalDefenderArcade
                     else
                         ChangeTutorialState(TutorialState + 1);
                 }
+            }
+
+            switch (TutorialState)
+            {
+                case TutorialState.CatchHumanoid:
+                    PlayerWorldPos += new Vector2(2.5f, 1f);
+                    PlayerScreenPos = PlayerWorldPos;
+                    if (PlayerWorldPos.X >= Entities[0].Position.X - 4)
+                        ChangeTutorialState(TutorialState + 1);
+                    break;
+
+                case TutorialState.DepositHumanoid:
+                    PlayerWorldPos.Y += 1;
+                    PlayerScreenPos = PlayerWorldPos;
+                    var y = MountainHeightMap[GetMountainHeightMapIndex(PlayerWorldPos.X)];
+                    if (Entities[0].Position.Y > y - 1)
+                        ChangeTutorialState(TutorialState + 1);
+                    break;
+
+                case TutorialState.ReturnToBase:
+                    PlayerWorldPos += playerVel;
+                    PlayerScreenPos = PlayerWorldPos;
+                    break;
             }
 
             UpdateTutorialEntities();
@@ -1797,9 +1858,6 @@ namespace TotalDefenderArcade
                         case EntityType.BomberBomb:
                             UpdateEnemyBullet(ref entity);
                             break;
-                        case EntityType.Humaniod:
-                            UpdateHumanoid(ref entity, i);
-                            break;
                         default:
                             UpdateEntityTutorial(ref entity, i);
                             break;
@@ -1813,6 +1871,32 @@ namespace TotalDefenderArcade
         {
             if (entityIndex == 10)
             {
+                if (TutorialState == TutorialState.Humanoid)
+                {
+                    if (entity.State == EntityState.Default)
+                    {
+                        entity.Velocity.Y = 1;
+                        entity.State = EntityState.LanderPickupHumanoid;
+                        entity.StateData = 0;
+                        Entities[0].State = EntityState.HumanoidBeingAbducted;
+                        return;
+                    }
+                    else if (entity.State == EntityState.LanderPickupHumanoid)
+                    {
+                        var r1 = GetEntityRect(entity);
+                        var r2 = GetEntityRect(Entities[0]);
+                        if (r1.Intersects(r2))
+                        {
+                            entity.State = EntityState.LanderAbductHumanoid;
+                        }
+                        return;
+                    }
+                    else if (entity.State == EntityState.LanderAbductHumanoid)
+                    {
+                        Entities[0].Position.Y = entity.Position.Y + entityBounds[(int)EntityType.Lander].Y;
+                    }
+                }
+
                 entity.Velocity.Y = -1;
                 if (entity.Position.Y < PlayerWorldPos.Y + 17)
                 {
@@ -1822,6 +1906,13 @@ namespace TotalDefenderArcade
                         tutorialPlayerBulletFired = true;
                     }
                 }
+            }
+
+            switch (entity.State)
+            {
+                case EntityState.HumanoidFalling:
+                    entity.Velocity.Y = 1;
+                    break;
             }
         }
 
