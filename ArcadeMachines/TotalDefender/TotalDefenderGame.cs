@@ -233,6 +233,11 @@ namespace ArcadeMachines.TotalDefender
             }
         }
 
+        protected override void CreateRenderTarget()
+        {
+            renderTarget = new RenderTarget2D(CoreGlobals.GraphicsDevice, 640, 480, false, SurfaceFormat.Bgra5551, DepthFormat.None, 0, RenderTargetUsage.DiscardContents);
+        }
+
         #endregion
 
         #region Helper Methods

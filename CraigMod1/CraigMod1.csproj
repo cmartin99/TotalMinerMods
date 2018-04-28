@@ -88,7 +88,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\ActorTypeData.xml" />
-    <None Include="Content\BlockTextures64.xml" />
+    <None Include="Content\BlockTextures64.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Content\ItemData.xml" />
     <None Include="Content\ItemTextures32.xml" />
     <None Include="Content\ItemTypeData.xml" />

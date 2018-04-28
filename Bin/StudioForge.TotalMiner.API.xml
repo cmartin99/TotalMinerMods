@@ -279,6 +279,19 @@
             Returns true if the actor has at least one of the specified (or'd) permissions.
             </summary>
         </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMActor.TogglePermission(StudioForge.TotalMiner.Permissions,System.Boolean)">
+            <summary>
+            Toggle the actors permission.
+            </summary>
+            <param name="permission">The permission to toggle.</param>
+            <param name="enable">True to turn the permission on, false to turn it off.</param>
+            <returns>The state of the permission after the call.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMActor.HasHistory(System.String)">
+            <summary>
+            Returns true if the actor has a history value != 0 for the specified key.
+            </summary>
+        </member>
         <member name="M:StudioForge.TotalMiner.API.ITMActor.LineOfSightTest(Microsoft.Xna.Framework.Vector3,System.Single)">
             <summary>
             Casts a ray from EyePosition in a specified direction for a specified distance. Returns true if no solid block is intersected by the ray.
@@ -409,7 +422,7 @@
             Get the size in pixels of an item on the current texture pack.
             </summary>
         </member>
-        <member name="M:StudioForge.TotalMiner.API.ITMTexturePack.GetTexureForItem(StudioForge.TotalMiner.Item)">
+        <member name="M:StudioForge.TotalMiner.API.ITMTexturePack.GetTextureForItem(StudioForge.TotalMiner.Item)">
             <summary>
             Get the correct texture for an ItemID. If ItemID is >= Item.Hand then ItemTexture is returned, otherwise BlockTexture is returned.
             </summary>
@@ -429,9 +442,9 @@
             Get Color data for an item. The array returned is a cached array and reused for each call, so you must use the data or copy it before calling this method again.
             </summary>
         </member>
-        <member name="P:StudioForge.TotalMiner.API.ITMTexturePack.Name">
+        <member name="P:StudioForge.TotalMiner.API.ITMTexturePack.Info">
             <summary>
-            Get the name of the texture pack.
+            Get the info of the texture pack.
             </summary>
         </member>
         <member name="P:StudioForge.TotalMiner.API.ITMTexturePack.BlockTexture">
@@ -475,6 +488,25 @@
             <param name="pos">World start position of the particle (center).</param>
             <param name="data">Data describing the particle.</param>
             <returns>Returns true if the particle was spawned successfully.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMWorld.AddPickup(StudioForge.BlockWorld.GlobalPoint3D,StudioForge.TotalMiner.InventoryItem)">
+            <summary>
+            Adds an item/block pickup to the world.
+            </summary>
+            <param name="p">World Tile position where the pickup is spawned.</param>
+            <param name="item">Inventory data describing the pickup contents.</param>
+            <returns>Returns true of the pickup was successfully added.</returns>
+        </member>
+        <member name="M:StudioForge.TotalMiner.API.ITMWorld.AddPickup(Microsoft.Xna.Framework.Vector3,StudioForge.TotalMiner.InventoryItem,Microsoft.Xna.Framework.Vector2,System.Single,StudioForge.TotalMiner.API.ITMPlayer)">
+            <summary>
+            Adds an item/block pickup to the world.
+            </summary>
+            <param name="pos">World position where the pickup is spawned.</param>
+            <param name="item">Inventory data describing the pickup contents.</param>
+            <param name="velocity">Initial velocity of pickup.</param>
+            <param name="minPickupAge">The minimum lifetime of the pickup. The actual lifetime of the pickup is calculated based on the item.ItemID. But if you want the pickup to live longer, than pass the lifetime you want here in seconds.</param>
+            <param name="player">The owner of the pickup. Pass null for no owner.</param>
+            <returns>Returns true of the pickup was successfully added.</returns>
         </member>
         <member name="M:StudioForge.TotalMiner.API.ITMWorld.AddProjectile(StudioForge.TotalMiner.Item,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Vector3,StudioForge.TotalMiner.API.ITMPlayer,System.Boolean)">
             <summary>
@@ -560,13 +592,14 @@
             <param name="radius">Blast radius.</param>
             <param name="player">Player that created the blast or -1 if no player.</param>
         </member>
-        <member name="M:StudioForge.TotalMiner.API.ITMWorld.CreateFallingBlock(StudioForge.BlockWorld.GlobalPoint3D,StudioForge.TotalMiner.API.ITMPlayer,StudioForge.BlockWorld.UpdateBlockMethod,System.Boolean)">
+        <member name="M:StudioForge.TotalMiner.API.ITMWorld.CreateFallingBlock(StudioForge.BlockWorld.GlobalPoint3D,StudioForge.TotalMiner.API.ITMPlayer,StudioForge.BlockWorld.UpdateBlockMethod,System.Action{StudioForge.TotalMiner.ItemParticle},System.Boolean)">
             <summary>
             Causes a block to start falling until it hits another block.
             </summary>
             <param name="p">World Tile position of source block.</param>
             <param name="player">Player who caused the block to fall or -1 if no player.</param>
             <param name="method">Update method.</param>
+            <param name="onRest">This method is called when the falling block comes to rest. Pass null for no callback.</param>
             <param name="transmit">True = Transmit over the network to remote players. False = Local operation only.</param>
             <returns></returns>
         </member>
@@ -588,29 +621,24 @@
             <param name="dest">The destination Tile position to teleport the entities to.</param>
             <param name="relative">False = all entities are teleported directly to tile position 'dest' regardless of their position in the area. True = all entities are teleported to a tile position relative to 'dest' and their original position relative to 'min'. e.g. final position = dest + (entity position - min)</param>
         </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMWorld.GameMode">
+            <summary>
+            Returns the current game mode.
+            </summary>
+        </member>
+        <member name="P:StudioForge.TotalMiner.API.ITMWorld.Difficulty">
+            <summary>
+             Returns the current game diffculty setting.
+            </summary>
+        </member>
         <member name="P:StudioForge.TotalMiner.API.ITMWorld.IsCreativeMode">
             <summary>
             Returns True if this is a Creative Mode world.
             </summary>
         </member>
-        <member name="P:StudioForge.TotalMiner.API.ITMWorld.IsSurvivalMode">
-            <summary>
-             Returns True if this is a Survival Mode world.
-            </summary>
-        </member>
-        <member name="P:StudioForge.TotalMiner.API.ITMWorld.IsPeacefulMode">
-            <summary>
-            Returns True if this is a Peaceful Mode world.
-            </summary>
-        </member>
-        <member name="P:StudioForge.TotalMiner.API.ITMWorld.IsDigDeepMode">
-            <summary>
-            Returns True if this is a Dig Deep Mode world.
-            </summary>
-        </member>
         <member name="P:StudioForge.TotalMiner.API.ITMWorld.IsFiniteResources">
             <summary>
-            Returns True if Finite Resources is enabled.
+            Returns True if Finite resources is enabled.
             </summary>
         </member>
         <member name="P:StudioForge.TotalMiner.API.ITMWorld.IsSkillsEnabled">
@@ -626,26 +654,6 @@
         <member name="P:StudioForge.TotalMiner.API.ITMWorld.IsLocalSkills">
             <summary>
             Returns True if this is a Local Skills world.
-            </summary>
-        </member>
-        <member name="P:StudioForge.TotalMiner.API.ITMWorld.IsPeacefulDifficulty">
-            <summary>
-            Returns True if Peaceful Difficulty is enabled.
-            </summary>
-        </member>
-        <member name="P:StudioForge.TotalMiner.API.ITMWorld.IsEasyDifficulty">
-            <summary>
-            Returns True if Easy Difficulty is enabled.
-            </summary>
-        </member>
-        <member name="P:StudioForge.TotalMiner.API.ITMWorld.IsNormalDifficulty">
-            <summary>
-            Returns True if Normal Difficulty is enabled.
-            </summary>
-        </member>
-        <member name="P:StudioForge.TotalMiner.API.ITMWorld.IsLegendaryDifficulty">
-            <summary>
-            Returns True if Legendary Difficulty is enabled.
             </summary>
         </member>
         <member name="P:StudioForge.TotalMiner.API.ITMWorld.Map">

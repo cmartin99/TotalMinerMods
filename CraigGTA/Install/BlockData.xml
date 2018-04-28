@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ArrayOfModBlockDataXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModBlockDataXML>
+    <BlockID>Retro</BlockID>
+    <Opacity>1</Opacity>
+    <Buffer>4</Buffer>
+    <IsRotated>true</IsRotated>
+  </ModBlockDataXML>
+  <ModBlockDataXML>
+    <BlockID>CherryMetal</BlockID>
+    <Opacity>1</Opacity>
+    <Buffer>4</Buffer>
+    <IsRotated>true</IsRotated>
+  </ModBlockDataXML>
+</ArrayOfModBlockDataXML>

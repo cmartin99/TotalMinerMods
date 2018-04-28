@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleGui", "SimpleGui\Simp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestNet", "TestNet\TestNet.csproj", "{890E4064-4B48-4D1F-ACBB-8E06BC15854C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraigGTA", "CraigGTA\CraigGTA.csproj", "{6853B0B7-986C-4BA8-8B08-7FD85AAFA1F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -67,6 +69,10 @@ Global
 		{890E4064-4B48-4D1F-ACBB-8E06BC15854C}.Debug|x86.Build.0 = Debug|x86
 		{890E4064-4B48-4D1F-ACBB-8E06BC15854C}.Release|x86.ActiveCfg = Release|x86
 		{890E4064-4B48-4D1F-ACBB-8E06BC15854C}.Release|x86.Build.0 = Release|x86
+		{6853B0B7-986C-4BA8-8B08-7FD85AAFA1F3}.Debug|x86.ActiveCfg = Debug|x86
+		{6853B0B7-986C-4BA8-8B08-7FD85AAFA1F3}.Debug|x86.Build.0 = Debug|x86
+		{6853B0B7-986C-4BA8-8B08-7FD85AAFA1F3}.Release|x86.ActiveCfg = Release|x86
+		{6853B0B7-986C-4BA8-8B08-7FD85AAFA1F3}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
