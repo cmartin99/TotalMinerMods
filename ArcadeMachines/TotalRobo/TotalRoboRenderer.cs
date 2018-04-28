@@ -30,7 +30,7 @@ namespace ArcadeMachines.TotalRobo
         public void LoadContent(InitState state)
         {
             spriteBatch = CoreGlobals.SpriteBatch;
-            font = CoreGlobals.GameFont;
+            font = CoreGlobals.Content.Load<SpriteFont>(@"Fonts\Arcade");
 
             using (var stream = FileSystem.OpenFile(ArcadeMachinesModPlugin.Path + "RoboSpriteSheet.png", System.IO.FileMode.Open, System.IO.FileAccess.Read))
                 spriteSheet = Texture2D.FromStream(CoreGlobals.GraphicsDevice, stream);

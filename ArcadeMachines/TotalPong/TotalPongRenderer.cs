@@ -22,7 +22,7 @@ namespace ArcadeMachines.TotalPong
         public void LoadContent(InitState state)
         {
             spriteBatch = CoreGlobals.SpriteBatch;
-            font = CoreGlobals.GameFont;
+            font = CoreGlobals.Content.Load<SpriteFont>(@"Fonts\Arcade");
         }
 
         public void UnloadContent()

@@ -40,7 +40,7 @@ namespace ArcadeMachines.TotalDefender
         public void LoadContent(InitState state)
         {
             spriteBatch = CoreGlobals.SpriteBatch;
-            font = CoreGlobals.GameFont;
+            font = CoreGlobals.Content.Load<SpriteFont>(@"Fonts\Arcade");
 
             using (var stream = File.OpenRead(FileSystem.RootPath + ArcadeMachinesModPlugin.Path + "DefenderSpriteSheet.png")) SpriteSheet = Texture2D.FromStream(CoreGlobals.GraphicsDevice, stream);
 

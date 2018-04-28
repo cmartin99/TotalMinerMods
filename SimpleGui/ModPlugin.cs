@@ -64,7 +64,9 @@ namespace SimpleGui
                 lastBlockID = blockID;
                 if (blockID == Block.ColorBlack)
                 {
-                    game.OpenPauseMenu(new SimpleScreen(null, game, player), player);
+                    var menuScreen = game.OpenPauseMenu(player);
+                    var screen = new SimpleScreen(menuScreen, game, player);
+                    menuScreen.PushOtherTab(screen);
                 }
             }
         }
