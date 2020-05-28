@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<ArrayOfTexturePackXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TexturePackXML>
+    <Name>Test Texture Pack Yeah</Name>
+    <Author>Craig</Author>
+    <BlockAsset>tp_TestTexturePack.png</BlockAsset>
+    <ItemAsset>tpi_TestTexturePack.png</ItemAsset>
+    <Size>16</Size>
+  </TexturePackXML>
+</ArrayOfTexturePackXML>

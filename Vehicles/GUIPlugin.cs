@@ -9,13 +9,23 @@ namespace VehiclesMod
     {
         #region ITMPlugin
 
-        NewGuiMenu ITMPluginGUI.GetItemCustomSetupScreen(ITMGame game, ITMPlayer player, GlobalPoint3D p, Item itemID)
+        bool ITMPluginGUI.HasItemCustomSetupScreen(Item itemID)
         {
             switch (itemID)
             {
                 case Item.Rasta:
-                    return new VehicleSetupScreen(game, player, p);
+                    return true;
+                default:
+                    return false;
+            }
+        }
 
+        NewGuiMenu ITMPluginGUI.GetItemCustomSetupScreen(INewGuiMenuScreen screen, ITMGame game, ITMPlayer player, GlobalPoint3D p, Item itemID)
+        {
+            switch (itemID)
+            {
+                case Item.Rasta:
+                    return new VehicleSetupScreen(screen, game, player, p);
                 default:
                     return null;
             }

@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraigMod1", "CraigMod1\Crai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vehicles", "Vehicles\Vehicles.csproj", "{6118D9FF-DA77-4A3A-B5DF-2BC4F59995E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PongArcade", "PongArcade\PongArcade.csproj", "{8FB6C9F3-37C9-43D4-AEB9-B8D5187B7E58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcadeMachines", "ArcadeMachines\ArcadeMachines.csproj", "{8FB6C9F3-37C9-43D4-AEB9-B8D5187B7E58}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lockpick", "Lockpick\Lockpick.csproj", "{755A1420-C00E-4693-8465-A28633C053A8}"
 EndProject
@@ -17,15 +17,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadBlocks", "BadBlocks\BadB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWeapons", "TestWeapons\TestWeapons.csproj", "{58A68479-D89A-48CF-8796-3369E0C04CE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TotalDefenderArcade", "TotalDefender\TotalDefenderArcade.csproj", "{E8DDEC8E-B19B-4421-808A-DF5B25F76978}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleGui", "SimpleGui\SimpleGui.csproj", "{8383EAE1-6B5D-465F-88A0-CD1AB5289A4A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TotalRoboArcade", "TotalRoboArcade\TotalRoboArcade.csproj", "{BEAB97C9-3992-48CA-93ED-2C69E8D45E7E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestNet", "TestNet\TestNet.csproj", "{890E4064-4B48-4D1F-ACBB-8E06BC15854C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectOSRS", "ProjectOSRS\ProjectOSRS.csproj", "{FDB74348-D583-48D4-B736-269214A6D449}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraigGTA", "CraigGTA\CraigGTA.csproj", "{6853B0B7-986C-4BA8-8B08-7FD85AAFA1F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,26 +61,18 @@ Global
 		{58A68479-D89A-48CF-8796-3369E0C04CE3}.Debug|x86.Build.0 = Debug|x86
 		{58A68479-D89A-48CF-8796-3369E0C04CE3}.Release|x86.ActiveCfg = Release|x86
 		{58A68479-D89A-48CF-8796-3369E0C04CE3}.Release|x86.Build.0 = Release|x86
-		{E8DDEC8E-B19B-4421-808A-DF5B25F76978}.Debug|x86.ActiveCfg = Debug|x86
-		{E8DDEC8E-B19B-4421-808A-DF5B25F76978}.Debug|x86.Build.0 = Debug|x86
-		{E8DDEC8E-B19B-4421-808A-DF5B25F76978}.Release|x86.ActiveCfg = Release|x86
-		{E8DDEC8E-B19B-4421-808A-DF5B25F76978}.Release|x86.Build.0 = Release|x86
 		{8383EAE1-6B5D-465F-88A0-CD1AB5289A4A}.Debug|x86.ActiveCfg = Debug|x86
 		{8383EAE1-6B5D-465F-88A0-CD1AB5289A4A}.Debug|x86.Build.0 = Debug|x86
 		{8383EAE1-6B5D-465F-88A0-CD1AB5289A4A}.Release|x86.ActiveCfg = Release|x86
 		{8383EAE1-6B5D-465F-88A0-CD1AB5289A4A}.Release|x86.Build.0 = Release|x86
-		{BEAB97C9-3992-48CA-93ED-2C69E8D45E7E}.Debug|x86.ActiveCfg = Debug|x86
-		{BEAB97C9-3992-48CA-93ED-2C69E8D45E7E}.Debug|x86.Build.0 = Debug|x86
-		{BEAB97C9-3992-48CA-93ED-2C69E8D45E7E}.Release|x86.ActiveCfg = Release|x86
-		{BEAB97C9-3992-48CA-93ED-2C69E8D45E7E}.Release|x86.Build.0 = Release|x86
 		{890E4064-4B48-4D1F-ACBB-8E06BC15854C}.Debug|x86.ActiveCfg = Debug|x86
 		{890E4064-4B48-4D1F-ACBB-8E06BC15854C}.Debug|x86.Build.0 = Debug|x86
 		{890E4064-4B48-4D1F-ACBB-8E06BC15854C}.Release|x86.ActiveCfg = Release|x86
 		{890E4064-4B48-4D1F-ACBB-8E06BC15854C}.Release|x86.Build.0 = Release|x86
-		{FDB74348-D583-48D4-B736-269214A6D449}.Debug|x86.ActiveCfg = Debug|x86
-		{FDB74348-D583-48D4-B736-269214A6D449}.Debug|x86.Build.0 = Debug|x86
-		{FDB74348-D583-48D4-B736-269214A6D449}.Release|x86.ActiveCfg = Release|x86
-		{FDB74348-D583-48D4-B736-269214A6D449}.Release|x86.Build.0 = Release|x86
+		{6853B0B7-986C-4BA8-8B08-7FD85AAFA1F3}.Debug|x86.ActiveCfg = Debug|x86
+		{6853B0B7-986C-4BA8-8B08-7FD85AAFA1F3}.Debug|x86.Build.0 = Debug|x86
+		{6853B0B7-986C-4BA8-8B08-7FD85AAFA1F3}.Release|x86.ActiveCfg = Release|x86
+		{6853B0B7-986C-4BA8-8B08-7FD85AAFA1F3}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

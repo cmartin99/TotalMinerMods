@@ -22,8 +22,8 @@ namespace SimpleGui
 
         public override string Name { get { return "Simple"; } }
 
-        public SimpleScreen(ITMGame game, ITMPlayer player)
-            : base(game, player)
+        public SimpleScreen(INewGuiMenuScreen screen, ITMGame game, ITMPlayer player)
+            : base(screen, game, player)
         {
             if (data.TextBox == null)
             {
@@ -34,9 +34,9 @@ namespace SimpleGui
             }
         }
 
-        protected override void InitWindows(Texture2D backTexture)
+        protected override void InitWindows()
         {
-            base.InitWindows(backTexture);
+            base.InitWindows();
             InitMainContainer();
         }
 
