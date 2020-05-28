@@ -247,25 +247,23 @@
         </member>
         <member name="M:StudioForge.TotalMiner.API.ITMActor.DropItem(System.Int32)">
             <summary>
-            Drop an item from the players hand or inventory to the ground, as a pickup.
+            Drop an item from the actors hand or inventory to the ground, as a pickup.
             </summary>
         </member>
         <member name="M:StudioForge.TotalMiner.API.ITMActor.ChangeState(StudioForge.TotalMiner.ActorState)">
             <summary>
-            Change the players current state.
+            Change the actors current state.
             </summary>
-            <param name="newState"></param>
-            <returns></returns>
         </member>
         <member name="M:StudioForge.TotalMiner.API.ITMActor.TakeDamageAndDisplay(StudioForge.TotalMiner.DamageType,System.Single,Microsoft.Xna.Framework.Vector3)">
             <summary>
-            Cause damage to the player. Damage particles are spawned. Player dies if resulting health is less than or equal to 0.
+            Cause damage to the actor. Damage particles are spawned. Actor dies if resulting health is less than or equal to 0.
             </summary>
             <returns>The actual damage taken.</returns>
         </member>
         <member name="M:StudioForge.TotalMiner.API.ITMActor.TakeDamageAndDisplay(StudioForge.TotalMiner.DamageType,System.Single,Microsoft.Xna.Framework.Vector3,StudioForge.TotalMiner.API.ITMActor,StudioForge.TotalMiner.Item,StudioForge.BlockWorld.SkillType)">
             <summary>
-            Cause damage to the player. Damage particles are spawned. Player dies if resulting health is less than or equal to 0.
+            Cause damage to the actor. Damage particles are spawned. Actor dies if resulting health is less than or equal to 0.
             </summary>
             <returns>The actual damage taken.</returns>
         </member>
@@ -795,11 +793,10 @@
             <param name="itemID">The item being swung.</param>
             <param name="action">The method to execute.</param>
         </member>
-        <member name="M:StudioForge.TotalMiner.API.ITMGame.OpenPauseMenu(StudioForge.TotalMiner.API.NewGuiMenu,StudioForge.TotalMiner.API.ITMPlayer)">
+        <member name="M:StudioForge.TotalMiner.API.ITMGame.OpenPauseMenu(StudioForge.TotalMiner.API.ITMPlayer)">
             <summary>
             Opens the Pause menu with your custom menu pre-selected
             </summary>
-            <param name="menu">A custom menu</param>
             <param name="player">The player who opened the screen</param>
         </member>
         <member name="P:StudioForge.TotalMiner.API.ITMGame.Random">
