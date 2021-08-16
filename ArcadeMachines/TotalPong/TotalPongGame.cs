@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using StudioForge.BlockWorld;
 using StudioForge.Engine;
@@ -7,6 +6,7 @@ using StudioForge.Engine.Core;
 using StudioForge.Engine.Integration;
 using StudioForge.TotalMiner;
 using StudioForge.TotalMiner.API;
+using System;
 
 namespace ArcadeMachines.TotalPong
 {

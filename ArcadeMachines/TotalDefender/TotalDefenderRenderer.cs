@@ -1,11 +1,11 @@
-﻿using System;
-using System.IO;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StudioForge.Engine;
 using StudioForge.Engine.Core;
 using StudioForge.Engine.Integration;
 using StudioForge.TotalMiner;
+using System;
+using System.IO;
 
 namespace ArcadeMachines.TotalDefender
 {
@@ -42,11 +42,12 @@ namespace ArcadeMachines.TotalDefender
             spriteBatch = CoreGlobals.SpriteBatch;
             font = CoreGlobals.Content.Load<SpriteFont>(@"Fonts\Arcade");
 
-            using (var stream = File.OpenRead(FileSystem.RootPath + ArcadeMachinesModPlugin.Path + "DefenderSpriteSheet.png")) SpriteSheet = Texture2D.FromStream(CoreGlobals.GraphicsDevice, stream);
+            using (var stream = File.OpenRead(FileSystem.RootPath + ArcadeMachinesModPlugin.Path + "DefenderSpriteSheet.png")) 
+                SpriteSheet = Texture2D.FromStream(CoreGlobals.GraphicsDevice, stream);
 
             SpriteAnimations = new SpriteAnimation[10];
             SpriteAnimations[(int)EntityType.Player] = new SpriteAnimation() { Rect = new Rectangle[] { new Rectangle(0, 39, 15, 6), new Rectangle(22, 39, 15, 6) } };
-            SpriteAnimations[(int)EntityType.Humaniod] = new SpriteAnimation() { Rect = new Rectangle[] { new Rectangle(82,0,3,8) } };
+            SpriteAnimations[(int)EntityType.Humaniod] = new SpriteAnimation() { Rect = new Rectangle[] { new Rectangle(82, 0, 3, 8) } };
             SpriteAnimations[(int)EntityType.Lander] = new SpriteAnimation() { Rect = new Rectangle[] { new Rectangle(110, 13, 9, 8), new Rectangle(126, 13, 9, 8), new Rectangle(140, 13, 9, 8), new Rectangle(1, 26, 9, 8), new Rectangle(15, 26, 9, 8), new Rectangle(31, 26, 9, 8) } };
             SpriteAnimations[(int)EntityType.Mutant] = new SpriteAnimation() { Rect = new Rectangle[] { new Rectangle(0, 0, 9, 8), new Rectangle(15, 0, 10, 8) } };
             SpriteAnimations[(int)EntityType.Bomber] = new SpriteAnimation() { Rect = new Rectangle[] { new Rectangle(91, 0, 6, 8), new Rectangle(105, 0, 6, 8), new Rectangle(117, 0, 6, 8), new Rectangle(131, 0, 6, 8), new Rectangle(143, 0, 6, 8), new Rectangle(1, 13, 6, 8), new Rectangle(13, 13, 6, 8), new Rectangle(27, 13, 6, 8) } };
@@ -170,7 +171,7 @@ namespace ArcadeMachines.TotalDefender
             for (i = 0; i < entityCount; ++i)
             {
                 entity = game.Entities[i];
-                if (entity.Type != EntityType.None && 
+                if (entity.Type != EntityType.None &&
                     entity.Type != EntityType.Player &&
                     entity.State != EntityState.Spawning)
                 {
@@ -268,7 +269,7 @@ namespace ArcadeMachines.TotalDefender
             spriteBatch.DrawStringCentered(font, "Completed", y, color, scale);
             y += 40;
             int points = game.Wave < 5 ? game.Wave * 100 : 500;
-            spriteBatch.DrawStringCentered(font, "Bonus X " + points.ToString() , y, color, scale);
+            spriteBatch.DrawStringCentered(font, "Bonus X " + points.ToString(), y, color, scale);
             y += 40;
             int x = 100;
             for (int i = 0; i < 10; i++)
@@ -310,7 +311,7 @@ namespace ArcadeMachines.TotalDefender
             spriteBatch.Draw(CoreGlobals.BlankTexture, new Rectangle(171, 1, 1, 1), Color.White);
             spriteBatch.Draw(CoreGlobals.BlankTexture, new Rectangle(150, game.HUDHeight + 1, 22, 1), Color.White);
             spriteBatch.Draw(CoreGlobals.BlankTexture, new Rectangle(150, game.HUDHeight, 1, 1), Color.White);
-            spriteBatch.Draw(CoreGlobals.BlankTexture, new Rectangle(171, game.HUDHeight, 1, 1), Color.White);            
+            spriteBatch.Draw(CoreGlobals.BlankTexture, new Rectangle(171, game.HUDHeight, 1, 1), Color.White);
         }
 
         void DrawControls()
@@ -412,7 +413,7 @@ namespace ArcadeMachines.TotalDefender
                 if (entity.Type != EntityType.None &&
                     entity.Type != EntityType.Player &&
                     entity.Type != EntityType.EnemyBullet &&
-                    entity.Type != EntityType.BomberBomb && 
+                    entity.Type != EntityType.BomberBomb &&
                     entity.State != EntityState.Spawning)
                 {
                     pos = game.GetRadarSpace(entity.Position) + game.RadarPos;

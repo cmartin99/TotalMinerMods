@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>EntitiesMod</AssemblyName>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
@@ -21,20 +22,11 @@
     <Reference Include="Microsoft.Win32.Registry">
       <HintPath>libs\Microsoft.Win32.Registry.dll</HintPath>
     </Reference>
-    <Reference Include="MonoGame.Extended">
-      <HintPath>..\..\..\TotalMiner1\MonoGame.Extended\Source\MonoGame.Extended\bin\Debug\netstandard2.0\MonoGame.Extended.dll</HintPath>
-    </Reference>
-    <Reference Include="MonoGame.Extended.Graphics">
-      <HintPath>..\..\..\TotalMiner1\MonoGame.Extended\Source\MonoGame.Extended.Graphics\bin\Debug\netstandard2.0\MonoGame.Extended.Graphics.dll</HintPath>
-    </Reference>
     <Reference Include="MonoGame.Framework">
       <HintPath>libs\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="MonoGame.Framework.Content.Pipeline">
       <HintPath>libs\MonoGame.Framework.Content.Pipeline.dll</HintPath>
-    </Reference>
-    <Reference Include="MonoGame.Framework.Net">
-      <HintPath>C:\Program Files (x86)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.Net.dll</HintPath>
     </Reference>
     <Reference Include="Nvidia.TextureTools">
       <HintPath>libs\Nvidia.TextureTools.dll</HintPath>
@@ -84,11 +76,17 @@
     <Reference Include="StudioForge.Engine.Game">
       <HintPath>libs\StudioForge.Engine.Game.dll</HintPath>
     </Reference>
+    <Reference Include="StudioForge.Engine.GamerServices">
+      <HintPath>libs\StudioForge.Engine.GamerServices.dll</HintPath>
+    </Reference>
     <Reference Include="StudioForge.Engine.Graphics2D">
       <HintPath>libs\StudioForge.Engine.Graphics2D.dll</HintPath>
     </Reference>
     <Reference Include="StudioForge.Engine.Graphics3D">
       <HintPath>libs\StudioForge.Engine.Graphics3D.dll</HintPath>
+    </Reference>
+    <Reference Include="StudioForge.Engine.Graphics3D_Pipeline">
+      <HintPath>libs\StudioForge.Engine.Graphics3D_Pipeline.dll</HintPath>
     </Reference>
     <Reference Include="StudioForge.Engine.GUI">
       <HintPath>libs\StudioForge.Engine.GUI.dll</HintPath>
@@ -99,11 +97,20 @@
     <Reference Include="StudioForge.Engine.Net">
       <HintPath>libs\StudioForge.Engine.Net.dll</HintPath>
     </Reference>
+    <Reference Include="StudioForge.Engine.Renderers">
+      <HintPath>libs\StudioForge.Engine.Renderers.dll</HintPath>
+    </Reference>
     <Reference Include="StudioForge.Engine.Services">
       <HintPath>libs\StudioForge.Engine.Services.dll</HintPath>
     </Reference>
     <Reference Include="StudioForge.TotalMiner.API">
       <HintPath>libs\StudioForge.TotalMiner.API.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.AccessControl">
+      <HintPath>libs\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows">
+      <HintPath>libs\System.Security.Principal.Windows.dll</HintPath>
     </Reference>
   </ItemGroup>
 

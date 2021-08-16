@@ -2,9 +2,9 @@ using StudioForge.Engine.Integration;
 using StudioForge.TotalMiner;
 using StudioForge.TotalMiner.API;
 
-namespace ArcadeMachines
+namespace EntitiesMod
 {
-    class ArcadeMachinesModPlugin : ITMPlugin
+    class EntitiesModPlugin : ITMPlugin
     {
         #region ITMPlugin
 
@@ -53,7 +53,6 @@ namespace ArcadeMachines
         {
             Path = path;
             var typeCounts = new EnumTypeOffsets();
-            typeCounts.ArcadeMachine = 3;
             mgr.RegisterEnumCounts(typeCounts);
         }
     }
