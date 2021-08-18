@@ -7,7 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArcadeMachines", "ArcadeMac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Block Ideas", "Block Ideas\Block Ideas.csproj", "{3682E263-5A47-48E2-AC9F-88EAFD7EACB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{2BFBCA54-A775-4168-A45D-80A6BF0346F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entities.csproj", "{2BFBCA54-A775-4168-A45D-80A6BF0346F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clipboard", "Clipboard\Clipboard.csproj", "{0A2A81CC-8F5F-47EC-86E1-1B9034C6544F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Traffic", "Traffic\Traffic.csproj", "{E9B08366-554E-40F8-9195-8FD7CE6918BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +42,22 @@ Global
 		{2BFBCA54-A775-4168-A45D-80A6BF0346F4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2BFBCA54-A775-4168-A45D-80A6BF0346F4}.Release|x64.ActiveCfg = Release|x64
 		{2BFBCA54-A775-4168-A45D-80A6BF0346F4}.Release|x64.Build.0 = Release|x64
+		{0A2A81CC-8F5F-47EC-86E1-1B9034C6544F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A2A81CC-8F5F-47EC-86E1-1B9034C6544F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A2A81CC-8F5F-47EC-86E1-1B9034C6544F}.Debug|x64.ActiveCfg = Debug|x64
+		{0A2A81CC-8F5F-47EC-86E1-1B9034C6544F}.Debug|x64.Build.0 = Debug|x64
+		{0A2A81CC-8F5F-47EC-86E1-1B9034C6544F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A2A81CC-8F5F-47EC-86E1-1B9034C6544F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A2A81CC-8F5F-47EC-86E1-1B9034C6544F}.Release|x64.ActiveCfg = Release|Any CPU
+		{0A2A81CC-8F5F-47EC-86E1-1B9034C6544F}.Release|x64.Build.0 = Release|Any CPU
+		{E9B08366-554E-40F8-9195-8FD7CE6918BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9B08366-554E-40F8-9195-8FD7CE6918BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9B08366-554E-40F8-9195-8FD7CE6918BD}.Debug|x64.ActiveCfg = Debug|x64
+		{E9B08366-554E-40F8-9195-8FD7CE6918BD}.Debug|x64.Build.0 = Debug|x64
+		{E9B08366-554E-40F8-9195-8FD7CE6918BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9B08366-554E-40F8-9195-8FD7CE6918BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9B08366-554E-40F8-9195-8FD7CE6918BD}.Release|x64.ActiveCfg = Release|Any CPU
+		{E9B08366-554E-40F8-9195-8FD7CE6918BD}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

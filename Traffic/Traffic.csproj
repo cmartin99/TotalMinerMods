@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AssemblyName>EntitiesMod</AssemblyName>
+    <AssemblyName>TrafficMod</AssemblyName>
+    <RootNamespace>TrafficMod</RootNamespace>
     <Platforms>AnyCPU;x64</Platforms>
-    <RootNamespace>EntitiesMod</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

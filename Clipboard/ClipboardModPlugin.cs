@@ -1,11 +1,18 @@
 using StudioForge.BlockWorld;
+using StudioForge.TotalMiner;
 using StudioForge.TotalMiner.API;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace ArcadeMachines
+namespace EntitiesMod
 {
-    class ArcadeMachinesModPlugin : ITMPlugin
+    class ClipboardModPlugin : ITMPlugin
     {
+        BlockFace pasteFacing;
+        GlobalPoint3D pastePoint;
+        bool shouldPaste;
+        ITMMap pasteMap;
+        ITMGame game;
+
         #region ITMPlugin
 
         void ITMPlugin.UnloadMod()
@@ -26,6 +33,9 @@ namespace ArcadeMachines
 
         void ITMPlugin.InitializeGame(ITMGame game)
         {
+            this.game = game;
+            game.World.ComponentPasted += OnComponentPasted;
+            game.AddEventItemSwing(Item.DebugTool, Paste);
         }
 
         void ITMPlugin.Draw(ITMPlayer player, ITMPlayer virtualPlayer, Viewport vp)
@@ -37,8 +47,17 @@ namespace ArcadeMachines
             return false;
         }
 
+        int frame;
+
         void ITMPlugin.Update(ITMPlayer player)
         {
+            if (shouldPaste)
+            {
+                player.PasteCurrentClipboard(pastePoint, pasteFacing);
+                shouldPaste = false;
+            }
+
+            ++frame;
         }
 
         void ITMPlugin.Update()
@@ -47,6 +66,20 @@ namespace ArcadeMachines
 
         void ITMPlugin.Callback(string data, GlobalPoint3D? p, ITMActor actor, ITMActor contextActor)
         {
+            game.AddNotification($"I was called back with {data}");
+        }
+
+        void Paste(Item itemID, ITMHand hand)
+        {
+            pastePoint.X += pasteMap.MapSize.X;
+            shouldPaste = true;
+        }
+
+        void OnComponentPasted(ITMPlayer player, ITMMap map, GlobalPoint3D p, BlockFace facing)
+        {
+            pasteMap = map;
+            pastePoint = p;
+            pasteFacing = facing;
         }
 
         #endregion
@@ -57,7 +90,6 @@ namespace ArcadeMachines
         {
             Path = path;
             var typeCounts = new EnumTypeOffsets();
-            typeCounts.ArcadeMachine = 3;
             mgr.RegisterEnumCounts(typeCounts);
         }
     }
