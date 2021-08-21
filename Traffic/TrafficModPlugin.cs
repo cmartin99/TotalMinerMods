@@ -61,8 +61,16 @@ namespace EntitiesMod
 
         VehicleData[] vehicles = {
             //new VehicleData() { ComName = "Car Carrier 1", Speed = 0.15f, DrawOffY = 0.5f, DrawRotY = 0f },
-            //new VehicleData() { ComName = "Delivery Truck 1", Speed = 0.15f, DrawOffY = 0.5f, DrawRotY = 0 },
-            //new VehicleData() { ComName = "Delivery Truck 2", Speed = 0.15f, DrawOffY = 0.5f, DrawRotY = MathHelper.Pi },
+            new VehicleData() { ComName = "Delivery Truck 1", Speed = 0.15f, DrawOffY = 0.5f, DrawRotY = 0 },
+            new VehicleData() { ComName = "Delivery Truck 2", Speed = 0.15f, DrawOffY = 0.5f, DrawRotY = MathHelper.Pi },
+            new VehicleData() { ComName = "Red Muscle Car", Speed = 0.15f, DrawOffY = 0.5f, DrawRotY = -MathHelper.PiOver2 },
+            new VehicleData() { ComName = "White Muscle Car", Speed = 0.15f, DrawOffY = 0.5f, DrawRotY = MathHelper.Pi },
+            new VehicleData() { ComName = "Red Muscle Car", Speed = 0.15f, DrawOffY = 0.5f, DrawRotY = -MathHelper.PiOver2 },
+            new VehicleData() { ComName = "White Muscle Car", Speed = 0.15f, DrawOffY = 0.5f, DrawRotY = MathHelper.Pi },
+            new VehicleData() { ComName = "Red Muscle Car", Speed = 0.15f, DrawOffY = 0.5f, DrawRotY = -MathHelper.PiOver2 },
+            new VehicleData() { ComName = "White Muscle Car", Speed = 0.15f, DrawOffY = 0.5f, DrawRotY = MathHelper.Pi },
+            new VehicleData() { ComName = "Red Muscle Car", Speed = 0.15f, DrawOffY = 0.5f, DrawRotY = -MathHelper.PiOver2 },
+            new VehicleData() { ComName = "White Muscle Car", Speed = 0.15f, DrawOffY = 0.5f, DrawRotY = MathHelper.Pi },
             new VehicleData() { ComName = "Red Muscle Car", Speed = 0.15f, DrawOffY = 0.5f, DrawRotY = -MathHelper.PiOver2 },
             new VehicleData() { ComName = "White Muscle Car", Speed = 0.15f, DrawOffY = 0.5f, DrawRotY = MathHelper.Pi },
         };
@@ -171,7 +179,7 @@ namespace EntitiesMod
         void UpdateSpawnPoints(ITMPlayer player)
         {
             float d1 = 30 * 30;
-            float d2 = 100 * 100;
+            float d2 = 1000 * 1000;
             Spawn s;
             for (int i = 0; i < spawnPoints.Count; ++i)
             {

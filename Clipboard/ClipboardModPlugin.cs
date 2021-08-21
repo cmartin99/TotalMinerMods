@@ -36,6 +36,7 @@ namespace EntitiesMod
             this.game = game;
             game.World.ComponentPasted += OnComponentPasted;
             game.AddEventItemSwing(Item.DebugTool, Paste);
+            game.AddEventItemSwing(Item.Wand, OverrideInput);
         }
 
         void ITMPlugin.Draw(ITMPlayer player, ITMPlayer virtualPlayer, Viewport vp)
@@ -73,6 +74,11 @@ namespace EntitiesMod
         {
             pastePoint.X += pasteMap.MapSize.X;
             shouldPaste = true;
+        }
+
+        void OverrideInput(Item itemID, ITMHand hand)
+        {
+            hand.Player.OverrideControlInput = !hand.Player.OverrideControlInput;
         }
 
         void OnComponentPasted(ITMPlayer player, ITMMap map, GlobalPoint3D p, BlockFace facing)
