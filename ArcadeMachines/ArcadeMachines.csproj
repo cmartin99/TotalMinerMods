@@ -75,8 +75,8 @@
     <Reference Include="StudioForge.Engine.Game">
       <HintPath>..\Bin\StudioForge.Engine.Game.dll</HintPath>
     </Reference>
-    <Reference Include="StudioForge.Engine.GamerServices">
-      <HintPath>..\Bin\StudioForge.Engine.GamerServices.dll</HintPath>
+    <Reference Include="StudioForge.Engine.Graphics3D">
+      <HintPath>..\Bin\StudioForge.Engine.Graphics3D.dll</HintPath>
     </Reference>
     <Reference Include="StudioForge.Engine.GUI">
       <HintPath>..\Bin\StudioForge.Engine.GUI.dll</HintPath>
