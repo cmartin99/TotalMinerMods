@@ -1,6 +1,6 @@
-using StudioForge.Engine.Integration;
-using StudioForge.TotalMiner;
+using StudioForge.BlockWorld;
 using StudioForge.TotalMiner.API;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ArcadeMachines
 {
@@ -23,12 +23,12 @@ namespace ArcadeMachines
         void ITMPlugin.PlayerLeft(ITMPlayer player)
         {
         }
-        
+
         void ITMPlugin.InitializeGame(ITMGame game)
         {
         }
 
-        void ITMPlugin.Draw(ITMPlayer player, ITMPlayer virtualPlayer)
+        void ITMPlugin.Draw(ITMPlayer player, ITMPlayer virtualPlayer, Viewport vp)
         {
         }
 
@@ -42,6 +42,10 @@ namespace ArcadeMachines
         }
 
         void ITMPlugin.Update()
+        {
+        }
+
+        void ITMPlugin.Callback(string data, GlobalPoint3D? p, ITMActor actor, ITMActor contextActor)
         {
         }
 

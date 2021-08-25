@@ -1,9 +1,9 @@
+using ArcadeMachines.TotalDefender;
+using ArcadeMachines.TotalPong;
+using ArcadeMachines.TotalRobo;
 using StudioForge.BlockWorld;
 using StudioForge.TotalMiner;
 using StudioForge.TotalMiner.API;
-using ArcadeMachines.TotalPong;
-using ArcadeMachines.TotalDefender;
-using ArcadeMachines.TotalRobo;
 
 namespace ArcadeMachines
 {
@@ -42,7 +42,7 @@ namespace ArcadeMachines
                     break;
             }
 
-            if (renderer != null)                
+            if (renderer != null)
                 renderer.LoadContent(null);
 
             return renderer;

@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using StudioForge.BlockWorld;
 using StudioForge.Engine;
 using StudioForge.Engine.Core;
 using StudioForge.Engine.Integration;
 using StudioForge.TotalMiner;
 using StudioForge.TotalMiner.API;
+using System;
+using System.Collections.Generic;
 
 namespace ArcadeMachines.TotalDefender
 {
@@ -235,7 +235,7 @@ namespace ArcadeMachines.TotalDefender
 
         protected override void CreateRenderTarget()
         {
-            renderTarget = new RenderTarget2D(CoreGlobals.GraphicsDevice, 640, 480, false, SurfaceFormat.Bgra5551, DepthFormat.None, 0, RenderTargetUsage.DiscardContents);
+            renderTarget = new RenderTarget2D(CoreGlobals.GraphicsDevice, 320, 240, false, SurfaceFormat.Bgra5551, DepthFormat.None, 0, RenderTargetUsage.DiscardContents);
         }
 
         #endregion
@@ -357,7 +357,7 @@ namespace ArcadeMachines.TotalDefender
             var y = playerPos.Y + playerVel.Y * time * 60f;
             return new Vector2(x, y);
         }
-            
+
         void SpawnBaiter()
         {
             var playerPos = Entities[PlayerIndex].Position;
@@ -575,7 +575,7 @@ namespace ArcadeMachines.TotalDefender
 
         void ExplodePlayer()
         {
-            var playerPos = Entities[PlayerIndex].Position;;
+            var playerPos = Entities[PlayerIndex].Position; ;
             var vel = new Vector2();
             float size = 2;
 
@@ -723,7 +723,7 @@ namespace ArcadeMachines.TotalDefender
             for (int i = 0; i < Entities.Length; ++i)
             {
                 var e = Entities[i];
-                if (e.Type != EntityType.None && 
+                if (e.Type != EntityType.None &&
                     e.Type != EntityType.Player)
                 {
                     var state = e.State;
@@ -872,15 +872,15 @@ namespace ArcadeMachines.TotalDefender
                 }
 
                 if (InputManager.IsButtonPressedNew(tmPlayer.PlayerIndex, Buttons.RightShoulder) ||
-                    InputManager.IsButtonPressedNew(tmPlayer.PlayerIndex, Buttons.LeftShoulder) || 
+                    InputManager.IsButtonPressedNew(tmPlayer.PlayerIndex, Buttons.LeftShoulder) ||
                     InputManager.IsKeyPressedNew(tmPlayer.PlayerIndex, Keys.Q))
                 {
                     PlayerDir = -PlayerDir;
                 }
 
                 autoRepeatFireTimer -= Services.ElapsedTime;
-                if (autoRepeatFireTimer <= 0 && 
-                    (InputManager.IsButtonPressed(tmPlayer.PlayerIndex, Buttons.A) || 
+                if (autoRepeatFireTimer <= 0 &&
+                    (InputManager.IsButtonPressed(tmPlayer.PlayerIndex, Buttons.A) ||
                     InputManager.IsKeyPressed(tmPlayer.PlayerIndex, Keys.OemQuotes)))
                 {
                     PlayerFireBullet();
@@ -1081,14 +1081,14 @@ namespace ArcadeMachines.TotalDefender
             player.Position.Y += player.Velocity.Y * playerSpeed.Y;
 
             // Clamp max velocity
-            if (player.Velocity.X < -playerMaxVelX) player.Velocity.X = -playerMaxVelX; 
+            if (player.Velocity.X < -playerMaxVelX) player.Velocity.X = -playerMaxVelX;
             else if (player.Velocity.X > playerMaxVelX) player.Velocity.X = playerMaxVelX;
 
             // Clamp player Y position
             float halfPlayerHeight = PlayerShipScreenRect.Height * 0.5f;
             if (player.Position.Y < halfPlayerHeight) player.Position.Y = halfPlayerHeight;
             else if (player.Position.Y + halfPlayerHeight >= WorldSize.Y) player.Position.Y = WorldSize.Y - halfPlayerHeight;
-            
+
             PlayerScreenPos.Y = player.Position.Y;
             PlayerScreenPos.X += playerAccelerationX * 3 * PlayerDir;
 
@@ -1288,7 +1288,7 @@ namespace ArcadeMachines.TotalDefender
             for (int i = 0; i < entityCount; ++i)
             {
                 var entity = Entities[i];
-                if (entity.Type != EntityType.None && 
+                if (entity.Type != EntityType.None &&
                     entity.Type != EntityType.Player &&
                     entity.State != EntityState.Spawning)
                 {
