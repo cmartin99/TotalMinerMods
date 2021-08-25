@@ -52,7 +52,15 @@
     </Reference>
     <Reference Include="StudioForge.Engine.Core">
       <HintPath>..\Bin\StudioForge.Engine.Core.dll</HintPath>
-      <Private>False</Private>
+    </Reference>
+    <Reference Include="StudioForge.Engine.Game">
+      <HintPath>..\Bin\StudioForge.Engine.Game.dll</HintPath>
+    </Reference>
+    <Reference Include="StudioForge.Engine.Graphics3D">
+      <HintPath>..\Bin\StudioForge.Engine.Graphics3D.dll</HintPath>
+    </Reference>
+    <Reference Include="StudioForge.Engine.GUI">
+      <HintPath>..\Bin\StudioForge.Engine.GUI.dll</HintPath>
     </Reference>
     <Reference Include="StudioForge.Engine.Integration">
       <HintPath>..\Bin\StudioForge.Engine.Integration.dll</HintPath>
