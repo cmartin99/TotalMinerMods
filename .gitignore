@@ -57,5 +57,7 @@ Temporary Items
 TM_RandomBricksArcade-master
 
 git*.zip
+.vs/
 obj/
 bin/
+packages/
